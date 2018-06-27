@@ -1,0 +1,43 @@
+
+
+
+
+#include Decorate/doomz_mainplayer
+#include Decorate/doomz_newtest_1
+#include Decorate/doomz_playervariables
+#include "Decorate/doomz_monsters" //Monster types
+#include "Decorate/doomz_decoration" // lockers, tills, shelves etc
+#include "Decorate/doomz_spawners" //Spawner types
+#include "Decorate/doomz_foliage" // trees, leaves etc etc
+#include "Decorate/doomz_environmental" // clouds and sun and what have you
+#include "Decorate/doomz_new_foodetc_items" // new fooditems
+#include "Decorate/doomz_new_foodetc_actions" // new foodactions
+#include "Decorate/doomz_foodetc_items" // new fooditems
+#include "Decorate/doomz_carstuff" // stuff about the car
+#include "Decorate/doomz_effects" //effects like explosions
+#include "Decorate/doomz_new_weapons_mele"
+#include "Decorate/doomz_new_weapons_pistols"
+#include "Decorate/doomz_new_weapons_smgs"
+#include "Decorate/doomz_new_weapons_shotgun"
+#include "Decorate/doomz_new_weapons_rifle"
+#include "Decorate/doomz_new_weapons" //crossbow
+#include "Decorate/doomz_houseobjects" //chairs and tables etc
+#include "Decorate/doomz_new_ammo"
+#include "Decorate/doomz_fieldobjects" //signs and bales etc
+#include "Decorate/doomz_testing" // testing new features. Won't be used at the moment, but needs including
+#include "Decorate/doomz_theisland" 
+#include "Decorate/doomz_new_pickup_weap" //these are needed for the new pickup way
+#include "Decorate/doomz_bookpickup" //the books themselves
+#include "Decorate/doomz_petrolst" //the books themselves
+
+ #include "Decorate/doomz_ai_test" //the books themselves
+ #include "Decorate/doomz_grassetc" //the books themselves
+
+ #include "Decorate/doomz_tilesetc" //the books themselves
+  #include "Decorate/doomz_boredzombie" //bored zombiues
+ #include "Decorate/doomz_newtilesetc"
+ 
+  #include "Decorate/doomz_newtilesitems"
+   #include "Decorate/doomz_newtilespawns"
+   #include "Decorate/doomz_new_clothes"
+ 

@@ -1,0 +1,42 @@
+ 
+ACTOR arminj : Weapon // I think this is an injector, but unsure why. Currently it doesn't do anything
+{
+  Game Doom
+  Weapon.SelectionOrder 3702
+  Weapon.Kickback 100
+  Weapon.SlotNumber 1
+  //DamageType Chop
+  DamageType axe
+  Tag "axe"
+  +WEAPON.MELEEWEAPON
+  States
+  {
+	  Ready:
+	   //EATA a 1 A_WeaponReady
+		inje a 1 A_WeaponReady
+		Loop
+	  Deselect:
+		inje A 1 A_Lower
+		Loop
+	  Select:
+		inje A 1 A_Raise
+		Loop
+	  Fire:
+		inje ABC 10
+		inje D 5 
+		inje Ef 5
+		inje g 50
+		inje hi 5
+		null a 10
+		arnn A 15 A_Raise
+		Goto Ready
+	  Spawn:
+		 ZXXD  A -1
+		 Stop
+  }
+}
+
+
+
+
+

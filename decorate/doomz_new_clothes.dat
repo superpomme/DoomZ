@@ -1,0 +1,167 @@
+ actor redclothes : CustomInventory 
+ //this one works but the p_blueclothes is wonky.
+{
+  Inventory.PickupMessage "clothes!!!"
+  Inventory.PickupSound "misc/p_pkup"
+  +COUNTITEM
+  states
+  {
+  Spawn:
+    KNFE A -1
+    stop
+  Pickup:
+    TNT1 A 0 ACS_Execute(1333,1,random(0,2))
+ 
+    stop
+  }
+}
+
+
+
+
+
+Actor P_oldgreenclothes : CustomInventory 
+{
+  Inventory.PickupMessage "You picked up a hunk of cooked meat"
+  Inventory.PickupSound "misc/p_pkup"
+  health 20
+  -solid
+  -friendly
+  scale 0.7
+
+  States
+  {
+  Spawn:
+		klot g 1
+
+		loop 
+   vanish:
+		klot g 0 A_GiveInventory ("Stekfoo")
+		klot g 0 A_TakeInventory ("Stekfoo")
+				stop
+  Pickup:
+		TNT1 g 0 A_JumpIf(1 == (ACS_ExecuteWithResult(860,51,1)), "vanish") //51 is green clothes
+		fail
+  }
+}
+
+Actor P_oldredclothes : CustomInventory 
+{
+  Inventory.PickupMessage "You picked up a hunk of cooked meat"
+  Inventory.PickupSound "misc/p_pkup"
+  health 20
+  -solid
+  -friendly
+  scale 0.7
+
+  States
+  {
+  Spawn:
+		klot B 1
+
+		loop 
+   vanish:
+		klot B 0 A_GiveInventory ("Stekfoo")
+		klot B 0 A_TakeInventory ("Stekfoo")
+				stop
+  Pickup:
+		TNT1 B 0 A_JumpIf(1 == (ACS_ExecuteWithResult(860,52,1)), "vanish") //51 is green clothes
+		fail
+  }
+}
+Actor P_oldblueclothes : CustomInventory 
+{
+  Inventory.PickupMessage "You picked up a hunk of cooked meat"
+  Inventory.PickupSound "misc/p_pkup"
+  health 20
+  -solid
+  -friendly
+  scale 0.7
+
+  States
+  {
+  Spawn:
+		klot A 1
+
+		loop 
+   vanish:
+		klot A 0 A_GiveInventory ("Stekfoo")
+		klot A 0 A_TakeInventory ("Stekfoo")
+				stop
+  Pickup:
+		TNT1 A 0 A_JumpIf(1 == (ACS_ExecuteWithResult(860,53,1)), "vanish") //51 is green clothes
+		fail
+  }
+}
+
+
+Actor p_blue : CustomInventory 
+{ 
+	Inventory.PickupMessage "You put on a blue sued suit"
+    Tag "knife"
+	Inventory.PickupSound "misc/p_pkup"
+	States
+	  {
+	  Spawn:
+			klot A -1
+			Stop
+	   Pickup:
+	       // TNT1 A 15 A_PlaySound("/sounds/scrunch.wav", CHAN_WEAPON)   THIS WORKED I THINK!
+		TNT1 A 15 A_PlaySound("luggage", CHAN_WEAPON)  
+		
+		TNT1 A 0 ACS_Execute(24344,1)
+			TNT1 A 0 A_GiveInventory("knife", 1)
+	   vanish:
+			TNT1 A 0 
+			stop
+	  }
+}
+
+
+
+Actor p_blue : CustomInventory 
+{ 
+	Inventory.PickupMessage "You put on a blue sued suit"
+    Tag "knife"
+	Inventory.PickupSound "misc/p_pkup"
+	States
+	  {
+	  Spawn:
+			klot A -1
+			Stop
+	   Pickup:
+	       // TNT1 A 15 A_PlaySound("/sounds/scrunch.wav", CHAN_WEAPON)   THIS WORKED I THINK!
+		TNT1 A 15 A_PlaySound("luggage", CHAN_WEAPON)  
+		
+		TNT1 A 0 ACS_Execute(24344,1)
+			TNT1 A 0 A_GiveInventory("knife", 1)
+	   vanish:
+			TNT1 A 0 
+			stop
+	  }
+}
+
+
+
+Actor p_hat : CustomInventory 
+{ 
+	Inventory.PickupMessage "You put on a hat"
+    Tag "knife"
+	Inventory.PickupSound "misc/p_pkup"
+	States
+	  {
+	  Spawn:
+			haat A -1
+			Stop
+	   Pickup:
+	    TNT1 A 15 A_PlaySound("luggage", CHAN_WEAPON) 
+			TNT1 A 0 ACS_Execute(24345,1)
+			TNT1 A 0 A_GiveInventory("knife", 1)
+	   vanish:
+			TNT1 A 0 
+			stop
+	  }
+}
+
+
+

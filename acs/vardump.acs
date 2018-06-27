@@ -1,0 +1,1263 @@
+ //leave these
+ 
+
+int petrol = 0; //how much petrol is in the car
+int numberofwheels = 0;
+int hasbattery = 0;
+int carpetroltimemultiplier = 6;
+
+int raining = 0;
+int snowing = 0;
+int snowsimple = 0;
+int chopperyesno = 0; // Chopper
+int chopperlocation = 0;
+int chopperdrop = 0;
+int chopdropchop = 0;
+int chopdropgun = 0;
+int chopdropammo = 0;
+int chopdropitem = 0;
+int carisdead=0;
+
+int invxotsoffset = 50.0;
+int invyotsoffset = 40.0;
+int gunxotsoffset = 350.0;
+int gunyotsoffset = 135.0;
+str stringposition_realnames[40];
+str stringposition[40];
+int intposition[40];
+
+ int carlightson=0;
+
+int virtualangle = 0.00; // something to do with the car driving
+
+int doorArray[100000]; // to do with the garage doors, i think
+int doorTracker;
+
+str itemnames[70] = { // this is the list of itemsprites
+  "",
+  "zcan",
+  "ztin",
+  "zbands",
+  "zamto",
+  "zbolt",
+  "CLIPA0",
+  "zamxo",
+  "zamyo",
+  "zamxo",
+  "zamwo",
+  "zamvo",
+  "zamuo",
+  "CLIPA0",
+  "zsteak",
+  "heatpad",
+  "zanti",
+  "zmorph",
+  "zwood",
+  "zmeat",
+  "zblood",
+  "zcane",
+  "zcanf",
+  "zbook",
+  "zzratc",
+  "zzratu",
+  "NIwheel",
+  "zbatt",
+  "petrolf",
+  "petrole",
+  "zhandu",
+  "zhandc",
+  "BOLTNEWZ",
+  "wpttA0z",
+  "wtoea0z",
+  "wnmma0z",
+  "wpffa0z",
+  "wtfsa0z",
+  "wffsa0z",
+  "wptna0z",
+  "wptea0z",
+  "wsffa0z",
+  "wtwga0z",
+ "" ,
+"",
+"",
+"",
+"",
+"",
+"gilsuit",
+"WARPEAC",
+"gcloth",
+"rcloth",
+"bcloth",
+};
+//"bolt_new","vpttA0","vtoea0","vnmma0","vpffa0","point357","5point56","7point62x39","point308","7point62x54","12gauge"};
+
+
+ 
+
+//str itemnames[30] = {"","NCKBA0","NCNBA0"};	
+
+// second array of name of weapon to switch to, ,match it to the item
+
+str itemdesc[70] = {
+ "An empty bag slot. Fill it!",
+  "A can\n\nYou need to drink to stay alive.\n\nLeft click to use. Right click to pick up",
+  "A tin\n\nYou need to eat to stay alive.\n\nLeft click to use. Right click to pick up",
+  "A bandage\n\nYou need to not to bleed out to stay alive.\n\nLeft click to use. Right click to pick up",
+  "A clip of shotgun shells\n\nShells for x and x.\n\nLeft click to use. Right click to pick up",
+  "A crossbow bolt\n\nA bolt for the crossbow\n\nLeft click to use. Right click to pick up",
+  "A pistol clip\n\nA clip for the pistol.\n\nLeft click to use. Right click to pick up",
+  "type 1 ammo\n\nA clip for x and x\n\nLeft click to use. Right click to pick up",
+  "type 2 ammo\n\nA clip for x and x.\n\nLeft click to use. Right click to pick up",
+  "type 3 ammo\n\nA clip for x and x.\n\nLeft click to use. Right click to pick up",
+  "type 4 ammo\n\nA clip for x and x.\n\nLeft click to use. Right click to pick up",
+  "type 5 ammo\n\nA clip for x and x.\n\nLeft click to use. Right click to pick up",
+  "type 6 ammo\n\nYou need to kill to feel alive.\n\nLeft click to use. Right click to pick up",
+  "type 7 ammo\n\nYou need to kill to feel alive.\n\nLeft click to use. Right click to pick up",
+  "A steak\n\nYou need to eat to stay alive.\n\nLeft click to use. Right click to pick up",
+  "A heatpad\n\nYou need to stay warm to stay alive.\n\nLeft click to use. Right click to pick up",
+  "Antibiotics\n\nYou need to avoid dying of infection to stay alive.\n\nLeft click to use. Right click to pick up",
+  "A morphine injector\n\n Morphine is well known for its bone stitching properties n.\n\nLeft click to use. Right click to pick up",
+  "A log\n\nUse it to make a fire, or create a structure.\n\nLeft click to use. Right click to pick up",
+  "An uncooked steak\n\As a human, you currently need to cook it to eat this\n\nLeft click to use. Right click to pick up",
+  "A bloodbag\n\nMy first home blood infusion set. Use to recover health.\n\nLeft click to use. Right click to pick up",
+  "An empty canteen\n\nYou can refill this at a water fountain\nthe ability to pour cans into them to\n save space would be cool.\n\n I'll try and add that\n\nLeft click to use. Right click to pick up",
+  "A full canteen\n\nYou need to drink to stay alive. \nTHis is refillable afterwards\n\nLeft click to use. Right click to pick up",
+  "A book\n\nYou should be able to read it, or hit people with it.\n\nLeft click to use. Right click to pick up",
+  "An unappetising singed rat\n\nYou need to eat to stay alive...I guess\n\nLeft click to use. Right click to pick up",
+  "An uncooked rat\n\nYou need to cook this to even have a chance of eating it.\n\nLeft click to use. Right click to pick up",
+  "A car wheel\n\nYou need to drive to appreciate What Is Love in all its glory.\n\nLeft click to use. Right click to pick up",
+  "A car battery\n\nYou need to drive to appreciate What Is Love in all its glory.\n\nLeft click to use. Right click to pick up",
+  "A full petrol can\n\nYou petrol for the car engine to stay awake.\n\nLeft click to use. Right click to pick up",
+  "An empty petrol can\n\nYou need to fill this with petrol to keep \nthe dream of driving alive\n\nLeft click to use. Right click to pick up",
+  "An arm\n\nYou might need to hit a zombie upside its head with a severed arm to stay alive.\n\nLeft click to use. Right click to pick up",
+  "A cooked arm\n\nYou might have a hankering for some juice arm meat..to stay alive)\n\nLeft click to use. Right click to pick up",
+
+  "A crossbow bolt\n\nAmmunition for the crossbow\n\nLeft click to use. Right click to pick up",
+  ".22 ammo\n\nAmmunition for the Amphibia S silenced pistol\n\nLeft click to use. Right click to pick up",
+  ".380 ammo\n\nAmmunition for the Makarov pistol\n\nLeft click to use. Right click to pick up",
+  "9mm ammo\n\nAmmunition for the Glock, MP-5, and the Luger\n\nLeft click to use. Right click to pick up",
+  ".45ACP rounds\n\nAmmunition for the Derringer, 1911, and the UMP45\n\nLeft click to use. Right click to pick up",
+  ".357 rounds\n\nAmmunition for the Magnum, and the Repeater rifle\n\nLeft click to use. Right click to pick up",
+  "5.56mm Rounds\n\nAmmunition for the AK-101, M4A1, and the Steyr aug\n\nLeft click to use. Right click to pick up",
+  "7.62x39mm Rounds\n\nAmmunition for the CR527 Carbine, the SKS rifle, and the AKM\n\nLeft click to use. Right click to pick up",
+
+  ".308 Winchester Rounds\n\nAmmunition for the Longhorn, the Blaze\n double rifle, and the Winchester\n\nLeft click to use. Right click to pick up",
+  "7.62x54mmR Rounds\n\nAmmunition for the Mosin and the sawn mosin\n\nLeft click to use. Right click to pick up",
+  "12 Gauge shells\n\nAmmunition for the Izh, sawn IZH, and the MP-133\n\nLeft click to use. Right click to pick up",
+"",
+"",
+"",
+"",
+"",
+"",
+"A ghillie suit. Click to use",
+"A hefty tome\n\nWar and Peace by Leo Tolstoy",
+"Some old green clothes\n\n Click to wear",
+"Some old red clothes\n\n Click to wear",
+"Some old blue blothes\n\n Click to wear",
+};
+
+
+
+
+int xy_array[16][2] = {
+  {
+    0.0,
+    0.0
+  },
+  {
+    0.0,
+    50.0
+  },
+  {
+    0.0,
+    100.0
+  },
+  {
+    0.0,
+    150.0
+  },
+  {
+    50.0,
+    0.0
+  },
+  {
+    50.0,
+    50.0
+  },
+  {
+    50.0,
+    100.0
+  },
+  {
+    50.0,
+    150.0
+  },
+  {
+    100.0,
+    0.0
+  },
+  {
+    100.0,
+    50.0
+  },
+  {
+    100.0,
+    100.0
+  },
+  {
+    100.0,
+    150.0
+  },
+  {
+    150.0,
+    0.0
+  },
+  {
+    150.0,
+    50.0
+  },
+  {
+    150.0,
+    100.0
+  },
+  {
+    150.0,
+    150.0
+  }
+};
+
+//inventory stuff
+str cursornames[70] = { // This is for the currently held item - like the rightclick thing
+  "crapp",
+  "zcan",
+  "ztin",
+  "zbands",
+  "zamto",
+  "zbolt",
+  "CLIPA0",
+  "zamxo",
+  "zamyo",
+  "zamxo",
+  "zamwo",
+  "zamvo",
+  "zamuo",
+  "CLIPA0",
+  "zsteak",
+  "heatpad",
+  "zanti",
+  "zmorph",
+  "zwood",
+  "zmeat",
+  "zblood",
+  "zcane",
+  "zcanf",
+  "zbook",
+  "zzratc",
+  "zzratu",
+  "NIwheel",
+  "zbatt",
+  "petrolf",
+  "petrole",
+  "zhandu",
+  "zhandc",
+  "BOLTNEWZ",
+  "wpttA0z",
+  "wtoea0z",
+  "wnmma0z",
+  "wpffa0z",
+  "wtfsa0z",
+  "wffsa0z",
+  "wptna0z",
+  "wptea0z",
+  "wsffa0z",
+  "wtwga0z",
+  "",
+"",
+"",
+"",
+"",
+"",
+"gilsuit",
+"WARPEAC",
+};
+
+str new_user_gun_list[50] = { // this is what they are called in the inventory
+  "",
+  "knife",
+  "axe",
+  "book",
+  "baseball bat",
+  "machete",
+  "pitchfork",
+  "crossbow",
+  "bow",
+  "Amphibia",
+  "makarov",
+  "Luger",
+  "Glock",
+  "Derringer",
+  "m1911",
+  "magnum",
+  "longhorn",
+  "Flaregun",
+  "mp5-k",
+  "ump-45",
+  "repeater rifle",
+  "sks",
+  "blaze double rifle",
+  "winchester model 70",
+  "mosin 9130",
+  "sawn off mosin",
+  "Ak 101",
+  "M4-a1",
+  "Steyr Aug",
+  "akm",
+  "cr527 carbine",
+  "izh",
+  "sawn off izh",
+  "mp133",
+  "Flashlight"
+}; //this needs to be in numeric form in decorate
+//[12]
+
+str new_user_gun_realnames[50] = {// this is what they are called in decorate, so that you can switch to it
+  "",
+  "knife",
+  "axe",
+  "book",
+  "baseball",
+  "machete",
+  "pitchfork",
+  "crossbow",
+  "bow",
+  "amphibia",
+  "makarov",
+  "Luger",
+  "Glock",
+  "Derringer",
+  "m1911",
+  "magnum",
+  "longhorn",
+  "Flaregun",
+  "mp5",
+  "ump45",
+  "repeaterrifle",
+  "sks",
+  "blaze",
+  "winchester",
+  "mosin",
+  "sawnMosin",
+  "Ak101",
+  "M4a1",
+  "Aug2",
+  "akm",
+  "cr527",
+  "izh",
+  "sawnizh",
+  "mp133",
+  "FlashlightCentered",
+};
+
+
+								
+str new_weap_pickup[40] = { //
+	"",
+"p_knife",
+"p_axe",
+"p_book",
+"p_baseball",
+"p_machete",
+"p_pitchfork",
+"p_crossbow",
+"p_bow",
+"p_Amphibia",
+"p_makarov",
+"p_Luger",
+"p_Glock",
+"p_Derringer",
+"p_m1911",
+"p_magnum",
+"p_longhorn",
+"p_Flaregun",
+"p_mp5k",
+"p_ump45",
+"p_repeater",
+"p_sks",
+"p_doublerifle",
+"p_winchester",
+"p_mosin",
+"p_sawnmosin",
+"p_ak101",
+"p_m4a1",
+"p_steyr",
+"p_akm",
+"p_cr527",
+"p_izh",
+"p_sawnizh",
+"p_mp133",
+"p_flash",
+};
+
+int ammoforgun[40] = { // the list ofammo according to the item
+	,
+  ,
+  ,
+  ,
+  ,
+  ,
+  ,
+  5, //crossbow
+  5,
+  33,
+  34,
+  44,
+  35,
+  36,
+  36,
+  40,
+  ,
+  35,
+  36,
+  46,
+  39,
+  40,
+  40,
+  41,
+  41,
+  38,
+  38,
+  38,
+  39,
+  39,
+  42,
+  42,
+  41,
+  
+};
+
+
+
+																					//boot stuff
+
+
+
+int weatherstuff[5][3] = { //drop, stay, increase.  chance of change.
+  {
+    0,
+    33,
+    100
+  }, //
+  {
+    33,
+    66,
+    100
+  }, //
+  {
+    33,
+    66,
+    100
+  }, //
+  {
+    33,
+    66,
+    100
+  }, //
+  {
+    66,
+    100,
+    100
+  } //
+};
+
+str messageslist[11] = {
+  "Hi",
+  "Friendly",
+  "Sorry",
+  "Follow me",
+  "Yea",
+  "nay",
+  "DIE!!!"
+};
+int dayStuff[24][6] = { //temp, light, colour, desat - these are the values used 
+
+  {
+    50,
+    150,
+    150,
+    100,
+    100,
+    199
+  }, //midnight - needs desaturating at night
+  //' you had it set to go to 255 light to test at 12, but it seems to do it after that. you want to make it so that it is still light enough to see at night
+  // { 50, 140, 10, 10,  10 , 0 },
+  {
+    50,
+    130,
+    150,
+    100,
+    100,
+    199
+  }, //1
+  {
+    50,
+    130,
+    150,
+    100,
+    100,
+    199
+  }, //2
+  {
+    50,
+    130,
+    150,
+    100,
+    100,
+    190
+  }, //3
+  {
+    50,
+    140,
+    150,
+    100,
+    100,
+    180
+  }, //4
+  {
+    50,
+    150,
+    220,
+    90,
+    65,
+    150
+  }, //5
+  {
+    50,
+    170,
+    248,
+    95,
+    50,
+    0
+  }, //6
+  {
+    50,
+    180,
+    228,
+    160,
+    70,
+    0
+  }, //7
+  {
+    50,
+    200,
+    254,
+    252,
+    130,
+    0
+  }, //8
+  {
+    50,
+    220,
+    255,
+    255,
+    170,
+    0
+  }, //9
+  {
+    50,
+    245,
+    255,
+    255,
+    220,
+    0
+  }, //10 am
+  {
+    50,
+    250,
+    255,
+    255,
+    255,
+    0
+  }, // 11 am
+  {
+    50,
+    255,
+    255,
+    255,
+    255,
+    0
+  }, //12 //220
+  {
+    50,
+    240,
+    255,
+    255,
+    255,
+    0
+  },
+  {
+    50,
+    240,
+    255,
+    255,
+    255,
+    0
+  }, //2 pm 
+  {
+    50,
+    230,
+    255,
+    255,
+    230,
+    0
+  }, //4 pm
+  {
+    50,
+    245,
+    255,
+    255,
+    220,
+    0
+  }, //5 pm
+  {
+    50,
+    220,
+    255,
+    255,
+    170,
+    0
+  }, //6pm
+  {
+    50,
+    200,
+    254,
+    252,
+    130,
+    0
+  }, //7pm
+  {
+    50,
+    180,
+    228,
+    160,
+    70,
+    0
+  }, //8pm
+  {
+    50,
+    170,
+    248,
+    95,
+    50,
+    0
+  }, //9pm
+  {
+    50,
+    130,
+    150,
+    100,
+    100,
+    190
+  }, // 10 pm
+  {
+    50,
+    130,
+    150,
+    100,
+    100,
+    199
+  }, //11
+  {
+    50,
+    130,
+    50,
+    50,
+    50,
+    199
+  }
+};
+
+
+
+int skycolourStuff[24][6] = { //temp, light, colour, desat - these are the values used . Testing using these
+
+  {
+    50,
+    150,
+    150,
+    100,
+    100,
+    0
+  }, //midnight - needs desaturating at night
+  //' you had it set to go to 255 light to test at 12, but it seems to do it after that. you want to make it so that it is still light enough to see at night
+  // { 50, 140, 10, 10,  10 , 0 },
+  {
+    50,
+    130,
+    150,
+    100,
+    100,
+    0
+  }, //1
+  {
+    50,
+    130,
+    150,
+    100,
+    100,
+    0
+  }, //2
+  {
+    50,
+    130,
+    150,
+    100,
+    100,
+    0
+  }, //3
+  {
+    50,
+    140,
+    150,
+    100,
+    100,
+    0
+  }, //4
+  {
+    50,
+    150,
+    220,
+    90,
+    65,
+    0
+  }, //5
+  {
+    50,
+    170,
+    248,
+    95,
+    50,
+    0
+  }, //6
+  {
+    50,
+    180,
+    228,
+    160,
+    70,
+    0
+  }, //7
+  {
+    50,
+    200,
+    254,
+    252,
+    130,
+    0
+  }, //8
+  {
+    50,
+    220,
+    255,
+    255,
+    170,
+    0
+  }, //9
+  {
+    50,
+    245,
+    255,
+    255,
+    220,
+    0
+  }, //10 am
+  {
+    50,
+    250,
+    255,
+    255,
+    255,
+    0
+  }, // 11 am
+  {
+    50,
+    255,
+    255,
+    255,
+    255,
+    0
+  }, //12 //220
+  {
+    50,
+    240,
+    255,
+    255,
+    255,
+    0
+  },
+  {
+    50,
+    240,
+    255,
+    255,
+    255,
+    0
+  }, //2 pm 
+  {
+    50,
+    230,
+    255,
+    255,
+    230,
+    0
+  }, //4 pm
+  {
+    50,
+    245,
+    255,
+    255,
+    220,
+    0
+  }, //5 pm
+  {
+    50,
+    220,
+    255,
+    255,
+    170,
+    0
+  }, //6pm
+  {
+    50,
+    200,
+    254,
+    252,
+    130,
+    0
+  }, //7pm
+  {
+    50,
+    180,
+    228,
+    160,
+    70,
+    0
+  }, //8pm
+  {
+    50,
+    170,
+    248,
+    95,
+    50,
+    0
+  }, //9pm
+  {
+    50,
+    130,
+    50,
+    50,
+    50,
+    0
+  }, // 10 pm
+  {
+    50,
+    130,
+    50,
+    50,
+    50,
+    0
+  }, //11
+  {
+    50,
+    130,
+    150,
+    100,
+    100,
+    0
+  }
+};
+
+
+
+int skydayStuff[24][5] = { //temp, light, colour
+  {
+    50,
+    180,
+    250,
+    250,
+    250
+  }, //midnight - needs desaturating at night
+  // { 50, 140, 10, 10,  10 },
+  {
+    50,
+    200,
+    250,
+    250,
+    250
+  }, //1am
+  {
+    50,
+    200,
+    250,
+    250,
+    250
+  }, //2am
+  {
+    50,
+    200,
+    250,
+    250,
+    250
+  }, //3am
+  {
+    50,
+    200,
+    200,
+    200,
+    200
+  }, //4am
+  {
+    50,
+    10,
+    15,
+    5,
+    5
+  }, //5am
+  {
+    50,
+    170,
+    248,
+    95,
+    50
+  }, //6am
+  {
+    50,
+    180,
+    228,
+    160,
+    150
+  },
+  {
+    50,
+    200,
+    254,
+    252,
+    224
+  },
+  {
+    50,
+    220,
+    255,
+    255,
+    255
+  },
+  {
+    50,
+    245,
+    255,
+    255,
+    255
+  }, //10 am
+  {
+    50,
+    250,
+    255,
+    255,
+    255
+  }, // 11 am
+  {
+    50,
+    255,
+    255,
+    255,
+    255
+  }, //12 //220
+  {
+    50,
+    240,
+    255,
+    255,
+    255
+  },
+  {
+    50,
+    240,
+    255,
+    255,
+    255
+  }, //2 pm
+  {
+    50,
+    234,
+    255,
+    255,
+    255
+  },
+  {
+    50,
+    230,
+    255,
+    255,
+    255
+  }, //4 pm
+  {
+    50,
+    220,
+    255,
+    250,
+    220
+  },
+  {
+    50,
+    180,
+    253,
+    233,
+    189
+  }, //6 pm
+  {
+    50,
+    170,
+    252,
+    173,
+    154
+  },
+  {
+    50,
+    100,
+    160,
+    51,
+    24
+  }, //8 pm
+  {
+    50,
+    100,
+    75,
+    10,
+    10
+  }, //9pm
+  {
+    50,
+    160,
+    100,
+    100,
+    100
+  }, //10pm
+  {
+    50,
+    180,
+    200,
+    200,
+    200
+  }, //11pm
+};
+
+int clouddayStuff[24][6] = { //temp, light, colour, desat
+
+  {
+    50,
+    150,
+    150,
+    100,
+    100,
+    255
+  }, //midnight - needs desaturating at night
+
+  {
+    50,
+    130,
+    150,
+    100,
+    100,
+    255
+  }, //1
+  {
+    50,
+    130,
+    150,
+    100,
+    100,
+    255
+  }, //2
+  {
+    50,
+    130,
+    150,
+    100,
+    100,
+    255
+  }, //3
+  {
+    50,
+    140,
+    150,
+    100,
+    100,
+    255
+  }, //4
+  {
+    50,
+    150,
+    150,
+    100,
+    100,
+    240
+  }, //5
+  {
+    50,
+    170,
+    248,
+    95,
+    50,
+    0
+  }, //6
+  {
+    50,
+    180,
+    228,
+    160,
+    70,
+    0
+  }, //7
+  {
+    50,
+    200,
+    254,
+    252,
+    130,
+    0
+  }, //8
+  {
+    50,
+    220,
+    255,
+    255,
+    170,
+    0
+  }, //9
+  {
+    50,
+    245,
+    255,
+    255,
+    220,
+    0
+  }, //10 am
+  {
+    50,
+    250,
+    255,
+    255,
+    255,
+    0
+  }, // 11 am
+  {
+    50,
+    255,
+    255,
+    255,
+    255,
+    0
+  }, //12 //220
+  {
+    50,
+    240,
+    255,
+    255,
+    255,
+    0
+  },
+  {
+    50,
+    240,
+    255,
+    255,
+    255,
+    0
+  }, //2 pm 
+  {
+    50,
+    230,
+    255,
+    255,
+    230,
+    0
+  }, //4 pm
+  {
+    50,
+    245,
+    255,
+    255,
+    220,
+    0
+  }, //5 pm
+  {
+    50,
+    220,
+    255,
+    255,
+    170,
+    0
+  }, //6pm
+  {
+    50,
+    200,
+    254,
+    252,
+    130,
+    0
+  }, //7pm
+  {
+    50,
+    180,
+    228,
+    160,
+    70,
+    0
+  }, //8pm
+  {
+    50,
+    150,
+    248,
+    95,
+    50,
+    0
+  }, //9pm
+  {
+    50,
+    140,
+    150,
+    100,
+    100,
+    190
+  }, // 10 pm
+  {
+    50,
+    125,
+    150,
+    100,
+    100,
+    255
+  }, //11
+  {
+    50,
+    120,
+    150,
+    100,
+    100,
+    255
+  }
+};
+
+
+str headpic[6] = {
+  "STFST01z",
+  "STFST11z",
+  "STFST21z",
+  "STFST31z",
+  "STFST41z",
+  "STFDEAZ0"
+};
+
+
+
+

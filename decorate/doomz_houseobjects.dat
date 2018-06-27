@@ -1,0 +1,200 @@
+
+actor robtable 10815
+{ 
+	
+	+NOGRAVITY
+	Radius 10
+	Height 20
+	+SOLID
+	scale 1.25
+	+SHOOTABLE
+	+NODAMAGE
+	+NOBLOOD
+	+CANPASS
+	States
+	{
+	Spawn:
+		RTAB A -1
+		Stop
+	}
+}
+
+
+actor tv1 10316
+{
+	
+	+NOGRAVITY
+	Radius 10
+	Height 20
+	+SOLID
+	scale 1.25
+	+SHOOTABLE
+	+NODAMAGE
+	+NOBLOOD
+	+CANPASS
+	States
+	{
+	Spawn:
+		tvoo A -1
+		Stop
+	}
+}
+
+actor tv2 10315
+{
+	
+	+NOGRAVITY
+	Radius 10
+	Height 20
+	+SOLID
+	scale 1.25
+	+SHOOTABLE
+	+NODAMAGE
+	+NOBLOOD
+	+CANPASS
+	States
+	{
+	Spawn:
+		tvtb A -1
+		Stop
+	}
+}
+
+actor robchair 10816
+{
+	
+	+NOGRAVITY
+	Radius 10
+	Height 20
+	+SOLID
+	scale 1.7
+	+SHOOTABLE
+	+NODAMAGE
+	+NOBLOOD
+	+CANPASS
+	States
+	{
+	Spawn:
+		RCHA A -1
+		Stop
+	}
+}
+
+actor robchairtable 10817
+{
+	
+	+NOGRAVITY
+	Radius 10
+	Height 20
+	+SOLID
+	scale 1.25
+	+SHOOTABLE
+	+NODAMAGE
+	+NOBLOOD
+	+CANPASS
+	States
+	{
+	Spawn:
+		RTCH A -1
+		Stop
+	}
+}
+
+actor tableragged 10818
+{
+	
+	+NOGRAVITY
+	Radius 10
+	Height 20
+	+SOLID
+	scale 1.5
+	+SHOOTABLE
+	+NODAMAGE
+	+NOBLOOD
+	+CANPASS
+	States
+	{
+	Spawn:
+		RTRA A -1
+		Stop
+	}
+}
+
+
+
+
+
+actor chair 1875
+{
+	//$Category Voxel Vehicles Pack - Cars
+	//$Title "burktros chair"
+	-NOGRAVITY
+	Radius 10
+	Height 10
+	+SOLID
+	+SHOOTABLE
+	+NODAMAGE
+	+NOBLOOD
+	+CANPASS
+	scale 1
+	States
+	{
+	Spawn:
+		CHER A -1
+		Stop
+	}
+}
+
+actor table 1876
+{
+	//$Category Voxel Vehicles Pack - Cars
+	//$Title "burktros table"
+	+NOGRAVITY
+	Radius 10
+	Height 10
+	-SOLID
+	+SHOOTABLE
+	+NODAMAGE
+	+NOBLOOD
+	+CANPASS
+	scale 0.7
+	States
+	{
+	Spawn:
+		TABL A -1
+		Stop
+	}
+}
+
+
+actor sink : table 1878
+{
+	//$Title "shit sink"
+	Radius 1
+	Height 30
+	scale 5.0
+	States
+	{
+	Spawn:
+		sink A -1
+		Stop
+	}
+}
+
+
+actor toilet : table 1880
+{
+	//$Title "shit toilet"
+	Radius 10
+	Height 30
+	scale 4.0
+	Radius 1
+	Height 10
+	States
+	{
+	Spawn:
+		toil A -1
+		Stop
+	}
+}
+

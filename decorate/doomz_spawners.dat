@@ -1,0 +1,196 @@
+
+  
+actor ZombiespawnerDoomz : RandomSpawner 1113 // the normal zombie spawner. Spawns male / female
+{
+	DropItem "ZombieClone2017", 100, 10
+	DropItem "ZombieClones2017", 175, 6
+	DropItem "bab", 175, 1
+	DropItem "zc2018a", 100, 7
+	DropItem "zc2018b", 100, 7
+	DropItem "zc2018c", 100, 7
+	DropItem "zc2018d", 100, 7
+	DropItem "zc2018e", 100, 7
+	DropItem "zc2018f", 100, 7
+	DropItem "zc2018g", 100, 7
+	DropItem "chase2", 100, 1
+	DropItem "crawl", 100, 1
+}   
+
+actor dog1spawn : RandomSpawner   // has a possibility of spawning a DOG
+	{DropItem "doomdog", 70, 5}   
+
+actor dog2spawn : RandomSpawner  // even more likely to spawn DOG
+	{DropItem "doomdog", 150, 5}  
+
+actor dog3spawn : RandomSpawner // even more likely to spawn DOG
+	{DropItem "doomdog", 200, 5}  
+
+actor FoodwaterSpwn : RandomSpawner 1112
+
+{
+	DropItem "Canpickup", 150, 6
+	DropItem "tinpickup", 200, 6
+	DropItem "bandpickup", 100, 5
+	DropItem "z_mediumbag", 150, 3
+	DropItem "z_bigbag", 75, 1
+	DropItem "zcanteenpickup", 150, 2
+	DropItem "ir", 20, 1	
+	DropItem "woodpickup", 100, 1
+	DropItem "clothespawn",200,1
+	//DropItem "Binocs", 150, 1	
+	DropItem "FlashlightCentered", 150, 1
+	DropItem "b_warandpeace", 195, 1
+	
+	//DropItem "Largbagpick3", 20, 1			//took out the biggest bag, but that can be added
+	//DropItem "book1foo", 50, 1				//books are taken out for now, but can be added
+}   
+
+actor helecopteritem : RandomSpawner  //items from the chopper. Guns are separate
+
+{
+	DropItem "z_bigbag", 255, 2
+	DropItem "zcanteenpickup", 255, 1
+	DropItem "ir", 255, 2	
+	DropItem "antibpickup", 255, 1
+	DropItem "morphpickup", 255,2
+	DropItem "bloodpickup", 255, 3
+	DropItem "ghilliepickup", 255, 1
+	
+}   
+ 
+actor treeorno : RandomSpawner  // does it spawn a new tree or just a stump
+
+{
+	DropItem "treestump", 255, 1
+	DropItem "dailytree", 255, 2
+}   
+
+
+
+
+actor tree2017spawner : RandomSpawner  // does it spawn a new tree or just a stump
+
+{
+	DropItem "tree3", 255, 1
+	DropItem "tree4", 255, 2
+}   
+
+
+actor tree2017chance : RandomSpawner  // does it spawn a new tree or just a stump
+
+{
+	DropItem "tree3", 200, 2
+	DropItem "tree4", 200, 2
+	DropItem "stump2017", 100, 1
+	
+}   
+
+
+
+
+actor carlootspawner : RandomSpawner //this is for garages etc. Drops car items 100% of time
+
+{
+	DropItem "wheelpickup", 255, 2
+
+	DropItem "batterypickup", 255, 1
+}   
+
+
+actor garagespawner : RandomSpawner //this is for garages etc. Drops car items 
+
+{
+	DropItem "wheelpickup", 170, 2
+	DropItem "petrolcan", 170, 3
+	DropItem "batterypickup", 200, 1
+	DropItem "emptypetrolcan", 170, 2
+}   
+
+
+actor CowSpwn : RandomSpawner 1117
+
+{
+    DropItem "cow2017", 150, 3
+	DropItem "deer2017", 150, 3
+	DropItem "scurryrat", 150, 1
+ }   
+
+
+actor justCowSpwn : RandomSpawner 
+
+{
+    DropItem "cow2017", 150, 3
+
+ }  
+
+actor Hospawn : RandomSpawner //the spawnpoint for the hospital
+
+{
+    DropItem "antibpickup", 255, 3
+	DropItem "morphpickup", 255, 3
+	DropItem "bloodpickup", 255, 3
+	DropItem "bandpickup", 255, 4
+ }   
+
+
+
+ 
+
+actor neweapspawn : RandomSpawner 1737 // this is the new full list of guns
+
+{
+	DropItem "p_crossbow", 180, 4
+	DropItem "p_M1911", 180, 5
+	DropItem "p_Magnum", 180, 4
+	DropItem "p_Makarov", 180,5
+	DropItem "p_Derringer", 180, 3
+	DropItem "p_Longhorn", 180, 2
+	DropItem "p_Luger", 180, 5
+	DropItem "p_Glock", 180, 2
+	DropItem "p_mp5", 180, 4
+	DropItem "p_ump45", 180, 4
+	DropItem "p_IZH", 180, 4
+	DropItem "p_sawnizh", 180, 3
+	DropItem "p_mp133", 180, 5
+	DropItem "p_machete", 180, 7
+	DropItem "p_baseballbat", 255, 7
+	DropItem "p_Axe", 180, 7
+	DropItem "p_knife", 180, 7
+	DropItem "p_repeater", 50, 2
+	DropItem "p_sks", 180, 3
+	//DropItem "p_cr527", 255, 2
+	DropItem "p_doublerifle", 180, 2
+	DropItem "p_winchester", 180, 1
+	DropItem "p_Akm", 180, 2
+	DropItem "p_ak101", 180, 3
+	DropItem "p_m4a1", 180, 2
+	DropItem "p_sawnmosin", 50, 2
+	DropItem "p_Mosin", 50, 1
+	DropItem "p_steyr", 180, 2
+	DropItem "p_amphibia", 180, 5
+//DropItem "p_book", 255, 1
+//DropItem "p_pitchfork", 255, 1		//these items are to add
+}   
+
+actor newammospawn : RandomSpawner 1738	//the new full list of ammo types
+
+{
+	DropItem "bolt_new"
+	DropItem "point22"
+	DropItem "point380"
+	DropItem "point9"
+	DropItem "point45acp"
+	DropItem "point357"
+	DropItem "5point56"
+	DropItem "7point62x39"
+	DropItem "point308"
+	DropItem "7point62x54"
+	DropItem "12gauge"
+}
+
+actor clothespawn : RandomSpawner
+{
+	DropItem "P_oldgreenclothes"
+	DropItem "P_oldredclothes"
+	DropItem "P_oldblueclothes"
+}

@@ -1,0 +1,127 @@
+
+
+
+
+
+ACTOR finalpump2017 : SwitchableDecoration  5982 //was called newuser
+
+{
+
+Game Doom
+  Radius 32
+  Height 30
+  scale 1.5
+   Damage 3
+  mass 99999999999999999
+  //PainChance 0
+  + SHOOTABLE
+ +COUNTKILL
+ +NOBLOOD
+ +SOLID
+ +CANPUSHWALLS
+ +CANUSEWALLS
+ +ACTIVATEMCROSS
+ +CANPASS
+ -pushable
+ +solid
+  -FLOAT
+  -NOGRAVITY
+  +DONTFALL
+  +NOICEDEATH
+  +USESPECIAL
+  
+Activation THINGSPEC_NoDeathSpecial
+
+health 50
+
+states
+{
+	Spawn:
+	PUNZ a 1
+	PUNZ a 1  
+		PUNZ a -1
+		//PUNZ a 1 Thing_SetSpecial(0, 80, 857, 1, 0)
+	Continue:		
+		PUNZ a -1
+		
+		
+	Active:
+         PUNZ b -1
+         Wait	
+	empty:
+         PUNZ b -1
+         Wait		
+	Death:
+		PUNZ A 1 //A_PlaySound("explod", CHAN_WEAPON)//explod
+		PUNZ A 1 ACS_Execute(7760)
+		PUNZ B 3  A_SpawnItemEx ("petrolfire",0, 0, 0, 0, 0, 0, 0, 0 , 0, 19000) //the last 0 is for tid i think
+		PUNZ B 1  A_SpawnItemEx ("Thunderbr",0, 0, 0, 0, 0, 0, 0, 0 , 0, 0) //the last 0 is for tid i think
+		PUNZ B 1  A_SpawnItemEx ("petrolfire",0, 0, 0, 0, 0, 0, 0, 0 , 0, 19000) //the last 0 is for tid i think
+		PUNZ B 10
+	stop
+	
+
+  }
+}
+
+
+ACTOR finalpump2017r : SwitchableDecoration   //was called newuser
+
+{
+
+Game Doom
+  Radius 32
+  Height 30
+  scale 1.5
+   Damage 3
+  mass 99999999999999999
+  //PainChance 0
+  + SHOOTABLE
+ +COUNTKILL
+ +NOBLOOD
+ +SOLID
+ +CANPUSHWALLS
+ +CANUSEWALLS
+ +ACTIVATEMCROSS
+ +CANPASS
+ -pushable
+ +solid
+  -FLOAT
+  -NOGRAVITY
+  +DONTFALL
+  +NOICEDEATH
+  +USESPECIAL
+  
+Activation THINGSPEC_NoDeathSpecial
+
+health 50
+
+states
+{
+	Spawn:
+	PUNZ a 1
+	PUNZ a 1  
+		PUNZ a -1
+		//PUNZ a 1 Thing_SetSpecial(0, 80, 857, 1, 0)
+	Continue:		
+		PUNZ a -1
+		
+		
+	Active:
+         PUNZ b -1
+         Wait	
+	empty:
+         PUNZ b -1
+         Wait		
+	Death:
+		PUNZ A 1 //A_PlaySound("explod", CHAN_WEAPON)//explod
+		PUNZ A 1 ACS_Execute(7761)
+		PUNZ B 3  A_SpawnItemEx ("petrolfire",0, 0, 0, 0, 0, 0, 0, 0 , 0, 19000) //the last 0 is for tid i think
+		PUNZ B 1  A_SpawnItemEx ("Thunderbr",0, 0, 0, 0, 0, 0, 0, 0 , 0, 0) //the last 0 is for tid i think
+		PUNZ B 1  A_SpawnItemEx ("petrolfire",0, 0, 0, 0, 0, 0, 0, 0 , 0, 19000) //the last 0 is for tid i think
+		PUNZ B 10
+	stop
+	
+
+  }
+}

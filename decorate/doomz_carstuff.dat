@@ -1,0 +1,570 @@
+
+ACTOR dice 1873
+{
+	height 0.5
+	radius 1
+	+SOLID
+	+nogravity
+	scale 0.2
+	states
+	{
+	Spawn:
+		dice A -1
+		goto spawn
+		Rock:
+		dice ABC 5
+		goto rock
+		Rock2:
+		dice ABC 3
+		goto rock2
+		rocks:
+		dice A -1
+		goto rock2
+	}
+}
+ 
+
+ACTOR petrolfoo : Ammo 	 								                               	//book 
+{
+ Inventory.Amount 1 
+ Inventory.MaxAmount 100
+ 
+ Ammo.BackpackAmount 0 
+ Ammo.BackpackMaxAmount 100 
+ Inventory.Icon "CANBA0" 
+ scale 0.07
+ Inventory.PickupMessage "You picked up a Can of petrol"
+ States
+ {
+ Spawn:
+  petr A -1
+  Stop
+ 
+ }
+}
+
+
+
+
+
+ACTOR teleportchecker   //
+{
+//BURNFIRE
+  Game Doom
+  SpawnID 149
+  Radius 16
+  Height 32
+  -shootable
+   +USESPECIAL
+   //  +ROCKETTRAIL
+   Activation THINGSPEC_Switch
+  ProjectilePassHeight -16
+  +SOLID
+  States
+  {
+  Spawn:
+ FIRE BCD 4 Bright
+   FIRE BCD 4 Bright 
+    stop
+   
+  
+   
+  }
+}
+
+ACTOR 905ing : Ammo                    //        which menu page youre on                                              
+{
+ Inventory.Amount 1 
+ Inventory.MaxAmount 1
+ Ammo.BackpackAmount 1
+ Ammo.BackpackMaxAmount 1 
+ Inventory.Icon "CLIPA0" 
+ Inventory.PickupMessage "Picked up some bolts."
+ States
+ {
+ Spawn:
+  BOLB A -1
+  Stop
+  //Death:
+  //  BOLB A 160
+ }
+}
+
+
+
+
+
+
+ACTOR headlight replaces ExplosiveBarrel
+{
+//BURNFIRE
+  Game Doom
+  SpawnID 149
+  Radius 30
+  Height 32
+  -shootable
+   +USESPECIAL
+   //  +ROCKETTRAIL
+   Activation THINGSPEC_Switch
+  ProjectilePassHeight -16
+  -SOLID
+  States
+  {
+  Spawn:
+ NULL B 2 Bright	
+   
+      stop
+   
+  Ready:
+   
+
+   stop
+   
+  }
+}
+
+
+
+
+
+
+
+ACTOR carxplod: rocket
+{
+  Game Doom
+  SpawnID 127
+  Radius 2
+  Height 8
+  Speed 80
+  Damage 1
+  Scale 3.0
+  Projectile
+  +RANDOMIZE
+  +DEHEXPLOSION
+  -ROCKETTRAIL
+  -solid
+  SeeSound "weapons/rocklx"
+  DeathSound "weapons/rocklx"
+  Obituary "$OB_MPROCKET" // "%o rode %k's rocket."
+  States
+  {
+  Spawn:
+    null A 2 Bright
+    goto death 
+	
+  Death:
+    MISL B 8 Bright A_Explode(150 ,800 ,0, true)
+    MISL C 6 Bright
+    MISL D 4 Bright
+    Stop
+  }
+}
+
+
+
+
+
+
+
+ACTOR carsky : SkyViewpoint replaces SkyViewpoint
+{
+  +NOSECTOR
+  +NOBLOCKMAP
+  +NOGRAVITY
+  +DONTSPLASH
+    Height 1
+}
+
+
+
+
+
+ACTOR carcollisionfront2017
+{
+  Radius 30
+  Height 10
+  Speed 25
+  Damage 1000 //5
+  Projectile
+   DamageType carcollision
+ // ProjectileKickBack
+  +RANDOMIZE
+
+  Obituary "$OB_MPPLASMARIFLE" // "%o was platted by a car."
+  States
+  {
+  Spawn:
+    NULL A 10 
+    stop
+  Death:
+    NULL A 1 
+    Stop
+  }
+}
+
+
+
+
+
+
+
+
+
+	ACTOR drivecar 
+{
+  Game Doom
+
+  Health 200
+  Radius 32
+  Height 30
+  Mass 50
+  Speed 15
+  Damage 3
+  PainChance 50 // changed from 0 -2017
+  
+  //Monster
+  
+ + SHOOTABLE
++COUNTKILL
++SOLID
++CANPUSHWALLS
++CANUSEWALLS
++ACTIVATEMCROSS
++CANPASS
++ISMONSTER
++ACTIVATEIMPACT
+
+ // +SLIDESONWALLS
+  
+  +solid
+  -FLOAT
+  -NOGRAVITY
+  +DONTFALL
+  +NOICEDEATH
+  +USESPECIAL
+  
+ bloodtype bulletpuff
+	 Activation THINGSPEC_NoDeathSpecial
+  //AttackSound "skull/melee"
+ // PainSound "skull/pain"
+  DeathSound "skull/death"
+  ActiveSound "skull/active"
+  //RenderStyle SoulTrans
+  Obituary "The car was destroyed"
+  States
+  {
+  Spawn:
+  
+  RCAR A 1
+    NULL BCD 1 	Thing_SetSpecial(0, 80, 2996, 0, 0)
+
+ RCAR A -1
+
+  light:
+
+	RCAR A 1  A_CustomBulletAttack(3, 0,2,0, "FlashLBeam", 0, CBAF_AIMFACING) //bright
+    Loop
+	
+	normal:
+	TNT1 A 0 A_JumpIfHealthLower(1, "Death")
+	RCAR A 10
+	loop
+	
+	kerno:
+	kern a -1
+	
+	pain:
+	RCAR A 1 ACS_Execute(50,1,2319,2000)
+	goto normal
+	
+	kemo:
+	null a 0 A_SpawnItemEx ("kemokar",0, 10, 30, 0, 0, 0, 0, 0 , 0, 2000) 
+	stop
+	
+	rocket:
+	RCAR A 3
+	
+	TNT1 A 0 A_CustomMissile ("carcollisionfront2017", 30, 0, 0, 2, 0)
+	
+	TNT1 A 0 A_JumpIfHealthLower(1, "Death")
+
+	loop
+ 
+ 
+ 
+ //Pain:
+   //RCAR A 10 bright A_CustomBulletAttack(0, 0,1,0, "FlashLBeam", 0, CBAF_AIMFACING)
+  // RCAR A 1
+   // Goto see
+	Death:
+
+    BRCA A 10 //A_PlaySound("explod", CHAN_WEAPON)//explod
+	// remove self and replace with car
+	//BRCA B 3 ACS_Execute(853,1,1,20,0)
+	
+	
+	//run script 853
+	BRCA B 3 ACS_Execute(8654,1,0)
+	BRCA B 5  A_SpawnItemEx ("Thunderbr",0, 20, 30, 0, 0, 0, 0, 0 , 0, 0) //the last 0 is for tid i think
+	BRCA B 5  A_SpawnItemEx ("lootcar",0, 10, 0, 0, 0, 0, 0, 0 , 0, 6555) //the last 0 is for tid i think
+	BRCA B 5 A_SpawnItemEx ("carxplod",0, 20, 30, 0, 0, 0, 0, 0 , 0, 0) 
+	//BRCA B 50 
+	//BRCA B 3 ACS_Execute(8654,1,0)
+	
+	stop
+  }
+}
+
+
+
+	ACTOR kemokar 1871
+{
+  Game Doom
+
+  Health 200
+  Radius 32
+  Height 30
+  Mass 50
+  Speed 15
+  Damage 3
+  PainChance 0
+  + SHOOTABLE
+  +COUNTKILL
+  +SOLID
+  +CANPUSHWALLS
+  +CANUSEWALLS
+  +ACTIVATEMCROSS
+  +CANPASS
+  +ISMONSTER
+  +ACTIVATEIMPACT
+  +solid
+  -FLOAT
+  -NOGRAVITY
+  +DONTFALL
+  +NOICEDEATH
+  +USESPECIAL
+  
+ bloodtype bulletpuff
+ Activation THINGSPEC_NoDeathSpecial
+  DeathSound "skull/death"
+  ActiveSound "skull/active"
+  Obituary "The car was destroyed"
+  States
+  {
+  Spawn:
+  
+     kern A 1
+     NULL BCD 1 	Thing_SetSpecial(0, 80, 2996, 0, 0)	
+	 kern A -1
+  light:
+
+	kern A 1  A_CustomBulletAttack(3, 0,2,0, "FlashLBeam", 0, CBAF_AIMFACING) //bright
+    Loop
+	
+  normal:
+	kern A 10
+	TNT1 A 0 A_JumpIfHealthLower(1, "Death")
+	loop
+	
+	kerno:
+	kern a -1
+	
+	rocket: //mode to check collisions
+	kern A 3
+	kern A 0 A_CustomMissile ("carcollisionfront2017", 30, 0, 0, 2, 0)
+	TNT1 A 0 A_JumpIfHealthLower(1, "Death")
+	loop
+ 
+
+  Death:
+    BRCA A 10 
+	//run script 853
+	BRCA B 5  A_SpawnItemEx ("Thunderbr",0, 20, 30, 0, 0, 0, 0, 0 , 0, 0) //the last 0 is for tid i think
+	BRCA B 5  A_SpawnItemEx ("lootcar",0, 10, 0, 0, 0, 0, 0, 0 , 0, 6555) //the last 0 is for tid i think
+	BRCA B 5 A_SpawnItemEx ("carxplod",0, 20, 30, 0, 0, 0, 0, 0 , 0, 0) 
+	BRCA B 3 ACS_Execute(8654,1,0)
+	
+	stop
+  }
+}
+
+
+
+
+
+
+
+	ACTOR kemokar2 7854 // the player 2 car
+{
+  Game Doom
+
+  Health 200
+  Radius 32
+  Height 30
+  Mass 50
+  Speed 15
+  Damage 3
+  PainChance 0
+  + SHOOTABLE
+  +COUNTKILL
+  +SOLID
+  +CANPUSHWALLS
+  +CANUSEWALLS
+  +ACTIVATEMCROSS
+  +CANPASS
+  +ISMONSTER
+  +ACTIVATEIMPACT
+  +solid
+  -FLOAT
+  -NOGRAVITY
+  +DONTFALL
+  +NOICEDEATH
+  +USESPECIAL
+  
+ bloodtype bulletpuff
+ Activation THINGSPEC_NoDeathSpecial
+  DeathSound "skull/death"
+  ActiveSound "skull/active"
+  Obituary "The car was destroyed"
+  States
+  {
+  Spawn:
+  
+     kern A 1
+     NULL BCD 1 	Thing_SetSpecial(0, 80, 9056, 1, 1)	
+	 kern A -1
+  light:
+
+	kern A 10  A_CustomMissile ("carcollisionfront2017", 30, 0, 0, 2, 0) //bright
+    goto  normal
+	
+  normal:
+	kern A 10
+	TNT1 A 0 A_JumpIfHealthLower(1, "Death")
+
+	loop
+	
+	kerno:
+	kern a -1
+	
+	rocket: //mode to check collisions
+	kern A 3
+	kern A 0 A_CustomMissile ("carcollisionfront2017", 30, 0, 0, 2, 0)
+	TNT1 A 0 A_JumpIfHealthLower(1, "Death")
+	loop
+ 
+
+  Death:
+    BRCA A 10 
+	//run script 853
+	BRCA B 5  A_SpawnItemEx ("Thunderbr",0, 20, 30, 0, 0, 0, 0, 0 , 0, 0) //the last 0 is for tid i think
+	BRCA B 5  A_SpawnItemEx ("lootcar",0, 10, 0, 0, 0, 0, 0, 0 , 0, 6555) //the last 0 is for tid i think
+	BRCA B 5 A_SpawnItemEx ("carxplod",0, 20, 30, 0, 0, 0, 0, 0 , 0, 0) 
+	BRCA B 3 ACS_Execute(8654,1,0)
+	
+	stop
+  }
+}
+
+	ACTOR drivetank 32541 // the player 2 car
+{
+  Game Doom
+
+  Health 1200
+  Radius 32
+  Height 30
+  Mass 50
+  Speed 15
+  Damage 3
+  PainChance 0
+  + SHOOTABLE
+  +COUNTKILL
+  +SOLID
+  +CANPUSHWALLS
+  +CANUSEWALLS
+  +ACTIVATEMCROSS
+  +CANPASS
+  +ISMONSTER
+  +ACTIVATEIMPACT
+  +solid
+  -FLOAT
+  -NOGRAVITY
+  +DONTFALL
+  +NOICEDEATH
+  +USESPECIAL
+  
+ bloodtype bulletpuff
+ Activation THINGSPEC_NoDeathSpecial
+  DeathSound "skull/death"
+  ActiveSound "skull/active"
+  Obituary "The car was destroyed"
+  States
+  {
+  Spawn:
+  
+     gtan A 1
+     NULL BCD 1 	Thing_SetSpecial(0, 80, 9056, 0, 0)	
+	 gtan A -1
+  light:
+
+	gtan A 10  A_CustomMissile ("carcollisionfront2017", 30, 0, 0, 2, 0) //bright
+    goto  normal
+	
+  normal:
+	gtan A 10
+	TNT1 A 0 A_JumpIfHealthLower(1, "Death")
+
+	loop
+	
+
+  rocket: //mode to check collisions
+	gtan A 3
+	gtan A 20 A_CustomMissile ("tankrocket", 80, 0, 0, 2, -1)
+	gtan A 1 A_JumpIfHealthLower(1, "Death")
+	
+	goto normal
+ 
+
+  Death:
+    gtan A 10 
+	//run script 853
+	gtan a 5  A_SpawnItemEx ("Thunderbr",0, 20, 30, 0, 0, 0, 0, 0 , 0, 0) //the last 0 is for tid i think
+	gtan a 5  A_SpawnItemEx ("tank",0, 10, 0, 0, 0, 0, 0, 0 , 0, 6555) //the last 0 is for tid i think
+	gtan a 5 A_SpawnItemEx ("carxplod",0, 20, 30, 0, 0, 0, 0, 0 , 0, 0) 
+	gtan a 3 ACS_Execute(8655,1,0)
+	
+	stop
+  }
+}
+
+
+ACTOR tankrocket : FastProjectile
+{
+  Radius 11
+  Height 8
+  Speed 120
+  Damage 20
+  Projectile
+  scale 0.5
+  
+  spawnid 247
+  +RANDOMIZE
+  +DEHEXPLOSION
+  +ROCKETTRAIL
+  SeeSound "weapons/rocklf"
+  DeathSound "weapons/rocklx"
+  Obituary "$OB_MPROCKET" // "%o rode %k's rocket."
+  States
+  {
+  Spawn:
+    MISL A 1 Bright
+    Loop
+  Death:
+	MISL a 0 A_setscale(1,1)
+    MISL B 8 Bright A_Explode
+    MISL C 6 Bright
+    MISL D 4 Bright
+    Stop
+  }
+}
+

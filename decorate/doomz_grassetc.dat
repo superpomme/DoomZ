@@ -1,0 +1,195 @@
+
+actor grasspawner : RandomSpawner 
+
+{
+	DropItem "grass1", 150, 15
+	DropItem "grass2", 150, 10
+	DropItem "grass3", 150, 10
+	DropItem "grass4", 150, 10
+	DropItem "ALLflowers", 255, 1
+	DropItem "ALLbushes", 255, 1
+
+	
+	//DropItem "Largbagpick3", 20, 1			//took out the biggest bag, but that can be added
+	//DropItem "book1foo", 50, 1				//books are taken out for now, but can be added
+}   
+
+
+//have a mapspot tid that changes between the different spawners
+  actor ALLbushes  
+{
+	Radius 1
+	Height 30
+	
+	scale 0.2
+	States
+	{
+	Spawn:
+		bush a 1
+		//bush a 0 A_Jump (200, 1)   //random chance of failing
+		//stop
+		
+		
+		bush A 0  A_Jump (100, "bush2")
+		bush A 0  A_Jump (100, "bush3")
+		bush A 0  A_Jump (100, "bush4")
+		bush A -1
+		Stop
+	bush2:
+		bush b -1
+		stop
+	bush3: 
+		bush c -1
+		stop
+	bush4:
+		bush d -1
+		stop
+	}
+}
+
+
+
+actor grass1  
+{
+	Radius 1
+	Height 30
+	scale 0.3
+	-solid
+	States
+	{
+	Spawn:
+		GRS2 a 0
+		brnc a 0 A_Jump (200, 1)   //random chance of failing
+		stop
+		GRS2 A 0 Thing_ChangeTID(0, 7774)
+		GRS2 A -1
+		Stop
+	}
+}
+
+
+
+actor grass2   
+{
+	Radius 1
+	-solid
+	Height 30
+	scale 0.3
+	States
+	{
+	Spawn:
+			GRST  a 0
+			GRST  a 0 A_Jump (200, 1)   //random chance of failing
+			stop
+			GRST  A 0 Thing_ChangeTID(0, 7774)
+			GRST  A -1
+			Stop
+	}
+}
+
+actor grass3   
+{
+	Radius 1
+	-solid
+	Height 30
+	scale 0.3
+	States
+	{
+	Spawn:
+			GRST  b 0
+			GRST  b 0 A_Jump (200, 1)   //random chance of failing
+			stop
+			GRST  b 0 Thing_ChangeTID(0, 7774)
+			GRST  b -1
+			Stop
+	}
+}
+
+actor grass4 
+{ 
+	Radius 1
+	-solid
+	Height 30
+	scale 0.3
+	States
+	{
+	Spawn:
+			GRST  g 0 
+			GRST  g 0 A_Jump (200, 1)   //random chance of failing
+			stop
+			GRST  g 0 Thing_ChangeTID(0, 7774)
+			GRST  g -1
+			Stop
+	}
+}
+
+
+//FLWRA0.lmp
+  actor ALLflowers  
+{
+	Radius 1
+	Height 30
+	scale 0.3
+	States
+	{
+	Spawn:
+	//	FLWR a 0
+	//	FLWR a 0 A_Jump (200, 1)   //random chance of failing
+	//	stop
+	
+		FLWR A 0  A_Jump (20, "FLWRd")
+		FLWR A 0  A_Jump (20, "FLWRe")
+		FLWR A 0  A_Jump (20, "FLWRf")
+		FLWR A 0  A_Jump (20, "FLWRg")
+		FLWR A 0  A_Jump (20, "FLWRh")
+		FLWR A 0  A_Jump (20, "FLWRi")
+		FLWR A 0  A_Jump (20, "FLWRj")
+		FLWR A 0  A_Jump (20, "FLWRk")
+		FLWR A 0  A_Jump (20, "FLWRl")
+		FLWR A 0  A_Jump (20, "FLWRc")
+		FLWR A 0  A_Jump (20, "FLWRd")
+		FLWR d -1
+
+
+	FLWRa:
+		FLWR A -1
+		stop
+	FLWRb:
+		FLWR b -1
+		stop
+	FLWRc: 
+		FLWR c -1
+		stop
+	FLWRd:
+		FLWR d -1
+		stop
+	FLWRe:
+		FLWR e -1
+		stop
+	FLWRf:
+		FLWR f -1
+		stop
+	FLWRg:
+		FLWR g -1
+		stop
+	FLWRh:
+		FLWR h -1
+		stop
+	FLWRi:
+		FLWR i -1
+		stop
+	FLWRj:
+		FLWR j -1
+		stop
+	FLWRk:
+		FLWR k -1
+		stop
+	FLWRl:
+		FLWR l -1
+		stop
+	FLWRm:
+		FLWR m -1
+		stop
+	}
+}
+

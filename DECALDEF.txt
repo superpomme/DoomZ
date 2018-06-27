@@ -1,0 +1,314 @@
+Decal D3BloodSplat1 1
+{
+Pic D3SPLT01
+Shade "60 20 10"
+X-Scale 0.25
+Y-Scale 0.25
+}
+
+Decal D3BloodSplat2 2
+{
+Pic D3SPLT02
+Shade "60 20 10"
+X-Scale 0.25
+Y-Scale 0.25
+}
+
+Decal D3BloodSplat3 3
+{
+Pic D3SPLT03
+Shade "60 20 10"
+X-Scale 0.25
+Y-Scale 0.25
+}
+
+Decal D3BloodSplat4 4
+{
+Pic D3SPLT04
+Shade "60 20 10"
+X-Scale 0.25
+Y-Scale 0.25
+}
+
+Decal D3BloodSplat5 5
+{
+Pic D3SPLT05
+Shade "60 20 10"
+X-Scale 0.5
+Y-Scale 0.5
+}
+
+Decal D3BloodSplat6 6
+{
+Pic D3SPLT06
+Shade "60 20 10"
+X-Scale 0.2
+Y-Scale 0.2
+}
+
+Decal D3BloodSplat7 7
+{
+Pic D3SPLT07
+Shade "60 20 10"
+X-Scale 0.25
+Y-Scale 0.25
+}
+
+Decal D3BloodSplat8 8
+{
+Pic D3SPLT08
+Shade "60 20 10"
+X-Scale 0.25
+Y-Scale 0.25
+}
+
+Decal D3BloodSplat9 9
+{
+Pic D3SPLT09
+Shade "60 20 10"
+X-Scale 0.25
+Y-Scale 0.25
+}
+
+Decal D3BloodSplat10 10
+{
+Pic D3SPLT10
+Shade "60 20 10"
+X-Scale 0.25
+Y-Scale 0.25
+}
+
+Decal D3BloodSplat11 11
+{
+Pic D3SPLT11
+Shade "60 20 10"
+X-Scale 0.25
+Y-Scale 0.25
+}
+
+Decal D3BloodSplat12 12
+{
+Pic D3SPLT12
+Shade "60 20 10"
+X-Scale 0.25
+Y-Scale 0.25
+}
+
+Decal D3BloodSplat13 13
+{
+Pic D3SPLT13
+Shade "60 20 10"
+X-Scale 0.25
+Y-Scale 0.25
+}
+
+Decal D3BloodSplat14 14
+{
+Pic D3SPLT14
+Shade "60 20 10"
+X-Scale 0.5
+Y-Scale 0.5
+}
+
+Decal D3BloodSplat15 15
+{
+Pic D3SPLT15
+Shade "60 20 10"
+X-Scale 0.25
+Y-Scale 0.25
+}
+
+Decal D3BloodSplat16 16
+{
+Pic D3SPLT16
+Shade "60 20 10"
+X-Scale 0.25
+Y-Scale 0.25
+}
+
+Decal D3BloodSplat17 17
+{
+Pic D3SPLT17
+Shade "60 20 10"
+X-Scale 0.25
+Y-Scale 0.25
+}
+
+Decal D3BloodSplat18 18
+{
+Pic D3SPLT18
+Shade "60 20 10"
+X-Scale 0.25
+Y-Scale 0.25
+}
+
+Decal D3BloodSplat19 19
+{
+Pic D3SPLT19
+Shade "60 20 10"
+X-Scale 0.25
+Y-Scale 0.25
+}
+
+Decal D3BloodSplat20 20
+{
+Pic D3SPLT20
+Shade "60 20 10"
+X-Scale 0.25
+Y-Scale 0.25
+}
+
+Decal D3BloodSplat21 21
+{
+Pic D3SPLT21
+Shade "60 20 10"
+X-Scale 0.25
+Y-Scale 0.25
+}
+
+Decal D3BloodSplat22 22
+{
+Pic D3SPLT22
+Shade "60 20 10"
+X-Scale 0.25
+Y-Scale 0.25
+}
+
+Decal D3BloodSplat23 23
+{
+Pic D3SPLT23
+Shade "60 20 10"
+X-Scale 0.25
+Y-Scale 0.25
+}
+
+
+Decal mysplat 50
+{
+Pic russ
+//Shade "60 20 10"
+X-Scale 0.45
+Y-Scale 0.55
+}
+
+
+Decal dzpaint1 51
+{
+Pic dzpnt
+//Shade "60 20 10"
+
+X-Scale 0.2
+Y-Scale 0.15
+}
+Decal dzrug 52
+{
+Pic PLTEX02
+
+//Shade "60 20 10"
+X-Scale 0.13
+Y-Scale 0.09
+}
+
+Decal dzoct 53
+{
+Pic octopain
+
+//Shade "60 20 10"
+X-Scale 0.13
+Y-Scale 0.09
+}
+
+Decal dztent 54
+{
+Pic tentacle
+
+//Shade "60 20 10"
+X-Scale 0.13
+Y-Scale 0.09
+}
+
+
+Decal doorhb 55
+{
+Pic doorhb
+
+//Shade "60 20 10"
+X-Scale 0.2
+Y-Scale 0.15
+}
+
+
+Decal doorub 56
+{
+Pic doorub
+
+//Shade "60 20 10"
+X-Scale 0.2
+Y-Scale 0.15
+}
+
+Decal gloot 57
+{
+Pic gloot
+
+//Shade "60 20 10"
+X-Scale 1.13
+Y-Scale 1.09
+}
+
+Decal hloot 58
+{
+Pic hloot
+
+//Shade "60 20 10"
+X-Scale 1.13
+Y-Scale 1.09
+}
+
+Decal mloot 59
+{
+Pic mloot
+
+//Shade "60 20 10"
+X-Scale 1.13
+Y-Scale 1.09
+}
+
+Decal iloot 60
+{
+Pic iloot
+
+//Shade "60 20 10"
+X-Scale 1.13
+Y-Scale 1.09
+}
+
+Decal opensign 61
+{
+Pic opensign
+
+//Shade "60 20 10"
+X-Scale 0.8
+Y-Scale 0.8
+}
+
+
+Decal boards 62
+{
+Pic boards
+
+//Shade "60 20 10"
+X-Scale 0.3
+Y-Scale 0.17
+}
+
+Decal drinkme 63
+{
+Pic drinkme
+
+//Shade "60 20 10"
+X-Scale 0.8
+Y-Scale 0.8
+}
+
+generator chaingun					dztent

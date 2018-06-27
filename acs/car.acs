@@ -1,0 +1,632 @@
+
+
+script 805(void) { //uses car
+
+  if (GetActorProperty(2000, aprop_health) < 1) {
+    acs_execute(807, 1);
+  } else if (GetActorProperty(2000, aprop_health) > 0) {
+    if (checkactorinventory((1000 + PlayerNumber()), "menufoo") < 1) {
+      delay(5);
+      SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
+      takeActorInventory(1000 + PlayerNumber(), "menulevel", 50);
+      GiveActorInventory(1000 + PlayerNumber(), "menufoo", 5);
+      ACS_execute(789, 1);
+    }
+  }
+}
+
+
+
+script 817(void) { //headlights                                                car headlights
+  while (carlightson==1) {
+	  
+    int x2 = GetActorX(2000) + 0.0;
+    int y2 = GetActorY(2000) + 0.0;
+    int z2 = GetActorZ(2000) + 32.0;
+    int z = GetActorZ(2000) + 0.0;
+    int angle3 = GetActorAngle(2000);
+    Spawn("headlight", x2 + cos(angle3) * 100, y2 + sin(angle3 + 0.0) * 100, z);
+
+    SetActorState(2000, "light");
+
+    delay(1);
+  }
+}
+
+
+
+
+
+script 8654 (void) //car dies
+{
+	caron=0;
+	carisdead=1;
+//	delay(10);
+	  SpawnSpot("rocket2", 1300);
+  delay(10);
+  SpawnSpot("rocket2", 1300);
+  delay(10);
+  SpawnSpot("rocket2", 1300);
+  delay(50);
+  //thing_remove(2000);
+	// trigger car explosions
+}
+
+script 8655 (void) //TANK dies
+{
+	ACS_Terminate(9055,1);
+	ACS_Terminate(9057,1);
+//	delay(10);
+	  SpawnSpot("rocket2", 62246);
+  delay(10);
+  SpawnSpot("rocket2", 62246);
+  delay(10);
+  SpawnSpot("rocket2", 62246);
+  delay(50);
+
+}
+script 799 open { //car petrol
+
+
+int carpetrolloop = carpetroltimemultiplier;
+
+  while (1 == 1) {
+
+    int carhealth = GetActorProperty(2000, aprop_health);
+    SetFont("BIGFONT");
+
+    if (caron == 1) {
+
+     PlaySound(2000,"winch",CHAN_ITEM,0.8,true); //external sound
+
+      Thing_activate(2600);
+
+      if (checkactorinventory((1000 + PlayerNumber()), "905ing") > 0) {
+
+        hudmessage(s: "Petrol:          ", i: petrol; HUDMSG_PLAIN, 443, CR_blue, 0.245, 0.215, 0.57);
+        hudmessage(s: "Car Health           ", i: carhealth; HUDMSG_PLAIN, 444, CR_blue, 0.245, 0.275, 0.5);
+      }
+
+      //hudmessage(s: "Ignition is on "; HUDMSG_PLAIN, 445, CR_green, 0.245, 0.295, 1.0);
+
+      if (petrol > 0) {
+		  
+		  
+		if (carpetrolloop >0)
+		{
+			carpetrolloop--;	
+		}
+		
+		else
+		{
+			 petrol = (petrol - 1);
+			 carpetrolloop = carpetroltimemultiplier;
+		}
+		  
+       
+		
+		 
+		
+		
+		
+		
+      } else {
+        caron = 0;
+        Thing_Deactivate(2600);
+		
+		 Thing_Deactivate(2600);
+			stopsound(2000,CHAN_ITEM); // stops the external sound
+			
+			
+			
+			//PlaySound(2000,"winch",CHAN_ITEM,0.8,true); //external sound
+			
+			
+            takeactorinventory(1000 + playernumber(), "menufoo",  50);
+            print(s:"The petrol ran out");
+            SetLineTexture(11158, SIDE_Front, TEXTURE_bottom, "Ign0");
+		delay (32);
+				stopsound(2000,CHAN_ITEM); // stops the external sound
+			stopsound(2000,CHAN_BODY ); // stops the external sound
+		stopsound(2000,CHAN_AUTO ); // stops the external sound
+		
+		
+	
+		//stopsound(2000,CHAN_ITEM);
+      } //deactivates sound
+
+      delay(15);
+	  
+    }
+	else if (caron==0){		
+				stopsound(2000,CHAN_ITEM); // stops the external sound
+			stopsound(2000,CHAN_BODY ); // stops the external sound
+		stopsound(2000,CHAN_AUTO ); // stops the external sound}
+		}
+    delay(5);
+
+    if (petrol >= 90) {
+      SetLineTexture(11157, SIDE_Front, TEXTURE_bottom, "petrol6");
+    } else if (petrol > 80) {
+      //print(s: "80");
+      SetLineTexture(11157, SIDE_Front, TEXTURE_bottom, "petrol5");
+    } else if (petrol > 65) {
+      SetLineTexture(11157, SIDE_Front, TEXTURE_bottom, "petrol4");
+    } else if (petrol > 40) {
+      SetLineTexture(11157, SIDE_Front, TEXTURE_bottom, "petrol3");
+    } else if (petrol > 20) {
+      SetLineTexture(11157, SIDE_Front, TEXTURE_bottom, "petrol2");
+    } else if (petrol > 10) {
+      SetLineTexture(11157, SIDE_Front, TEXTURE_bottom, "petrol1");
+    } else {
+      SetLineTexture(11157, SIDE_Front, TEXTURE_bottom, "petrol0");
+    }
+
+  }
+}
+
+
+
+
+
+
+script 804(void) { //shooting car windows
+  thing_damage(2000, 5);
+  SetLineTexture(11151, SIDE_Front, TEXTURE_MIDDLE, "z17");
+  SetLineTexture(11151, SIDE_Back, TEXTURE_MIDDLE, "z17");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+script 849(void) { // WHAT IS THIS DOING? 
+  thing_activate(2000); //this is the one to put back	
+
+}
+
+
+
+script 4544 OPEN { //This is to spawn the car in on open
+	thing_remove(2000);
+	
+
+  DELAY(10);
+  //bootUpStuff();
+	ACS_Execute(853,1,1);
+}
+
+
+script 795(void) { //use car steering wheel
+if ( getUserVariable(1000 + PlayerNumber(), "user_openclosemenu")==0){
+  if (checkactorinventory((1000 + PlayerNumber()), "menufoo") < 1) {
+    delay(5);
+    takeActorInventory(1000 + PlayerNumber(), "menulevel", 50);
+	 giveActorInventory(1000 + PlayerNumber(), "menulevel", 1);
+    GiveActorInventory(1000 + PlayerNumber(), "menufoo", 6);
+	
+	
+
+    ACS_execute(789, 1);
+  }
+}
+}
+script 807(void) { //car death inside
+	//this is copied now
+  SpawnSpot("rocket2", 1300);
+  delay(10);
+  SpawnSpot("rocket2", 1300);
+  delay(10);
+  SpawnSpot("rocket2", 1300);
+  // print(s:"boom");
+}
+
+script 798 open { // i think this is setting up the mirror
+
+  SetCameraToTexture(11155, "TCAMTEX1", 90);
+  SetCameraToTexture(11156, "TCAMTEX2", 60);
+}
+
+
+//when the car goes in water
+
+script 796(void) { //car in water
+  if (carwater == 0) {
+    carwater = 2;
+    SetLineTexture(11151, SIDE_Front, TEXTURE_MIDDLE, "z17");
+    SetLineTexture(11151, SIDE_Back, TEXTURE_MIDDLE, "z17");
+    Ceiling_RaiseByValue(11150, 1, 100);
+    delay(350);
+	   StopSound(2000, CHAN_AUTO);
+		//stopsound(2000,CHAN_ITEM);
+    ACS_Terminate(905, 1);
+	caron=0;
+	carisdead=1;
+	delay (200);
+	Thing_Damage(2000,200);
+	// SpawnSpot("rocket2", 1300);
+	 
+   // Music_Change("d_runnin", 0);
+	  LocalSetMusic("");
+	  delay(1000);
+	   Ceiling_RaiseByValue(11150, 10, -100);
+   SetLineTexture(11151, SIDE_Front, TEXTURE_MIDDLE, "Z18");
+    SetLineTexture(11151, SIDE_Back, TEXTURE_MIDDLE, "Z18");
+  }
+}
+
+script 792(int jumplocation, int inout) { //getting  in and out of the car
+  if (GetActorProperty(2000, aprop_health) > 0) {
+    SetFont("BIGFONT");
+	
+	
+	
+	//wiping the car menu
+	//this is wiping the menu by displaying blank ones
+	
+	
+	
+	
+		SetFont("bigfont"); 
+		HudMessage(s: ""; HUDMSG_FADEOUT,9800 , 0, (530.0), (350.0), 0.01);//the backing
+		int hudwipe = 9700;
+		
+		/*
+		while (hudwipe< 9720)
+		{
+		HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe , 0, (530.0), (350.0), 0.01);//the backing
+		hudwipe++;
+		delay(1);
+		}
+		*/
+		
+		HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe, 0, (530.0), (350.0), 0.01);hudwipe++;HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe, 0, (530.0), (350.0), 0.01);hudwipe++;
+		HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe, 0, (530.0), (350.0), 0.01);hudwipe++;HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe, 0, (530.0), (350.0), 0.01);hudwipe++;
+		HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe, 0, (530.0), (350.0), 0.01);hudwipe++;HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe, 0, (530.0), (350.0), 0.01);hudwipe++;
+		HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe, 0, (530.0), (350.0), 0.01);hudwipe++;HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe, 0, (530.0), (350.0), 0.01);hudwipe++;
+		HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe, 0, (530.0), (350.0), 0.01);hudwipe++;HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe, 0, (530.0), (350.0), 0.01);hudwipe++;
+		HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe, 0, (530.0), (350.0), 0.01);hudwipe++;HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe, 0, (530.0), (350.0), 0.01);hudwipe++;
+		HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe, 0, (530.0), (350.0), 0.01);hudwipe++;HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe, 0, (530.0), (350.0), 0.01);hudwipe++;
+		HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe, 0, (530.0), (350.0), 0.01);hudwipe++;HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe, 0, (530.0), (350.0), 0.01);hudwipe++;
+		HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe, 0, (530.0), (350.0), 0.01);hudwipe++;HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe, 0, (530.0), (350.0), 0.01);hudwipe++;
+		HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe, 0, (530.0), (350.0), 0.01);hudwipe++;HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe, 0, (530.0), (350.0), 0.01);hudwipe++;
+		HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe, 0, (530.0), (350.0), 0.01);hudwipe++;HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe, 0, (530.0), (350.0), 0.01);hudwipe++;
+		HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe, 0, (530.0), (350.0), 0.01);hudwipe++;HudMessage(s: ""; HUDMSG_FADEOUT,hudwipe, 0, (530.0), (350.0), 0.01);hudwipe++;
+		
+		
+	
+	
+    int cartx = GetActorX(2000) + 0.0;
+    int carty = GetActorY(2000) + 50.0;
+    int cartz = GetActorZ(2000) + 50.0;
+    int cartangle = GetActorAngle(2000);
+    int carMX;
+    int carMY;
+    int carNX;
+    int carNY;
+    int noMove;
+    if (inout == 0) {
+      Thing_Stop((1000 + PlayerNumber()));
+      delay(10);
+      carMX = GetActorX(1000 + playernumber()); // and get XY
+      carMY = GetActorY(1000 + playernumber());
+      carNX = 0;
+      carNY = 0;
+      noMove = 1;
+      SetPlayerProperty(0, 1, PROP_FROZEN);
+      Teleport_NoFog(11143, 0, 0);
+      Thing_Stop(1000 + PlayerNumber());
+      carNX = GetActorX(1000 + playernumber());
+      carNY = GetActorY(1000 + playernumber());
+      if ((carNX == carMX) && (carNY == carMY)) {
+        SetPlayerProperty(0, 0, PROP_FROZEN);
+      } else {
+        SetPlayerProperty(0, 1, PROP_FROZEN);
+        acs_execute(905, 1, 0, 0, 0);
+      }
+      // delay();
+    }
+    if (inout == 1) {
+      Thing_Stop(1000 + PlayerNumber());
+      SetPlayerProperty(0, 1, PROP_FROZEN);
+      carMX = GetActorX(1000 + playernumber());
+      carMY = GetActorY(1000 + playernumber());
+      carNX = 0;
+      carNY = 0;
+      noMove = 1;
+      setActorPosition(1000 + PlayerNumber(), cartx, carty, cartz, 0);
+      carNX = GetActorX(1000 + playernumber());
+      carNY = GetActorY(1000 + playernumber()); // get new XY.
+      if ((carNX == carMX) && (carNY == carMY)) {
+        SetPlayerProperty(0, 1, PROP_FROZEN);
+      } else {
+        ACS_Terminate(905, 1);
+        takeActorInventory(1000 + PlayerNumber(), "905ing", 50);
+        takeactorinventory(1000 + playernumber(), "menufoo", 50);
+        SetPlayerProperty(0, 0, PROP_FROZEN);
+		
+		
+		
+			LocalSetMusic("music/d_win");
+		
+      }
+    }
+    if (inout == 2) {
+      Thing_Stop(1000 + PlayerNumber());
+      SetPlayerProperty(0, 1, PROP_FROZEN);
+      carMX = GetActorX(1000 + playernumber()); // and get XY
+      carMY = GetActorY(1000 + playernumber());
+      carNX = 0;
+      carNY = 0;
+      noMove = 1;
+      delay(5);
+      setActorPosition(1000 + PlayerNumber(), cartx, carty, cartz, 0);
+      carNX = GetActorX(1000 + playernumber());
+      carNY = GetActorY(1000 + playernumber()); // get new XY.
+      if ((carNX == carMX) && (carNY == carMY)) {
+        SetPlayerProperty(0, 1, PROP_FROZEN);
+
+      } else {
+        takeActorInventory(1000 + PlayerNumber(), "905ing", 50);
+        SetPlayerProperty(0, 0, PROP_FROZEN);
+        SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
+       // Music_Change("d_runnin", 0);															//sets this for everyone
+		LocalSetMusic("music/d_win");
+      }
+    }
+  }
+}
+
+
+
+
+script 853(int spawncarorno) { // car spawning
+
+	carisdead=0;
+  int randcarspawnspot = random(2001, 2007); // this is the random spawnspot - 2001 and on to 2007
+ // randcarspawnspot = 2005;  //$ THIS IS OVERRIDDING THIS TO JUST PUT IT AT 2001 AT THE MOMENT
+
+  if (spawncarorno == 1) {
+	  
+	  if (spawncartotid>0){randcarspawnspot=spawncartotid;}
+	    SpawnSpot("rocket2", 1300);
+	  Thing_Remove(2000);
+    SpawnSpot("drivecar", randcarspawnspot, 2000);
+	
+	delay(10);
+	if (alwayskemocar > 0)
+	{
+		ACS_Execute(25516,1);
+	}
+	else if (random(0,100)>88)
+	{
+		
+		ACS_Execute(25516,1);
+	}
+	
+	
+	
+	
+    // spawn car at random spot with tag 2000
+  }
+  //randomise how much petrol etc it has inside
+  petrol = random(min_petrol, 100);  
+  numberofwheels = random(min_numberofwheels, 4);
+  hasbattery = random(min_hasbattery, 1);
+}
+
+
+
+
+
+
+script 905(void) { // "sort this out. it hasnt been gone through yet" - why? 
+//905ing - driving the car
+  {
+
+    //Music_Change("D_evil",0);
+   // LocalSetMusic("music/d_lov");
+	acs_execute(6553,1); //the music playing thing
+    SetLineTexture(11148, SIDE_Front, TEXTURE_BOTTOM, "radio3");
+	
+	
+//caron = 1;  //tersting with this on - this needs to come off.
+	
+	
+	
+	
+	
+	
+	
+    radiochannel = 2;
+	
+	
+	
+	
+	
+	
+	
+
+    GiveActorInventory(1000 + PlayerNumber(), "905ing", 1);
+    // while (checkActorInventory(1000 + PlayerNumber(),"905ing")>0){
+
+    int delaymove = 1;
+    int delayok = 10;
+    int dlayok = 0;
+    int dlaymove = 0;
+
+    int dice = 0;
+    int diceslow = 0;
+    int thrustAmt = 3;
+    int angAmt = 0.005;
+    int maxThrust = 5;
+
+    int newAngle;
+    int thrustNew;
+    int buttons;
+    int oldbuttons;
+
+    delay(10);
+    // SetActorProperty(1000 + PlayerNumber(), APROP_Speed, 0.0);
+    int newZ = 0.0;
+
+    while (TRUE) {
+
+      int testunder = GetActorZ(2000);
+
+      if (GetActorZ(2000) < -9000000) { //this is the going underwater bit
+        ACS_execute(796, 1); //car underwater script
+      }
+
+      thrustthing(virtualangle >> 8, thrustNew, maxThrust, 2000);
+      SetActorAngle(2000, virtualangle);
+      SetActorAngle(9997, virtualangle);
+      newZ = GetActorZ(2000);
+      // print(i: newZ); 
+      newZ = newZ + 45.0;
+      SetActorPosition(9997, GetActorX(2000), GetActorY(2000), newZ, 0);
+
+      thrustNew = 0;
+      newAngle = 0;
+
+      buttons = GetPlayerInput(-1, INPUT_BUTTONS);
+	  
+	  
+//        int whatsinit;
+
+      /////////////////////////////////////////////////////button left click
+
+      // left click?>
+       if (buttons & BT_ATTACK) {
+	//print(s:"clicked in car");
+	//thrustNew = thrustAmt;
+		}
+	 
+	  
+	  // int buttons = GetPlayerInput(-1, INPUT_BUTTONS);
+    ////  int oldbuttons = GetPlayerInput(-1, INPUT_OLDBUTTONS); //rightclick
+ 
+	  
+	  
+
+      if (buttons & BT_MOVELEFT) {
+		//  printbold(s:"left");
+        newAngle = angAmt;
+        SetLineTexture(11145, SIDE_Front, TEXTURE_BOTTOM, "steerl");
+        //    ACS_execute(788, 1);
+      }
+      if (buttons & BT_MOVERIGHT) {
+        newAngle = 0 - angAmt;
+        SetLineTexture(11145, SIDE_Front, TEXTURE_BOTTOM, "steerr");
+      }
+
+      if (buttons & BT_FORWARD) {
+
+        if (caron == 1) {
+
+          SetLineTexture(11158, SIDE_Front, TEXTURE_BOTTOM, "ign1");
+          thrustNew = thrustAmt;
+
+          if (dice < 1) {
+            SetActorState(11154, "Rock");//first level rocking dice
+				//setActorState(2000, "normal");//set car to normal
+	
+            //  print(s:"dice");
+            dice = 1;
+          }
+
+          if (buttons & BT_speed) {
+            thrustNew = (thrustAmt * 2);
+
+            if (dice < 2) {
+              SetActorState(11154, "Rock2"); //second level rocking dice
+			  //	setActorState(2000, "rocket"); //set car to damaging mode
+	
+              //  print(s:"dice2");
+              dice = 2;
+            }
+          } else {
+            if (diceslow == 2) {
+              SetActorState(11154, "Rock");// first level rocking dice
+              //   print(s:"dice");
+			  //	setActorState(2000, "normal"); //set car to normal
+	
+              dice = 1;
+            }
+
+          }
+        }
+
+      }
+
+      if (buttons & BT_back) {
+
+        //if (checkactorinventory((1000 + PlayerNumber()),"menufoo") > 0){
+
+        if (caron == 1) {
+
+          thrustNew = 0 - thrustAmt;
+          newAngle = 0 - newAngle;
+
+        }
+
+      }
+
+      if (buttons & BT_FORWARD && buttons & BT_BACK) {
+        //  ACS_execute(803, 1);
+        //      print(s:"jumping");
+
+      }
+
+      if (buttons & BT_MOVELEFT && buttons & BT_MOVERIGHT) {
+        //  ACS_execute(809, 1);
+        //      print(s:"jumping");
+
+      }
+
+      int cX = GetActorX(2000);
+      int cy = GetActorY(2000);
+      delay(1);
+      int trapX = GetActorX(2000);
+      int trapY = GetActorY(2000);
+      if ((trapX != cx) || (trapY != cy)) {
+        if (((trapX - cX < -50000) || (trapX - cX > 50000)) || ((trapY - cY < -50000) || (trapY - cY > 50000))) {
+          virtualangle = virtualangle + newAngle;
+        }
+      } else {
+        //print(s: "Trapped     ", i:dice);
+        SetActorState(11154, "rocks");
+			//setActorState(2000, "normal");
+	
+        dice = 0;
+      };
+
+      if (buttons & BT_USER1) {
+        print(s: "Dropping ");
+        GiveActorInventory(1000 + PlayerNumber(), "Selectr", 1);
+      }
+      if (buttons & BT_USER1) {
+        print(s: "Dropping ");
+        GiveActorInventory(1000 + PlayerNumber(), "Selectr", 1);
+      }
+      delay(1);
+    }
+  }
+}
+
+
+
+
+
+
+
+//trying this for moving the car, as it recognises self

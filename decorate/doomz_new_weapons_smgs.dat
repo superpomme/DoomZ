@@ -1,0 +1,140 @@
+
+ACTOR mp5Loaded : Ammo //point9
+{
+ Inventory.MaxAmount 15
+ +IGNORESKILL
+ Tag "Loaded .380 ammo"
+}
+																					                            //magnum
+ 
+   ACTOR mp5 : DoomWeapon   // takes point9(35)
+{
+	attacksound "Weapons/pistol"
+	Weapon.AmmoType1 "mp5loaded"
+	Weapon.AmmoUse1 1
+	Weapon.AmmoGive1 0 
+	+Weapon.Ammo_Optional
+	+noalert
+	Weapon.SlotNumber 3
+	Tag "mp5"
+ Inventory.PickupMessage "Picked up an mp5 - takes 9mm ammo" 
+ Obituary "%o was peppered by %k's mp5"
+	States
+		{
+		Ready: 
+			cmpf A 1 A_WeaponReady
+			cmpf A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+			Loop
+		Deselect:
+			cmpf A 1 A_Lower
+			Loop
+		Select:
+			cmpf A 1 A_Raise
+			Loop
+		Fire:
+			NULL A 0 A_JumpIfNoAmmo("Reload")
+			cmpf b 1  BRIGHT A_FireBullets(6.5, 0, 1, random(8,10), "mospuff", FBF_USEAMMO|FBF_NORANDOM)
+			NULL A 0 A_SpawnItemEx ("gunflash", 0, 0, 30, 0, 0, 0, 0)
+			cmpf b 1  A_PlaySound("Weapons/pistol", CHAN_WEAPON)
+			null a 0 A_AlertMonsters
+			cmpf a 1  A_SpawnItemEx (DeadbulletCasing,20,3.5,32,random(0,1),random(1,2),random(0,1) )
+			cmpf a 1 
+			cmpf a 1 
+			Goto Ready		
+		Reload:
+			mzfi A 0 A_JumpIfInventory("mp5Loaded", 14, 2) // If the gun's full, jump 2 states.
+			TNT1 A 0 A_JumpIf(1 == (ACS_ExecuteWithResult(867,35)), "ReloadWork")
+			cmpf A 15 A_PlaySound("newcl", CHAN_WEAPON) // Here's where that first line ends up - the gun does nothing and returns to Ready.
+			Goto Ready 
+		ReloadWork:
+		
+		
+			cmpf A 8 A_PlayWeaponSound("weapons/shotgr") // click-clac
+			null a 0 A_AlertMonsters
+			
+			cmpf c 8
+			cmpf d 8
+		
+			cmpf f 8
+			cmpf g 8 A_GiveInventory("mp5loaded", 15)
+		    cmpf h 8
+		Goto Ready
+		
+		
+	
+			
+	
+		Spawn:
+			PIST A -1
+			Stop
+   }
+}
+
+
+ACTOR umpLoaded : Ammo //point45acp
+{
+ Inventory.MaxAmount 25
+ +IGNORESKILL
+ Tag "Loaded .45 acp ammo"
+}
+																					                            
+
+   ACTOR ump45 : DoomWeapon   //
+{
+	attacksound "Weapons/pistol"
+	Weapon.AmmoType1 "umpLoaded"
+	Weapon.AmmoUse1 1
+	Weapon.AmmoGive1 0 
+	+noalert
+	+Weapon.Ammo_Optional
+	Weapon.SlotNumber 3
+	Tag "UMP-45"
+	Inventory.PickupMessage "Picked up a UMP-45 - takes .45 ACP ammo" 
+	Obituary "%o was peppered by %k's UMP-45"
+	States
+		{
+		Ready: 
+			cump A 1 A_WeaponReady
+			cump A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+			Loop
+		Deselect:
+			cump A 1 A_Lower
+			Loop
+		Select:
+			cump A 1 A_Raise
+			Loop
+		Fire:
+			NULL A 0 A_JumpIfNoAmmo("Reload")
+			cump b 1  BRIGHT A_FireBullets(6, 0, 1, random(9,12), "mospuff", FBF_USEAMMO|FBF_NORANDOM)
+			NULL A 0 A_SpawnItemEx ("gunflash", 0, 0, 30, 0, 0, 0, 0)
+			cump A 1  A_PlaySound("Weapons/pistol", CHAN_WEAPON)
+			null a 0 A_AlertMonsters
+			cump a 3  A_SpawnItemEx (DeadbulletCasing,20,3.5,32,random(0,1),random(1,2),random(0,1) )
+			cump a 1 
+			cump a 1 
+			Goto Ready		
+		Reload:
+			PISG A 0 A_JumpIfInventory("umpLoaded", 14, 2) // If the gun's full, jump 2 states.
+			TNT1 A 0 A_JumpIf(1 == (ACS_ExecuteWithResult(867,36)), "ReloadWork")
+			cump A 20 A_PlaySound("newcl", CHAN_WEAPON) // Here's where that first line ends up - the gun does nothing and returns to Ready.
+			Goto Ready 
+		ReloadWork:
+		
+			cump a 10
+			cump c 10
+			cump d 10
+			cump f 5
+			cump g 10 A_PlayWeaponSound("weapons/shotgr") 
+			null a 0 A_AlertMonsters
+			cump a 10 A_GiveInventory("umpLoaded", 25)
+		    cump h 5
+			
+			Goto Ready
+		Flash:
+			TNT1 A 2 bright
+			Stop
+		Spawn:
+			PIST A -1
+			Stop
+   }
+}

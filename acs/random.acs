@@ -1,0 +1,1171 @@
+	
+
+	
+int sidelength = 9;	
+int vsidelength = 30;	
+int bigroadarray[50][50]={};	
+
+
+int gridx=0;// - used to move the grid on each time
+int gridy=0;
+		
+
+	
+str fragment1[50]={
+"Knr",
+"Vya",
+"Voloko",
+"shok",
+"Ryz",
+"Serpu",
+"Serg",
+"Kan",
+"Novy",
+"Apas",
+"Buin",
+"Semu",
+"Kams",
+"Kurk",
+"Alexey",
+"Izveh",
+"Poltnik",
+"Sineg",
+"Verkho",
+"Alme",
+"Pin",
+"end",};
+	
+	
+str fragment2[50]={
+"zma",
+"ovo",
+"amsk",
+"ino",
+"omna",
+"enovo",
+"zima",
+"onovo",
+"insk",
+"niki",
+"aya",
+"sevo",
+"yug",
+"noyarsk",
+"ulka",
+"an",
+"sk",
+"skiy",
+"gino",
+"gala",
+"vka"};	
+
+
+
+
+
+	script 5 open																					//The launcher that starts the ui
+	{// The launcher that starts the ui
+	//	SetActorProperty(0,aprop_speed,1.5); //set player speed
+	
+	
+	ACS_Execute(9022,1); // ROAD
+	//delay (10);
+	//ACS_ExecuteAlways(2,1); // a second road
+	delay (50);
+	
+						ACS_Execute(9024,1); //palant stuff (setting the non road blocks)
+	delay (50);
+//ACS_Execute(1007,1); //ADDING THE ITEMS
+	
+//	ACS_Execute(1017,1);            // the one that
+	
+		delay (50);
+	//ACS_Execute(3,1);//	 the old way of showing the map
+	//ACS_Execute(1018,1); //new map
+	
+	
+	ACS_Execute(903,1);
+	}
+
+
+
+
+	
+	
+	script 9022 (void)																		//the road 
+	{//the road 
+		
+		int tempy;
+		int tempx;
+		int startx=	random(2,sidelength-3);
+		int starty=	random(2,sidelength-3);
+		int pathlengthleft=30;
+		int numbertoplace=1;
+		
+		bigroadarray[startx][starty]=100;//This is because it; // first step // sorry - not sure what these notes mean
+		
+		tempx=startx;
+		tempy=starty;
+
+		while (pathlengthleft>0){
+			int lastmove=					(random(1,4)); // This is to decide which direction to point in
+				
+			if 		(lastmove==1) {tempy = (starty-1); }
+			else if (lastmove==2) {tempx = (startx+1); }
+			else if (lastmove==3) {tempy = (starty+1); }
+			else if (lastmove==4) {tempx = (startx-1); }						
+			
+			if (bigroadarray[tempx][tempy]==0){  // If it is a 1, then move in to it
+				bigroadarray[tempx][tempy]=	(bigroadarray[tempx][tempy]+lastmove);//				//(bigroadarray[tempx][tempy]+lastmove);
+				bigroadarray[startx][starty]=	(bigroadarray[startx][starty]+(10*lastmove));
+				startx=tempx;
+				starty=tempy;
+				pathlengthleft--;				
+			}
+			else{ //else fuck it off and start again
+				tempx = startx;
+				tempy = starty;
+				}
+				// This is to stack up petrol stations along the path of the roads.
+				
+				// You may need to move this into the else - I'm not sure if the petrol is going to make the road follow weird winds with this in place
+				if(random(0,7)==4){
+										int PETROLS=					(random(1,4));										
+									if 		(lastmove==1) {int ptempy = (starty-1); }
+									else if (lastmove==2) {int ptempx = (startx+1); }
+									else if (lastmove==3) {ptempy = (starty+1); }
+									else if (lastmove==4) {ptempx = (startx-1); }	
+										
+									if( (bigroadarray[ptempx][ptempy]==0)){ 
+										 bigroadarray[ptempx][ptempy]=57; // SETS PETROL STATION
+									}
+				}
+			delay(1);
+			}
+	}
+	
+	
+	
+	
+	
+	script 9024 (void)	//The script that adds everything apart from the roads in
+	{//The one that plants the other stuff - farms etc
+		int currentx=0;						// for counting through it
+		int currenty=0;
+	
+		int horizontalcounter = 0;
+		int verticalcounter = 	0;
+		int hudmessagenumcount = 1;
+		
+
+		//wipe the values for the displayer	
+		int currentsectorid=100;
+
+		
+		while (verticalcounter<28){ // zWHY isnt this putting it to the end. CHANGE. currently this is working out multiple maps in advance
+			
+			
+			if (bigroadarray[horizontalcounter][verticalcounter]==0){  // If the square it falls upon is a 0 (empty) then fill it with one of the following.
+				
+				int whichspot = random(1,20); //The higher this number is, the more empty fields this is going to generate 
+				
+				if (whichspot==1|whichspot==10){if (random(1,2)==1){bigroadarray[horizontalcounter][verticalcounter]=50;}			} 	//village. 1 or 10 - just to make it more common
+				else if (whichspot==2){bigroadarray[horizontalcounter][verticalcounter]=51;}											//lake
+				else if (whichspot==3){bigroadarray[horizontalcounter][verticalcounter]=52;} 											//forest
+					//4 is not used any more
+				else if (whichspot==5){ if (random(1,5)==1){bigroadarray[horizontalcounter][verticalcounter]=54;}}						// tents (does it actually ever make these?)
+				else if (whichspot==6){bigroadarray[horizontalcounter][verticalcounter]=55;} 											//
+				else if (whichspot==7){bigroadarray[horizontalcounter][verticalcounter]=56;}											//
+					//else if (whichspot==8){bigroadarray[horizontalcounter][verticalcounter]=57;}											// Petrol station. No longer used, as it does this in the road script
+				else if (whichspot==9){bigroadarray[horizontalcounter][verticalcounter]=58;}											 //
+					//10 is the same as 1 - village
+				else if (whichspot==11){bigroadarray[horizontalcounter][verticalcounter]=59;} //chapel
+				else if (whichspot==12){bigroadarray[horizontalcounter][verticalcounter]=60;} //barracks
+				else if (whichspot==13){bigroadarray[horizontalcounter][verticalcounter]=61;}//	bigbarn
+			
+			
+						else if (whichspot==14){bigroadarray[horizontalcounter][verticalcounter]=62;} //chopper
+					
+				else {bigroadarray[horizontalcounter][verticalcounter]=0;}	// normal grass field
+					
+					
+					/*
+				These are the ones that need adding in:              -Note that you will also need to make icons for each of these
+				=======================================
+					deer stand
+					
+					bigbarn
+					animal field with mini barn
+					city buildings
+					shop
+					mini shop + buildings (taller ones or rural ones)
+					school
+					castle
+					hospital
+					factory
+					tents
+					military post
+					garages (should be in city or near garage)
+					warehouse
+					control tower
+					lake
+					*/
+				}		 
+
+				//This is just to move it through the grid in order
+				horizontalcounter++;
+				if (horizontalcounter>=(9))
+					{				
+					horizontalcounter=0;	
+					verticalcounter++;
+					}
+				hudmessagenumcount++;	
+				delay (1);			
+		}
+	}
+	
+	
+
+	
+	// I think these are the map icon names
+	str mapnames[50]={"tiemp","tistrho","tistrup","trtl","titr","trbl","tibr",  "trvil", "trlak","trfrst","trcit", "tsmi","trfrm","trfrm","trcrop","trpet", "tsair"  };
+	
+	int separator=0;
+
+	/*
+script 1017 (void)
+{//the new viewer script
+	
+	
+	int vcount=0.0;
+	while (vcount<27)
+	{
+		if (vcount==9){separator = (separator+10.0);}
+		if (vcount==18){separator = (separator+10.0);}
+	ACS_ExecuteAlways(1004,1,0,vcount);
+	ACS_ExecuteAlways(1004,1,1,vcount);
+	ACS_ExecuteAlways(1004,1,2,vcount);
+	ACS_ExecuteAlways(1004,1,3,vcount);
+	ACS_ExecuteAlways(1004,1,4,vcount);
+	ACS_ExecuteAlways(1004,1,5,vcount);
+	ACS_ExecuteAlways(1004,1,6,vcount);
+	ACS_ExecuteAlways(1004,1,7,vcount);
+	ACS_ExecuteAlways(1004,1,8,vcount);
+	//ACS_ExecuteAlways(1004,1,9,vcount);
+	
+
+	delay(7);
+	
+	vcount++;
+	/*
+	if (vcount==9){separator = (separator+50.0);}
+		if (vcount==18){separator = (separator+50.0);}
+		ACS_ExecuteAlways(1004,1,0,vcount);
+	ACS_ExecuteAlways(1004,1,1,vcount);
+	ACS_ExecuteAlways(1004,1,2,vcount);
+	ACS_ExecuteAlways(1004,1,3,vcount);
+	ACS_ExecuteAlways(1004,1,4,vcount);
+	ACS_ExecuteAlways(1004,1,5,vcount);
+	ACS_ExecuteAlways(1004,1,6,vcount);
+	ACS_ExecuteAlways(1004,1,7,vcount);
+	ACS_ExecuteAlways(1004,1,8,vcount);
+	//ACS_ExecuteAlways(1004,1,9,vcount);
+
+	vcount++;
+	delay(5);
+	
+	There was a close here
+	}
+	
+
+	
+}
+*/
+script 1018(int startposnum) //faster map
+    { //the new viewer script
+
+        int maxlines = 27;
+        if (startposnum == 2) {
+            maxlines = 8;
+        }
+        int vcount = 0.0;
+        while (vcount < maxlines) {
+            if (vcount == 9) {
+                separator = (separator + 10.0);
+            }
+            if (vcount == 18) {
+                separator = (separator + 10.0);
+            }
+            ACS_ExecuteAlways(1004, 1, 0, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 1, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 2, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 3, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 4, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 5, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 6, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 7, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 8, vcount, startposnum);
+            //ACS_ExecuteAlways(1004,1,9,vcount,startposnum);
+            vcount++;
+
+            if (vcount == 9) {
+                separator = (separator + 10.0);
+            }
+            if (vcount == 18) {
+                separator = (separator + 10.0);
+            }
+            ACS_ExecuteAlways(1004, 1, 0, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 1, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 2, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 3, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 4, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 5, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 6, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 7, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 8, vcount, startposnum);
+            //ACS_ExecuteAlways(1004,1,9,vcount,startposnum);
+            vcount++;
+
+            if (vcount == 9) {
+                separator = (separator + 10.0);
+            }
+            if (vcount == 18) {
+                separator = (separator + 10.0);
+            }
+            ACS_ExecuteAlways(1004, 1, 0, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 1, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 2, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 3, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 4, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 5, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 6, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 7, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 8, vcount, startposnum);
+            //ACS_ExecuteAlways(1004,1,9,vcount,startposnum);
+            vcount++;
+
+            if (vcount == 9) {
+                separator = (separator + 10.0);
+            }
+            if (vcount == 18) {
+                separator = (separator + 10.0);
+            }
+            ACS_ExecuteAlways(1004, 1, 0, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 1, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 2, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 3, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 4, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 5, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 6, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 7, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 8, vcount, startposnum);
+            //ACS_ExecuteAlways(1004,1,9,vcount,startposnum);
+            vcount++;
+
+            if (vcount == 9) {
+                separator = (separator + 10.0);
+            }
+            if (vcount == 18) {
+                separator = (separator + 10.0);
+            }
+            ACS_ExecuteAlways(1004, 1, 0, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 1, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 2, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 3, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 4, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 5, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 6, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 7, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 8, vcount, startposnum);
+            //ACS_ExecuteAlways(1004,1,9,vcount,startposnum);
+            vcount++;
+
+            if (vcount == 9) {
+                separator = (separator + 10.0);
+            }
+            if (vcount == 18) {
+                separator = (separator + 10.0);
+            }
+            ACS_ExecuteAlways(1004, 1, 0, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 1, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 2, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 3, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 4, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 5, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 6, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 7, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 8, vcount, startposnum);
+            //ACS_ExecuteAlways(1004,1,9,vcount,startposnum);
+            vcount++;
+
+            if (vcount == 9) {
+                separator = (separator + 10.0);
+            }
+            if (vcount == 18) {
+                separator = (separator + 10.0);
+            }
+            ACS_ExecuteAlways(1004, 1, 0, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 1, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 2, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 3, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 4, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 5, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 6, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 7, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 8, vcount, startposnum);
+            //ACS_ExecuteAlways(1004,1,9,vcount,startposnum);
+            vcount++;
+
+            if (vcount == 9) {
+                separator = (separator + 10.0);
+            }
+            if (vcount == 18) {
+                separator = (separator + 10.0);
+            }
+            ACS_ExecuteAlways(1004, 1, 0, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 1, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 2, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 3, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 4, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 5, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 6, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 7, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 8, vcount, startposnum);
+            //ACS_ExecuteAlways(1004,1,9,vcount,startposnum);
+            vcount++;
+
+            if (vcount == 9) {
+                separator = (separator + 10.0);
+            }
+            if (vcount == 18) {
+                separator = (separator + 10.0);
+            }
+            ACS_ExecuteAlways(1004, 1, 0, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 1, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 2, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 3, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 4, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 5, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 6, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 7, vcount, startposnum);
+            ACS_ExecuteAlways(1004, 1, 8, vcount, startposnum);
+            //ACS_ExecuteAlways(1004,1,9,vcount);
+            vcount++;
+
+            delay(100);
+
+            /*
+            if (vcount==9){separator = (separator+50.0);}
+            	if (vcount==18){separator = (separator+50.0);}
+            	ACS_ExecuteAlways(1004,1,0,vcount);
+            ACS_ExecuteAlways(1004,1,1,vcount);
+            ACS_ExecuteAlways(1004,1,2,vcount);
+            ACS_ExecuteAlways(1004,1,3,vcount);
+            ACS_ExecuteAlways(1004,1,4,vcount);
+            ACS_ExecuteAlways(1004,1,5,vcount);
+            ACS_ExecuteAlways(1004,1,6,vcount);
+            ACS_ExecuteAlways(1004,1,7,vcount);
+            ACS_ExecuteAlways(1004,1,8,vcount);
+            //ACS_ExecuteAlways(1004,1,9,vcount);
+
+            vcount++;
+            delay(5);
+            */
+
+        }
+
+    }
+
+//int hudmessagenumcount = 1;
+int overalltids = 2701;
+
+//	THE ACTUAL SHOWING MAP SCRIPT 2017
+
+script 1004(int horizontalcounter, int verticalcounter, int startposnum) //  // this is the function for doing the menu showing
+
+{ // THE NEW  9 FLOOR
+    setHudSize(1024, 768, TRUE); // so that it doesnt screw the scale
+
+    // length of the sides in the array
+
+    int currentx = 0; // for counting through it
+    int currenty = 0;
+
+    int startleftpos = 100.0; //the values for the physical start coords
+    int starttoppos = 200.0;
+
+    if (startposnum == 1) {
+        startleftpos = 1024.0; //the values for the physical start coords
+        starttoppos = 500.0;
+    }
+    // startpos										
+    if (startposnum == 2) {
+        startleftpos = 420.0; //the values for the physical start coords
+        starttoppos = 300.0;
+    }
+
+    int currentleftpos = startleftpos;
+    int currenttoppos = starttoppos;
+
+    int ninesidelength = 3;
+
+    // do you have your array the wrong way round here?
+
+    //													hudmessagenumcount=1;
+
+    int currentsectorid = 1300;
+
+    if (bigroadarray[horizontalcounter][verticalcounter] == 50) {
+
+        int part1 = fragment1[random(0, 21)];
+        int part2 = fragment2[random(0, 20)];
+        SetFont("smallfont"); // 
+        HudMessage(s: part1, s: part2; HUDMSG_PLAIN, (overalltids - 700), CR_GREEN, ((30.0 * horizontalcounter) + startleftpos), ((30.0 * verticalcounter) + starttoppos + separator) - 90.0, 4.0, 4.00);
+    }
+
+    SetFont("tiemp"); // empty
+
+    if (((bigroadarray[horizontalcounter][verticalcounter]) == 42) |
+        ( bigroadarray[horizontalcounter][verticalcounter] ==   120 )|
+        (bigroadarray[horizontalcounter][verticalcounter] == 4) |
+        //( bigroadarray[horizontalcounter][verticalcounter] ==   140)|
+        (bigroadarray[horizontalcounter][verticalcounter] == 2) |
+
+        (bigroadarray[horizontalcounter][verticalcounter] == 22) |
+        (bigroadarray[horizontalcounter][verticalcounter] == 44)) { //|
+        SetFont("tistrho"); // horizontal straight
+
+    }
+
+    if ((bigroadarray[horizontalcounter][verticalcounter] == 11) |
+        //( bigroadarray[horizontalcounter][verticalcounter] ==   130 )|
+        (bigroadarray[horizontalcounter][verticalcounter] == 1) |
+        (bigroadarray[horizontalcounter][verticalcounter] == 3) |
+
+        //( bigroadarray[horizontalcounter][verticalcounter] ==   110 )|
+        (bigroadarray[horizontalcounter][verticalcounter] == 33))
+
+    {
+
+        SetFont("tistrup"); // vertical straight
+
+    }
+
+    if ((bigroadarray[horizontalcounter][verticalcounter] == 43) |
+        (bigroadarray[horizontalcounter][verticalcounter] == 12))
+
+    {
+        SetFont("trtl"); // j shaped
+
+    }
+
+    if ((bigroadarray[horizontalcounter][verticalcounter] == 14) |
+        (bigroadarray[horizontalcounter][verticalcounter] == 23))
+
+    {
+        SetFont("titr"); // j shaped
+
+    }
+    if ((bigroadarray[horizontalcounter][verticalcounter] == 41) |
+        (bigroadarray[horizontalcounter][verticalcounter] == 32))
+
+    {
+        SetFont("trbl"); // j shaped
+
+    }
+
+    if ((bigroadarray[horizontalcounter][verticalcounter] == 21)|
+		( bigroadarray[horizontalcounter][verticalcounter] ==   34 ))
+
+    {
+        SetFont("tibr"); // j shaped
+
+    }
+
+    if (bigroadarray[horizontalcounter][verticalcounter] == 50)
+
+    {
+        SetFont("trvil"); // village
+
+    }
+
+    if ((bigroadarray[horizontalcounter][verticalcounter] == 51) |
+        (bigroadarray[horizontalcounter][verticalcounter] == 99) |
+        (bigroadarray[horizontalcounter][verticalcounter] == 99))
+
+    {
+        SetFont("trlak"); // lake 
+
+    }
+
+    if ((bigroadarray[horizontalcounter][verticalcounter] == 52) |
+        (bigroadarray[horizontalcounter][verticalcounter] == 99) |
+        (bigroadarray[horizontalcounter][verticalcounter] == 99))
+
+    {
+        SetFont("trfrst"); //forest
+
+    }
+
+    if ((bigroadarray[horizontalcounter][verticalcounter] < 6) & (bigroadarray[horizontalcounter][verticalcounter] > 0))
+
+    {
+        SetFont("trcit"); //city
+
+    }
+
+    if ((bigroadarray[horizontalcounter][verticalcounter] == 54) |
+        (bigroadarray[horizontalcounter][verticalcounter] == 99) |
+        (bigroadarray[horizontalcounter][verticalcounter] == 99))
+
+    {
+        SetFont("tsmi"); //military
+
+    }
+
+    if ((bigroadarray[horizontalcounter][verticalcounter] == 55) |
+        (bigroadarray[horizontalcounter][verticalcounter] == 99) |
+        (bigroadarray[horizontalcounter][verticalcounter] == 99))
+
+    {
+        SetFont("trfrm"); //farm
+
+    }
+
+    if ((bigroadarray[horizontalcounter][verticalcounter] == 56) |
+        (bigroadarray[horizontalcounter][verticalcounter] == 99) |
+        (bigroadarray[horizontalcounter][verticalcounter] == 99))
+
+    {
+        SetFont("trcrop"); //crops
+
+    }
+
+    if ((bigroadarray[horizontalcounter][verticalcounter] == 57) |
+        (bigroadarray[horizontalcounter][verticalcounter] == 99) |
+        (bigroadarray[horizontalcounter][verticalcounter] == 99))
+
+    {
+        SetFont("trpet"); //petrol
+
+        //viewer
+
+    }
+
+    if ((bigroadarray[horizontalcounter][verticalcounter] == 58) |
+        (bigroadarray[horizontalcounter][verticalcounter] == 99) |
+        (bigroadarray[horizontalcounter][verticalcounter] == 99))
+
+    {
+        SetFont("tsair"); //airport
+
+    }
+    HudMessage(s: "A"; HUDMSG_PLAIN, (overalltids), 0, ((30.0 * horizontalcounter) + startleftpos), ((30.0 * verticalcounter) + starttoppos + separator) - 90, 4.0);
+    currentsectorid++;
+
+    overalltids++;
+    SetFont("HUDMSG_PLAIN");
+
+}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		script 9021 open
+		{
+				
+				
+				delay(100);
+				spawnspot("terrainy",15656,3005); //CHANGE
+				
+			 } 
+
+int nline=130001;
+/*
+		c1
+		ctr
+		clt
+		cbr
+		cld
+		ctl
+		hor
+		vert
+		
+		hangar			130001
+		village			130002
+		wood			
+		petrol			130003
+		barns			130004
+		barracks		130005
+		cow field		130006
+		fire 
+		church			130007
+		chopper
+		smallbarn
+		woodhut
+		city1ll
+		city2
+		
+
+		
+		
+		*/
+		
+		
+		
+		/*
+		
+				script 900 (void)  // add in the items randomly
+				
+				{
+				int looping=1300;
+					while(looping<1381){
+					ACS_ExecuteAlways(	889,1,looping,random(1,7));
+					delay(2);
+					looping++;
+					}
+				}
+	*/
+		
+		script 901 (void) // the new map with the old
+		{
+			setHudSize(1920, 1080, TRUE); 
+			SetFont("db3"); //airport
+			//HudMessage(s: "A"; HUDMSG_PLAIN,600, 0,  1024.0.500,0, 1000.0);
+			HudMessage(s:  "A"; HUDMSG_PLAIN, 7000, 0, 1024.0, 550.0, 4.0);
+			SetFont("HUDMSG_PLAIN");
+			setfont("BIGFONT");
+			//HudMessage(s:"\cgRoses are red\n\chViolets are blue\n\cjSilver for me\n\cfGold for you";
+			 HudMessage(s:"\chYOu'll never\n\n\cjguess what\n\n\cfthis zombie\ch\n\n\cjhousewife\n\n \chhousewife\n\n\cjdiscovered 
+							\n\n\chwhen she\n\n\cjate her\n\n\cfhusband's\ch\n\n\cjface off";
+			 // HudMessage(s:"You got pommed\nby the appler";
+         0, 1, CR_TAN, 1294.0, 550.0, 4.0);
+		 	
+			ACS_Execute(1018,1,2);
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		/*
+		
+	  script 902(void) // adding stuff based on the map
+
+  {
+      int looping = 1300;
+      while (looping < 1381) {
+          ACS_ExecuteAlways(889, 1, looping, random(1, 7));
+          delay(2);
+          looping++;
+      }
+  }
+  */
+  
+
+  script 903(void) // adding stuff based on the map					attempt 2														//starts putting stuff in the playfield
+  { //starts putting stuff in the playfield
+
+      int startnum = 1300;
+      /*
+                        Floor_RaiseToHighest(1300,255);
+                        Floor_RaiseToHighest(1301,255);
+                        Floor_RaiseToHighest(1302,255);
+                        Floor_RaiseToHighest(1303,255);
+                        Floor_RaiseToHighest(1304,255);
+                        Floor_RaiseToHighest(1305,255);
+                        Floor_RaiseToHighest(1306,255);
+                        Floor_RaiseToHighest(1307,255);
+                        Floor_RaiseToHighest(1308,255);
+
+                        */
+      int xcounter = 0;
+      int ycounter = 0;
+      delay(50);
+
+      int rows = 0;
+      //while (ycounter<=8){
+      while (rows < 9) {
+          ACS_Executealways(906, 1, gridx + xcounter, gridy + ycounter, startnum);
+
+          xcounter++;
+          startnum++;
+          ACS_Executealways(906, 1, gridx + xcounter, gridy + ycounter, startnum);
+          xcounter++;
+          startnum++;
+          ACS_Executealways(906, 1, gridx + xcounter, gridy + ycounter, startnum);
+          xcounter++;
+          startnum++;
+          ACS_Executealways(906, 1, gridx + xcounter, gridy + ycounter, startnum);
+          xcounter++;
+          startnum++;
+          ACS_Executealways(906, 1, gridx + xcounter, gridy + ycounter, startnum);
+          xcounter++;
+          startnum++;
+          ACS_Executealways(906, 1, gridx + xcounter, gridy + ycounter, startnum);
+          xcounter++;
+          startnum++;
+          ACS_Executealways(906, 1, gridx + xcounter, gridy + ycounter, startnum);
+          xcounter++;
+          startnum++;
+          ACS_Executealways(906, 1, gridx + xcounter, gridy + ycounter, startnum);
+          xcounter++;
+          startnum++;
+          ACS_Executealways(906, 1, gridx + xcounter, gridy + ycounter, startnum);
+          xcounter = 0;
+          startnum++;
+          rows++;
+          ycounter++;
+          delay(10);
+      }
+  }
+																													//
+  //the actual floor change - the changer built onthe old map reader
+  script 906(int horizontalcounter, int verticalcounter, int currentsectorid) { //the actual floor change
+
+      ChangeFloor(currentsectorid, "newg");
+
+      int droptag = 666;
+
+      int wiping = (currentsectorid * 100) + 1;
+      Line_SetBlocking(wiping, 0, BLOCKF_EVERYTHING); // unblocks
+      wiping++;
+      Line_SetBlocking(wiping, 0, BLOCKF_EVERYTHING); // unblocks
+      wiping++;
+      Line_SetBlocking(wiping, 0, BLOCKF_EVERYTHING); // unblocks
+      wiping++;
+      Line_SetBlocking(wiping, 0, BLOCKF_EVERYTHING); // unblocks
+      wiping++;
+      Line_SetBlocking(wiping, 0, BLOCKF_EVERYTHING); // unblocks
+      wiping++;
+      Line_SetBlocking(wiping, 0, BLOCKF_EVERYTHING); // unblocks
+      wiping++;
+      Line_SetBlocking(wiping, 0, BLOCKF_EVERYTHING); // unblocks
+      wiping++;
+      Line_SetBlocking(wiping, 0, BLOCKF_EVERYTHING); // unblocks
+      wiping++;
+
+      delay(1);
+
+      if (bigroadarray[horizontalcounter][verticalcounter] == 0) {
+          spawnspot("afewtrees", currentsectorid + 100, 3000);
+          spawnspot("multigrass", currentsectorid + 100, 3000);
+
+      }
+
+      if (((bigroadarray[horizontalcounter][verticalcounter]) == 42) |
+          (bigroadarray[horizontalcounter][verticalcounter] == 4) |
+          (bigroadarray[horizontalcounter][verticalcounter] == 2) |
+          (bigroadarray[horizontalcounter][verticalcounter] == 22) |
+          (bigroadarray[horizontalcounter][verticalcounter] == 44)) { //|
+          //	SetFont("tistrho"); // horizontal straight
+          ChangeFloor(currentsectorid, "zstrb");
+      }
+
+      if ((bigroadarray[horizontalcounter][verticalcounter] == 11) |
+
+          (bigroadarray[horizontalcounter][verticalcounter] == 1) |
+          (bigroadarray[horizontalcounter][verticalcounter] == 3) |
+          (bigroadarray[horizontalcounter][verticalcounter] == 33)) {
+          //SetFont("tistrup"); // vertical straight
+          ChangeFloor(currentsectorid, "zstr");
+      }
+
+      if ((bigroadarray[horizontalcounter][verticalcounter] == 43) |
+          (bigroadarray[horizontalcounter][verticalcounter] == 12))
+
+      {
+          //SetFont("trtl"); // j shaped
+          ChangeFloor(currentsectorid, "zcornc");
+          //sector_SetRotation (currentsectorid, -180, 0);
+      }
+
+      if ((bigroadarray[horizontalcounter][verticalcounter] == 14) |
+          (bigroadarray[horizontalcounter][verticalcounter] == 23))
+
+      {
+          //	SetFont("titr"); //
+          ChangeFloor(currentsectorid, "zcornd"); //L
+          //sector_SetRotation (currentsectorid, 270, 0);
+      }
+
+      if ((bigroadarray[horizontalcounter][verticalcounter] == 41) |
+          (bigroadarray[horizontalcounter][verticalcounter] == 32))
+
+      {
+          //SetFont("trbl"); // j shaped
+          //sector_SetRotation (currentsectorid, 90, 0);
+          ChangeFloor(currentsectorid, "zcornb");
+      }
+
+      if ((bigroadarray[horizontalcounter][verticalcounter] == 21) |
+          (bigroadarray[horizontalcounter][verticalcounter] == 34) )
+
+      {
+          //SetFont("tibr"); 
+          ChangeFloor(currentsectorid, "zcorn"); //r
+      }
+
+
+
+
+
+
+
+			
+
+
+
+
+
+
+      /////////////////////////// houses etc
+
+      /*
+
+
+
+                    if (type ==1){spawnspotfacing("hangarspawner",square+100,droptag);ChangeFloor (square,"NEWGA");}
+        if (type ==2){spawnspotfacing("villagetiles",square+100,droptag);ChangeFloor (square,"NEWV");}
+        if (type ==3){spawnspot("petroltiles",square+100,droptag);ChangeFloor (square,"ZMPETT");}
+        if (type ==4){spawnspot("barntiles",square+100,droptag);ChangeFloor (square,"NBARN");}		
+        if (type ==5){spawnspot("barrackstiles",square+100,droptag);ChangeFloor (square,"NBARRAC");}
+        if (type ==6){	SetLineTexture(LINE,SIDE_FRONT,TEXTURE_MIDDLE,"CEIL3_6"); SetLineTexture(LINE,SIDE_back,TEXTURE_MIDDLE,"CEIL3_6");	ChangeFloor (square,"ZTREES");} // cow field. change the texture of lines here. plus spawn cows
+        if (type ==7){spawnspot("chapel",square+100,droptag);ChangeFloor (square,"ZCHURCH");}
+
+
+                */
+
+      if (bigroadarray[horizontalcounter][verticalcounter] == 50)
+
+      {
+
+          spawnspotfacing("villagetiles", currentsectorid + 100, droptag);
+          ChangeFloor(currentsectorid, "NEWV");
+          //spawnspot("whouse",currentsectorid+100,3000);
+          Line_SetBlocking((currentsectorid * 100) + 2, BLOCKF_EVERYTHING, 0); //blocks houses lines
+
+      }
+
+      if ((bigroadarray[horizontalcounter][verticalcounter] == 51))
+
+      {
+     
+          ChangeFloor(currentsectorid, "FWATER1"); //lake
+        //  Floor_LowerByValue(currentsectorid, 255, 200);
+
+     
+
+      }
+
+      if ((bigroadarray[horizontalcounter][verticalcounter] == 52)) {
+          SetFont("trfrst"); //forest
+          ChangeFloor(currentsectorid, "ztrees");
+          spawnspot("forestspawn", currentsectorid + 100, 3000);
+
+      }
+
+      if ((bigroadarray[horizontalcounter][verticalcounter] < 6) & (bigroadarray[horizontalcounter][verticalcounter] > 0))
+
+      {
+          SetFont("trcit"); //city
+          ChangeFloor(currentsectorid, "ZMILETC");
+       //   ACS_Execute(1008, 1, 5, currentsectorid + 100); //moves the sign there
+          spawnspot("hsfire", currentsectorid + 100, 3000);
+      }
+
+      if ((bigroadarray[horizontalcounter][verticalcounter] == 54)) 
+
+      {
+          SetFont("tsmi"); //military
+          ChangeFloor(currentsectorid, "ztent");
+          spawnspot("tentspawner", currentsectorid + 100, 3000);
+
+      }
+
+      if ((bigroadarray[horizontalcounter][verticalcounter] == 55))
+
+      {
+          SetFont("trfrm"); //farm
+
+          // ChangeFloor(currentsectorid, "zcrop");
+          spawnspot("cow2017", currentsectorid + 100, 3000);
+          // spawnspot("barntiles", currentsectorid + 100, 3000);
+          spawnspot("shackbarn", currentsectorid + 100, 3000);
+
+          SetLineTexture((currentsectorid * 100) + 6, SIDE_FRONT, TEXTURE_MIDDLE, "CEIL3_6");
+          SetLineTexture((currentsectorid * 100) + 6, SIDE_back, TEXTURE_MIDDLE, "CEIL3_6");
+          ChangeFloor(currentsectorid, "ZTREES"); // cow field. change the texture of lines here.
+          Line_SetBlocking((currentsectorid * 100) + 6, BLOCKF_EVERYTHING, 0); //blocks houses lines
+
+      }
+
+      if ((bigroadarray[horizontalcounter][verticalcounter] == 56)) //crops
+
+      {
+
+          Line_SetBlocking((currentsectorid * 100) + 6, BLOCKF_EVERYTHING, 0); //blocks houses lines
+
+          SetLineTexture((currentsectorid * 100) + 6, SIDE_FRONT, TEXTURE_MIDDLE, "CEIL3_6");
+          SetLineTexture((currentsectorid * 100) + 6, SIDE_back, TEXTURE_MIDDLE, "CEIL3_6");
+          ChangeFloor(currentsectorid, "ZTREES"); // 
+
+      }
+
+      if ((bigroadarray[horizontalcounter][verticalcounter] == 57)       )
+
+      {
+          SetFont("ztrees"); //petrol
+          ChangeFloor(currentsectorid, "ZMILETC");
+          //spawnspot("finalpump2017",currentsectorid+100,3000);
+          //	spawnspot("petroltiles",currentsectorid+100,3000);
+          spawnspot("petroltiles", currentsectorid + 100, droptag);
+          ChangeFloor(currentsectorid, "ZMPETT");
+          Line_SetBlocking((currentsectorid * 100) + 3, BLOCKF_EVERYTHING, 0);
+
+      }
+
+      if ((bigroadarray[horizontalcounter][verticalcounter] == 58))
+
+      {
+          //SetFont("ztrees"); //airport
+          //	ChangeFloor (currentsectorid,"NEWGA");
+          //	spawnspotfacing("hangarspawner",currentsectorid+100,3000);
+
+          spawnspotfacing("hangarspawner", currentsectorid + 100, droptag);
+          ChangeFloor(currentsectorid, "NEWGA");
+          Line_SetBlocking((currentsectorid * 100) + 1, BLOCKF_EVERYTHING, 0); //blocks houses lines
+      }
+
+      if ((bigroadarray[horizontalcounter][verticalcounter] == 59))
+
+      {
+          //SetFont("ztrees"); //airport
+          //	ChangeFloor (currentsectorid,"NEWGA");
+          //	spawnspotfacing("hangarspawner",currentsectorid+100,3000);
+
+          spawnspot("chapel", currentsectorid + 100, droptag);
+          ChangeFloor(currentsectorid, "ZCHURCH");
+
+          Line_SetBlocking((currentsectorid * 100) + 7, BLOCKF_EVERYTHING, 0);
+      }
+
+      if ((bigroadarray[horizontalcounter][verticalcounter] == 60))
+
+      {
+
+          spawnspot("barrackstiles", currentsectorid + 100, droptag);
+          ChangeFloor(currentsectorid, "NBARRAC");
+
+          Line_SetBlocking((currentsectorid * 100) + 5, BLOCKF_EVERYTHING, 0);
+      }
+
+      if ((bigroadarray[horizontalcounter][verticalcounter] == 61))
+
+      {
+          
+		Line_SetBlocking((currentsectorid * 100) + 4, BLOCKF_EVERYTHING, 0);
+          spawnspot("barntiles", currentsectorid + 100, 3000);
+
+          ChangeFloor(currentsectorid, "nbarn"); // cow field. change the texture of lines here.
+
+      }
+
+
+	  
+         if ((bigroadarray[horizontalcounter][verticalcounter] == 62)) //chopper
+
+      {
+          
+
+         	  //these need replacing with an actual tile
+
+
+			  			  SpawnSpot("chopper",currentsectorid + 100 , 30001);
+			  spawn("chopdropgun",GetActorX(currentsectorid + 100)+100.0,GetActory(10633)+100.0,GetActorz(1063));
+			  spawn("p_mosin",GetActorX(currentsectorid + 100)-100.0,GetActory(10633)-30.0,GetActorz(10633));
+			  spawn("7point62x54",GetActorX(currentsectorid + 100)+100.0,GetActory(10633)-100.0,GetActorz(10633));
+			  spawn("helecopteritem",GetActorX(currentsectorid + 100)-100.0,GetActory(10633)+100.0,GetActorz(10633));
+
+          ChangeFloor(currentsectorid, "ZTREES"); // cow field. change the texture of lines here.
+
+      }
+	  
+	  
+
+	  //REMOVE:
+	   spawnspot("ZombiespawnerDoomz", currentsectorid + 100, 3000);
+	  
+	  
+	  
+	  
+	  
+	  
+
+      if ((horizontalcounter < 0) | (verticalcounter < 0)) {
+
+          ChangeFloor(currentsectorid, "fwater1");
+      }
+
+  }
+  
+  script 909 (void)  // wiping the 
+  {
+thing_remove(666);	
+thing_remove(3000);
+thing_remove(3001);  
+int countx=0;
+int county=0;
+
+
+bigroadarray[countx][county]=0;
+int currentsector=1300;
+while (county<9){
+	bigroadarray[countx][county]=0;
+	if (countx<9){SetLineTexture((currentsector*100)+6,SIDE_FRONT,TEXTURE_MIDDLE,""); SetLineTexture((currentsector*100)+6,SIDE_back,TEXTURE_MIDDLE,"");countx++;currentsector++;}
+	else if (county<9){SetLineTexture((currentsector*100)+6,SIDE_FRONT,TEXTURE_MIDDLE,""); SetLineTexture((currentsector*100)+6,SIDE_back,TEXTURE_MIDDLE,"");county++;countx=0;currentsector++;}
+}
+
+
+delay (50);
+//ACS_Execute(5,1);
+ ACS_Execute(9022,1); // ROAD
+ 
+ ACS_Execute(9024,1); //adding the items to the map
+  ACS_Execute(910,1);
+ delay(100);
+ ACS_Execute(903,1); // adding the items into the real world
+
+// then it needs to wipe all the floors again too?
+
+//also it needs to wipe the whole grid then run the start script again
+
+
+
+ }
+ 
+ script 910 (void) //moving the skybox
+ {
+	 ThrustThing(0,2,10,8081);
+	 delay(50);
+	 Thing_Stop(8081);
+	 
+	 }
+	 
+	 
+script 911 (int x, int y)
+{
+print(i: bigroadarray[x][y]);	
+}

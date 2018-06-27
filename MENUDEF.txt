@@ -1,0 +1,115 @@
+LISTMENU "MainMenu"
+{
+    IfGame(Doom, Chex)
+    {
+        StaticPatch 94, 2, "M_DOOM"
+        Position 97, 72
+        IfOption(ReadThis)
+        {
+            Position 97, 64
+        }
+    }
+ 
+	
+	// Do a check which checks for gzdoom and zandronum only
+
+    IfGame(Doom, Strife, Chex)
+    {
+        Font "BIGFONT", "black", "red"
+        TextItem "New Game", "n", "PlayerclassMenu"
+        ifOption(SwapMenu)
+        {
+		    TextItem "DoomZ options",   "d", "Cvarsmenu"
+            TextItem "Load Game",     "l", "LoadGameMenu"
+            TextItem "Save Game",     "s", "SaveGameMenu"
+            TextItem "Options",       "o", "OptionsMenu"
+           
+        }
+        else
+        {
+		
+		    TextItem "DoomZ options",   "d", "Cvarsmenu"
+            TextItem "Options",       "o", "OptionsMenu"
+            TextItem "Load Game",     "l", "LoadGameMenu"
+            TextItem "Save Game",     "s", "SaveGameMenu"
+			
+			
+        }
+        //ifOption(ReadThis)
+        //{
+            TextItem "Read This",     "r", "ReadThisMenu"
+        //}
+        TextItem "Quit Game", "q", "QuitMenu"
+    }
+    
+
+}
+
+
+
+optionmenu "Cvarsmenu"
+{
+title "DoomZ options"
+statictext ""
+title "Overide defaults"
+Option "override defaults", "defaulttype", "defaults"
+
+statictext "This will need you to restart the game"
+statictext ""
+Option "show fps?", "vid_fps", "fps"
+
+statictext ""
+title "Performance options"
+statictext ""
+Option "Voxel trees - High", "treetype", "treetypechoice"
+
+
+Slider "chourlength", "chourlength", 50, 2000,10
+
+}
+
+
+
+Optionvalue CamerasTG
+{
+1, "On"
+0, "off"
+}
+
+
+Optionvalue CamerasTG2
+{
+1, "Default chasecam style"
+2, "Camera rotation only"
+}
+
+//optionvalue Bigger
+//{
+ // 0, "Default"
+//  1, "chance to appear with Voidorb"
+//  2, "chance to appear with Kamui"
+//  3, "chance to appear with Backpack"
+//  4, "chance to appear with AllOfAbove"
+//  5, "Disabled"
+//}
+
+
+
+optionvalue treetypechoice
+{
+  0, "sprite trees - M"
+  2, "Volumetric trees - H"
+  1, "No trees - Test"
+}
+
+optionvalue defaults
+{
+  0, "NO"
+  1, "Yes"
+}
+
+optionvalue fps
+{
+  0, "NO"
+  1, "Yes"
+}

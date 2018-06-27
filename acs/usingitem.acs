@@ -1,0 +1,67 @@
+																					//actions. eating drinking etc
+																					
+
+script 701(void) { // The script to eat
+  Print(s: " eating  ");
+    setUserVariable(1000 + PlayerNumber(), "user_food",( GetUserVariable(1000 + PlayerNumber(), "user_food") + 40));
+	if (GetUserVariable(1000 + PlayerNumber(), "user_food") > 100){setUserVariable(1000 + PlayerNumber(), "user_food",100);}
+
+  Delay(10);
+}
+
+script 702(void) { // drinking
+    setUserVariable(1000 + PlayerNumber(), "user_drink",( GetUserVariable(1000 + PlayerNumber(), "user_drink") + 40));
+	if (GetUserVariable(1000 + PlayerNumber(), "user_drink") > 100){setUserVariable(1000 + PlayerNumber(), "user_drink",100);}
+  Delay(10);
+}
+
+script 703(void) { // bandaging
+  Print(s: " bandaging ");
+  setUserVariable(1000 + PlayerNumber(), "user_bleed", 0);
+  Delay(10);
+}
+
+script 705(void) { // bloodbag
+  Print(s: " giving yourself a bloodbag injection or something ");
+  Thing_Damage((1000 + PlayerNumber()), -50);
+  Delay(10);
+}
+
+script 706(void) { // morpheine
+  Print(s: " starting to morpheine it up");
+  SetActorProperty(1000 + PlayerNumber(), APROP_Speed, 0.0);
+  delay(50);
+  setUserVariable(1000 + PlayerNumber(), "user_break", 0);
+  SetActorProperty(1000 + PlayerNumber(), APROP_Speed, 0.31);
+  Print(s: " Morpheining up! ");
+  Delay(10);
+}
+
+script 707(void) { // antibiotics
+  Print(s: " Antibioticing ");
+    setUserVariable(1000 + PlayerNumber(), "user_ill", 0);
+    setUserVariable(1000 + PlayerNumber(), "user_sick", 0);
+  delay(50);
+  takeActorInventory((1000 + PlayerNumber()), "Decill", 999999); // this is incase you cough as you take it
+  Delay(10);
+
+  HudMessage(s: ""; HUDMSG_PLAIN, 19, CR_green, 0.8, 0.47, 1); // i think this was to wipe out the
+}
+
+script 708(void) { // heatpacking
+  Print(s: " heatpacking ");
+    setUserVariable(1000 + PlayerNumber(), "user_temp", 100);
+  Delay(10);
+}																					
+																					
+script 852(int percentchanceill, int amountoffood) { // the script when eating something dubious. Will this make you sick?
+  HudMessage(s: "Should you really have eaten that?", i: ((percentchanceill)); HUDMSG_PLAIN, 5125, CR_GREEN, -500.0, 0.25, 5.0);
+  delay(20);
+
+  int randomchanceofill = Random(0, 100);
+  if (randomchanceofill <= percentchanceill) {
+    HudMessage(s: "Ugh...euuugh....oh dear", i: ((percentchanceill)); HUDMSG_PLAIN, 5125, CR_red, -500.0, 0.25, 5.0);
+    giveActorInventory((1000 + PlayerNumber()), "decsick", 1);
+  }
+
+}			

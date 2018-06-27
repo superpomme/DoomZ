@@ -1,0 +1,23 @@
+height 0; 
+
+      Resolution 640, 480  ;
+statusbar normal, forcescaled
+{
+   
+
+   //journal writing
+  // DrawString bigfont, yellow, weapontag, 350, 20, 0, alignment(left);
+  //  DrawString bigfont, yellow, ammo1tag, 350, 30, 0, alignment(left);
+	// drawnumber 2, bigfont, yellow, ammo1, drawshadow, 370, 40;
+	
+	
+	
+	drawnumber 3, bigfont, yellow, ammo1,  -30, 40;
+	DrawString bigfont, yellow, ":",-17, 20;	
+	drawnumber 3, bigfont, yellow, ammo2,  -10, 40;
+								
+	DrawString bigfont, yellow, weapontag,-50, 10;	
+	DrawString bigfont, yellow, ammo1tag,-50, 40;
+	
+	
+}

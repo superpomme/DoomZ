@@ -1,0 +1,22 @@
+namespace = "ZDOOM";
+include= "SCRIPT00";
+conversation{
+id=1;
+actor=BaronOfHell";
+  page{
+  name="bob";
+  dialog="hello";
+  choice{text="option 1";
+  yesmessage="ok, something random";
+  closedialog=true;
+  }
+   choice{text="option 2";
+  yesmessage="ok, something random";
+  closedialog=true;
+  }
+   choice{text="option 3";
+  yesmessage="ok, something random";
+  closedialog=true;
+  }
+  }
+  }

@@ -1,0 +1,382 @@
+
+
+
+script 2342 (int thetid, int haspetrolornot)  //Using petrol pumps. 2017
+{
+//first, does it have any petrol. If not, say its empty
+	if (haspetrolornot==1){
+	
+		SetFont("bigfont");		
+		
+//check if you have empty petrol cans		
+		if (ACS_ExecuteWithResult(867, 29) == 1) 
+		  {
+
+				HudMessage(s: "Filling petrol can"; HUDMSG_PLAIN, 867, CR_GREEN, 0.5, 0.45, 5.0);
+				ACS_ExecuteWithResult(860, 28); //give you a full petrol can
+				//set state to empty
+				//change the execute script to one with no petrol
+				setActorState(thetid, "empty"); 
+				 SetThingSpecial(thetid, ACS_ExecuteAlways, 2342,1,thetid,0); //sets it to not have petrol
+				} 
+		else {
+				HudMessage(s: "No empty petrol cans to fill"; HUDMSG_PLAIN, 868, CR_red, 0.5, 0.5, 5.0);
+			  }
+		}
+				
+		
+//are you near enough to the car to fill directly?				
+		if (isWithin(thetid, 2000, 300)) { // are you near the car?
+//is the car more than 90 full, if so, fail			
+			if (petrol<90){
+				HudMessage(s: "Filling the car directly"; HUDMSG_PLAIN, 868, CR_Green, 0.5, 0.5, 5.0);
+				TakeActorInventory(thetid, "petrolcan", 1);
+				petrol = (petrol+30);
+				ThingSound(thetid, "petrol", 127);
+				setActorState(thetid, "empty"); 
+				SetThingSpecial(thetid, ACS_ExecuteAlways, 2342,1,thetid,0); //sets it to not have petrol
+				}
+			else {
+				HudMessage(s: "can't get any mo"; HUDMSG_PLAIN, 868, CR_Green, 0.5, 0.5, 5.0);
+				}
+				
+				
+				
+			}
+				
+	
+// if it comes through with a 0 for petrol - say that it is empty	
+	else if (haspetrolornot==0)
+				{
+					setfont("bigfont");
+				HudMessage(s: "The pump is empty"; HUDMSG_PLAIN, 867, CR_red, 0.5, 0.5, 2.0);
+				}
+}
+
+
+
+
+
+
+script 2343 open //setting the petrol pumps up at the start. they need separate tids as 
+//have a variable for running both
+{
+	int	thingtoremove=5981;
+	while ( thingtoremove<5989){//85
+		Thing_Remove(thingtoremove);
+		 
+		 thingtoremove++;
+		 delay(1);
+	}
+	
+	
+	int	tidtospawnat=4981; 
+	while (tidtospawnat<4985){
+	SpawnSpotFacing("finalpump2017",tidtospawnat,(tidtospawnat+1000));
+	tidtospawnat++;
+	delay(1);
+	}
+	
+	while (tidtospawnat<4989){
+	SpawnSpotFacing("finalpump2017r",tidtospawnat,(tidtospawnat+1000)); //runway
+	tidtospawnat++;
+	delay(1);
+	}
+	
+	int	tidtochange=5981;
+	while (tidtochange<5989){
+		int doesithave =random(0,1);
+		 SetThingSpecial(tidtochange, ACS_ExecuteAlways, 2342,1,tidtochange,doesithave);
+		if (doesithave==0)
+		{
+		 setActorState(tidtochange, "empty"); 
+		 }
+		 
+		 tidtochange++;
+		 delay(1);
+	}
+
+}
+
+
+
+
+
+
+
+
+// ----------------------------------------------town petrol st
+
+
+
+
+int petrolstationblown_town = 0; //these can be added to when it blows up, and it then deducts one each day
+
+
+script 7760 (int whichstation) //resetting the petrol stations
+{
+if (petrolstationblown_town == 0) {
+    petrolstationblown_town = 1;
+
+	
+	 ChangeFloor(822, "ASHWALL4"); // change the roofparts
+	 Floor_raiseInstant(822, 0, 2); // the explosion floor bits
+	SetLineTexture(823, SIDE_Front, TEXTURE_BOTTOM, "ASHWALL4"); // shop wall
+	   ACS_executealways(50, 1, 1714, 1715); // think this is the glass shattering
+    ACS_executealways(50, 1, 1716, 1717); // 
+	
+	floor_lowerInstant(101, 0, 56); //vanish the roof
+    ceiling_lowerInstant(101, 0, 56);//vanish the roof
+	
+	  floor_lowerInstant(102, 0, 56); //pillar top
+    ceiling_lowerInstant(102, 0, 56);//pillar top
+	
+	
+	 PlaySound(107, "explod", CHAN_BODY, 1.0, FALSE, 0.01);
+	 SpawnSpot("rocket2", 819);
+	 delay(1);
+	 	 SpawnSpot("petrolfire", 818,19000);
+    SpawnSpot("petrolfire", 819,19000);
+	// SpawnSpot("rocket2", 817); // originally this was rocket 3. why?
+    SpawnSpot("Thunderbr", 820);// the flash
+   
+  //  SpawnSpot("rocket2", 818);
+	delay(10);
+    PlaySound(107, "explod", CHAN_BODY, 1.0, FALSE, 0.01);
+    
+    delay(10);
+  //  SpawnSpot("rocket2", 819);
+    delay(10);
+   // SpawnSpot("rocket2", 818);
+    delay(10);
+  //   SpawnSpot("rocket2", 811);
+    delay(20);
+
+	
+	
+	
+	
+	delay (timetorespawnpetrol);
+	
+	
+	
+	petrolstationblown_town = 0;
+	Thing_Remove(19000); //the fire for town_p_s
+	delay(1);
+	Thing_Remove(19000); //the fire for town_p_s
+	Floor_raiseInstant(822, 0, -2); // the explosion floor bits
+	ChangeFloor(822, "DARKERGR"); // change the roofparts
+	SetLineTexture(823, SIDE_Front, TEXTURE_BOTTOM, "GASWALL"); // shop wall
+	
+	//acs_execute(2343,1);//reset the pumps
+	
+	
+	floor_lowerInstant(101, 0, -56); //unvanish the roof
+    ceiling_lowerInstant(101, 0, -56);//unvanish the roof
+	
+	  floor_lowerInstant(102, 0, -56); //unpillar top
+    ceiling_lowerInstant(102, 0, -56);//unpillar top
+	ACS_Execute(2343,1); //resets the pumps
+	//reverse
+	//   floor_raiseInstant(101, 0, 56);
+  //  ceiling_raiseInstant(101, 0, 56);
+
+  //  floor_raiseInstant(102, 0, 56);
+  //  ceiling_raiseInstant(102, 0, 56);
+	//SetLineTexture(103, SIDE_Front, TEXTURE_BOTTOM, "GASWALL");//wall of shopl
+	}
+	
+}
+
+
+
+// ----------------------------------------------runway petrol st
+
+
+int petrolstationblown2_air = 0;
+
+
+
+script 7761 (int whichstation) //resetting the petrol stations
+{
+	
+if (petrolstationblown2_air == 0) {
+    petrolstationblown2_air = 1;
+
+	
+	// ChangeFloor(822, "ASHWALL4"); // change the roofparts
+//	 Floor_raiseInstant(822, 0, 2); // the explosion floor bits
+//	SetLineTexture(823, SIDE_Front, TEXTURE_BOTTOM, "ASHWALL4"); // shop wall
+	//   ACS_executealways(50, 1, 1714, 1715); // think this is the glass shattering
+   // ACS_executealways(50, 1, 1716, 1717); // 
+	
+	floor_lowerInstant(12001, 0, 56); //vanish the roof
+    ceiling_lowerInstant(12001, 0, 56);//vanish the roof
+	
+	  floor_lowerInstant(12002, 0, 56); //pillar top
+    ceiling_lowerInstant(12002, 0, 56);//pillar top
+	
+	 PlaySound(106, "explod", CHAN_BODY, 1.0, FALSE, 0.01);
+	 SpawnSpot("rocket2", 810);
+	
+	 delay(1);
+	 	 SpawnSpot("petrolfire", 811,19000);
+    SpawnSpot("petrolfire", 810,19000);
+	// SpawnSpot("rocket2", 817); // originally this was rocket 3. why?
+    SpawnSpot("Thunderbr", 106);// the flash
+	delay(10);
+    PlaySound(107, "explod", CHAN_BODY, 1.0, FALSE, 0.01);
+
+
+	
+	
+	
+	
+	delay (timetorespawnpetrol);
+	
+	
+	
+	petrolstationblown2_air = 0;
+	Thing_Remove(19000); //the fire for town_p_s
+	delay(1);
+	Thing_Remove(19000); //the fire for town_p_s
+	Floor_raiseInstant(822, 0, -2); // the explosion floor bits
+	ChangeFloor(822, "DARKERGR"); // change the roofparts
+	SetLineTexture(823, SIDE_Front, TEXTURE_BOTTOM, "GASWALL"); // shop wall
+	floor_lowerInstant(12001, 0, -56); //unvanish the roof
+    ceiling_lowerInstant(12001, 0, -56);//unvanish the roof	
+	  floor_lowerInstant(12002, 0, -56); //unpillar top
+    ceiling_lowerInstant(12002, 0, -56);//unpillar top
+	ACS_Execute(2343,1); //resets the pumps
+
+	}
+
+}
+
+
+
+
+
+/*
+
+
+http://soundbible.com/1405-Dry-Fire-Gun.html -  Mike Koenig - click
+
+
+
+
+
+
+script 776(void) { // petrol station. the town one
+  if (petrolstationblown_town == 0) {
+    petrolstationblown_town = 2;
+    PlaySound(107, "explod", CHAN_BODY, 1.0, FALSE, 0.01);
+    ACS_executealways(50, 1, 1714, 1715); // think this is the glass shattering
+    ACS_executealways(50, 1, 1716, 1717); // 
+    SpawnSpot("rocket2", 817); // originally this was rocket 3. why?
+    SpawnSpot("Thunderbr", 820);// the flash
+   
+    SpawnSpot("rocket2", 818);
+    SpawnSpot("petrolfire", 818,19000);
+    SpawnSpot("petrolfire", 819,19000);
+    delay(10);
+    PlaySound(107, "explod", CHAN_BODY, 1.0, FALSE, 0.01);
+    SpawnSpot("rocket2", 819);
+    delay(10);
+    SpawnSpot("rocket2", 819);
+    delay(10);
+    SpawnSpot("rocket2", 818);
+    delay(10);
+    
+	
+	
+	
+	
+	floor_lowerInstant(101, 0, 56); //vanish the roof
+    ceiling_lowerInstant(101, 0, 56);//vanish the roof
+
+    floor_lowerInstant(102, 0, 56); //pillar top
+    ceiling_lowerInstant(102, 0, 56);//pillar top
+   // floor_lowerInstant(1107, 0, 3); not doing anything
+
+    SetLineTexture(103, SIDE_Front, TEXTURE_BOTTOM, "ASHWALL4"); //wall of shop
+
+    SetLineSpecial(103, 0);
+    ChangeFloor(1107, "ASHWALL4");
+
+    Ceiling_RaiseInstant(817, 0, 650);
+    changeceiling(817, "F_SKY1");
+    ChangeFloor(822, "ASHWALL4");
+    SetLineTexture(823, SIDE_Front, TEXTURE_BOTTOM, "ASHWALL4");
+    Floor_raiseInstant(822, 0, 2); // the explosion floor bits
+
+    SpawnSpot("rocket2", 811);
+    delay(20);
+    //print(s:"boom");
+
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+script 774(void) { //this is to explode the old petrol station - this means the one on the hill
+  //ThingSound(1000 + PlayerNumber(), "explod", 100); //external sound
+  PlaySound(106, "explod", CHAN_BODY, 1.0, FALSE, 0.01);
+
+  //SetLineSpecial(825, 0);  // doesnt work this way now
+  SpawnSpot("rocket2", 814); // the explosion
+  SpawnSpot("Thunderbr", 821); //the flash
+  SpawnSpot("petrolfire", 810); //the fire
+  SpawnSpot("petrolfire", 811);
+  Floor_lowerInstant(814, 0, 228);
+  SpawnSpot("rocket2", 810);// the explosion
+  delay(10);
+  SpawnSpot("rocket2", 811);// the explosion
+  delay(10);
+  SpawnSpot("rocket2", 811);// the explosion
+  delay(10);
+  SpawnSpot("rocket2", 810);// the explosion
+  delay(10);
+  Ceiling_RaiseInstant(812, 0, 650);
+  changeceiling(812, "F_SKY1");
+  Ceiling_RaiseInstant(813, 0, 650);
+  changeceiling(813, "F_SKY1");
+  Ceiling_RaiseInstant(813, 0, 650);
+  changeceiling(812, "F_SKY1");
+  // Ceiling_RaiseInstant(814, 0, 650);
+  Ceiling_RaiseInstant(814, 0, 650);
+  ChangeFloor(815, "ASHWALL4");
+  SetLineTexture(816, SIDE_Front, TEXTURE_BOTTOM, "ASHWALL4");
+  Floor_raiseInstant(815, 0, 3);
+  changeceiling(813, "F_SKY1");
+
+  floor_lowerInstant(104, 0, 100);
+  ceiling_lowerInstant(104, 0, 100);
+
+  floor_lowerInstant(105, 0, 100);
+  ceiling_lowerInstant(105, 0, 100);
+
+  SpawnSpot("rocket2", 811);
+  delay(20);
+
+  // print(s:"boom");
+}
+
+*/

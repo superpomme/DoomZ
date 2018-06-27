@@ -1,0 +1,489 @@
+
+//car2 79912
+//view2 79913
+
+//----------------------------------------------------car2
+script 9056 (int carortank)
+{
+	print(s:carortank);
+	if (carortank==1){
+		Teleport_NoFog(781143);
+		}
+		
+	 if (carortank==0){	
+	Teleport_NoFog(781144);
+	
+	}
+	
+	
+}
+
+
+
+
+script 2344 (void)
+{//tank respawn
+	Thing_Remove(79912);
+	delay(1);
+	print(s:"t");
+	ACS_Terminate(9057,1);
+	Thing_Move(79913,64446,1);
+	SpawnSpotFacing("drivetank", 64445, 79912);
+	
+}
+
+
+// CAR 2!!!
+script 9057(int carortank) { // "sort this out. it hasnt been gone through yet" - why? 
+//905ing - driving the car
+  {
+
+ PlaySound(2000,"winch",CHAN_ITEM,1.0,true);; //external sound
+
+      Thing_activate(2861); //sound player in car
+	  
+	  
+
+   // //Music_Change("D_evil",0);
+   // LocalSetMusic("music/d_lov");
+    SetLineTexture(11148, SIDE_Front, TEXTURE_BOTTOM, "radio3");
+	
+	
+//car2on = 1;  //tersting with this on - this needs to come off.
+	
+	
+	
+	   SetPlayerProperty(0, 1, PROP_FROZEN);
+	
+	
+	
+   // radiochannel = 2;
+	
+	
+	
+	
+	int car2on=1;
+	
+	
+
+   // GiveActorInventory(1000 + PlayerNumber(), "905ing", 1);
+    // while (checkActorInventory(1000 + PlayerNumber(),"905ing")>0){
+
+    int delaymove = 1;
+    int delayok = 10;
+    int dlayok = 0;
+    int dlaymove = 0;
+
+    int dice = 0;
+    int diceslow = 0;
+    int thrustAmt = 3;
+    int angAmt = 0.005;
+    int maxThrust = 5;
+
+    int newAngle;
+    int thrustNew;
+    int buttons;
+    int oldbuttons;
+
+    delay(10);
+    // SetActorProperty(1000 + PlayerNumber(), APROP_Speed, 0.0);
+    int newZ = 0.0;
+int cannoncount=50; //the countdown for the cannon
+    while (TRUE) {
+cannoncount--;
+     
+
+
+      thrustthing(virtualangle >> 8, thrustNew, maxThrust, 79912);
+      SetActorAngle(79912, virtualangle);
+      SetActorAngle(79913, virtualangle);
+      newZ = GetActorZ(79912);
+      // print(i: newZ); 
+      newZ = newZ + 80.0;
+      SetActorPosition(79913, GetActorX(79912), GetActorY(79912), newZ, 0);
+
+      thrustNew = 0;
+      newAngle = 0;
+
+      buttons = GetPlayerInput(-1, INPUT_BUTTONS);
+	  
+	  
+//        int whatsinit;
+
+      /////////////////////////////////////////////////////button left click
+
+      // left click?>
+       if (buttons & BT_ATTACK) {
+		   
+		   
+		   
+		 	 if (carortank==0){	
+								Print(s:"cannon control is now on the hatch");
+		 
+									/*
+										//needs to check type of car. could have 
+								
+								if (cannoncount>0){
+								print(s:"wait for ",i:cannoncount, s:" tics ");   
+								}
+								else
+								{
+								 print(s:"fired cannon");   
+								setActorState(79912, "rocket");
+								 PlaySound(17101,"weapons/rocklf",CHAN_ITEM,1.0,false);
+								cannoncount=50;
+								}
+									*/
+	
+	}
+	
+		   
+		   
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		}
+	 
+	  
+	  // int buttons = GetPlayerInput(-1, INPUT_BUTTONS);
+    ////  int oldbuttons = GetPlayerInput(-1, INPUT_OLDBUTTONS); //rightclick
+ 
+	  
+	  
+
+      if (buttons & BT_MOVELEFT) {
+		//  printbold(s:"left");
+        newAngle = angAmt;
+        SetLineTexture(11145, SIDE_Front, TEXTURE_BOTTOM, "steerl");
+        //    ACS_execute(788, 1);
+      }
+      if (buttons & BT_MOVERIGHT) {
+        newAngle = 0 - angAmt;
+        SetLineTexture(11145, SIDE_Front, TEXTURE_BOTTOM, "steerr");
+      }
+
+      if (buttons & BT_FORWARD) {
+
+        if (car2on == 1) {
+
+          SetLineTexture(11158, SIDE_Front, TEXTURE_BOTTOM, "ign1");
+          thrustNew = thrustAmt;
+
+          if (dice < 1) {
+            SetActorState(11154, "Rock");//first level rocking dice
+				//setActorState(79912, "normal");//set car to normal
+	
+            //  print(s:"dice");
+            dice = 1;
+          }
+
+          if (buttons & BT_speed) {
+            thrustNew = (thrustAmt * 2);
+
+            if (dice < 2) {
+              SetActorState(11154, "Rock2"); //second level rocking dice
+			  //	setActorState(79912, "rocket"); //set car to damaging mode
+	
+              //  print(s:"dice2");
+              dice = 2;
+            }
+          } else {
+            if (diceslow == 2) {
+              SetActorState(11154, "Rock");// first level rocking dice
+              //   print(s:"dice");
+			  //	setActorState(79912, "normal"); //set car to normal
+	
+              dice = 1;
+            }
+
+          }
+        }
+
+      }
+
+      if (buttons & BT_back) {
+
+        //if (checkactorinventory((1000 + PlayerNumber()),"menufoo") > 0){
+
+        if (car2on == 1) {
+
+          thrustNew = 0 - thrustAmt;
+          newAngle = 0 - newAngle;
+
+        }
+
+      }
+
+      if (buttons & BT_FORWARD && buttons & BT_BACK) {
+        //  ACS_execute(803, 1);
+        //      print(s:"jumping");
+
+      }
+	  
+	  
+	  
+	  
+	  
+	  //stopping the script
+	  
+	    if (buttons & BT_USE ) {
+        //  ACS_execute(803, 1);
+             print(s:"stopping driving");
+			 SetPlayerProperty(0, 0, PROP_FROZEN); //had to use 0
+			 Thing_Stop(79912);
+			 Thing_deactivate(2861); //sound player in car
+			 
+			 terminate;
+			 
+			 
+			 
+
+      }
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+
+      if (buttons & BT_MOVELEFT && buttons & BT_MOVERIGHT) {
+        //  ACS_execute(809, 1);
+        //      print(s:"jumping");
+
+      }
+
+      int cX = GetActorX(79912);
+      int cy = GetActorY(79912);
+      delay(1);
+      int trapX = GetActorX(79912);
+      int trapY = GetActorY(79912);
+      if ((trapX != cx) || (trapY != cy)) {
+        if (((trapX - cX < -50000) || (trapX - cX > 50000)) || ((trapY - cY < -50000) || (trapY - cY > 50000))) {
+          virtualangle = virtualangle + newAngle;
+        }
+      } else {
+        //print(s: "Trapped     ", i:dice);
+        SetActorState(11154, "rocks");
+			//setActorState(79912, "normal");
+	
+        dice = 0;
+      };
+
+
+      delay(1);
+    }
+  }
+}
+
+
+
+
+//trying this for moving the car, as it recognises self
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////
+
+
+//gunning
+
+
+
+
+//----------------------------------------------------car2
+
+
+
+//tank gunning
+script 9055(void) { 
+
+  {
+
+ SetHudSize(1000, 750, TRUE); //  sets the ui to 1000 by 750
+
+    //Music_Change("D_evil",0);
+
+//car2on = 1;  //tersting with this on - this needs to come off.
+	int cannoncount=50; //the countdown for the cannon
+	
+	
+	   SetPlayerProperty(0, 1, PROP_FROZEN);
+
+	
+	//print(s:"gunning!");
+	SetWeapon("emptee");
+
+   // GiveActorInventory(1000 + PlayerNumber(), "905ing", 1);
+    // while (checkActorInventory(1000 + PlayerNumber(),"905ing")>0){
+
+    
+
+    delay(10);
+    // SetActorProperty(1000 + PlayerNumber(), APROP_Speed, 0.0);
+    int newZ = 0.0;
+
+    while (TRUE) {
+
+     
+	 
+	 
+	 
+	 SetActorAngle(79912, virtualangle);
+      SetActorAngle(79913, virtualangle);
+      newZ = GetActorZ(79912);
+      // print(i: newZ); 
+      newZ = newZ + 80.0;
+      SetActorPosition(79913, GetActorX(79912), GetActorY(79912), newZ, 0);
+	 
+	 
+	 
+	 
+	 
+	 
+/*
+
+      thrustthing(virtualangle >> 8, thrustNew, maxThrust, 79912);
+      SetActorAngle(79912, virtualangle);
+      SetActorAngle(79913, virtualangle);
+      newZ = GetActorZ(79912);
+      // print(i: newZ); 
+      newZ = newZ + 80.0;
+      SetActorPosition(79913, GetActorX(79912), GetActorY(79912), newZ, 0);
+
+      thrustNew = 0;
+      newAngle = 0;
+
+      
+	  */
+	  
+//        int whatsinit;
+
+      /////////////////////////////////////////////////////button left click
+	  
+	  
+	  
+	  
+	  HudMessage(s:"Gunning! ";HUDMSG_PLAIN, 23, CR_green, 500.0, 350.0, 5.0);
+	  
+	  
+      int buttons = GetPlayerInput(-1, INPUT_BUTTONS);
+      int oldbuttons = GetPlayerInput(-1, INPUT_OLDBUTTONS);
+
+      if ((oldbuttons & BT_USE) != (buttons & BT_USE)) {
+        if (buttons & BT_USE) {
+          SetPlayerProperty(0, 0, PROP_FROZEN);  // this had to use 0 for some reason
+           // print(s:"stopping gunning");
+		//	setfont("bigfont");
+  HudMessage(s: "Stopping gunning" ;HUDMSG_PLAIN, 23, CR_red, 500.0, 350.0, 5.0);
+delay(10);
+			 terminate;
+
+        }
+      }
+	  
+
+      if ((oldbuttons & BT_ATTACK) != (buttons & BT_ATTACK)) {
+        if (buttons & BT_ATTACK) {
+			
+			int me = (GetActorAngle(0)>>8);
+			int car = (GetActorAngle(79912)>>8);
+         	int combined =  ((me)+(car)); //combined angle for the shot
+			 
+			 
+          // print(s:"fired cannon");
+				//needs to check type of car. could have 
+			//thrustNew = thrustAmt;
+			if (cannoncount>0){
+				
+		//	print(s:"wait for ",i:cannoncount, s:" tics ");  
+	setfont("bigfont");
+  HudMessage(s:"wait for ",i:cannoncount, s:" tics ";HUDMSG_PLAIN, 23, CR_red, 500.0, 350.0, 5.0);
+
+			
+//print (i:GetActorAngle(1000+PlayerNumber()));
+			//print (i:GetActorAngle(0));
+			//print (i:GetActorAngle(1000+PlayerNumber())>>8);
+			//print (i:GetActorAngle(0)>>8);
+			
+			//print (s:"carcangle");
+			//print (i:GetActorAngle(79912)>>8);
+			//print (s:"combine");
+			//print (i:(360-me)+(360-car));
+		
+			//print (i:(combined*-1));                                //the combined angle for the shot
+			
+	//		print (i:(GetActorAngle(79912)>>8)-(GetActorAngle(1000+PlayerNumber())));
+		//	print (i:(GetActorAngle(79912)>>8)-(GetActorAngle(1000+PlayerNumber())));
+			
+			 
+			}
+			else
+			{
+				int angle=(GetActorAngle(1000+PlayerNumber()));
+				//Thing_Projectile (79912, T_IMPFIREBALL, GetActorAngle(1000+playernumber()) >> 8, 100, 5);
+			//	print(i:me,s:" -s i- ",i:car,s:" combined- ",i:(combined*-1));
+		//Thing_Projectile (79912, 247, (-1*combined), 100, 2);
+				
+				Thing_Projectile (79912, 247, combined, 100, 2);
+				
+				
+				//Thing_Spawn (79912, T_IMPFIREBALL, 10, 64);
+			 HudMessage(s:"Fired cannon! ";HUDMSG_PLAIN, 23, CR_green, 500.0, 350.0, 0.5);
+			 PlaySound(17101,"weapons/rocklf",CHAN_ITEM,1.0,false);
+			//setActorState(79912, "rocket");
+			cannoncount=50;
+			}
+			delay(10);
+        }
+      }
+	  
+	  
+	  
+	  delay(1);
+	  
+	  
+
+	cannoncount--;
+
+
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+
+    }
+  }
+}

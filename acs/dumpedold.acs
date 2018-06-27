@@ -1,0 +1,201 @@
+ 
+
+
+8888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888888
+
+
+script 13002 enter { //constantly listing a player variable to see if it is triggering multiple times
+  SetHudSize(1000, 750, TRUE);
+  //hudmessage(i:GetUserVariable(1000+PlayerNumber(),"user_testifopen"),77,CR_BLUE,500,320,2);
+  while (true) {
+    SetFont("BIGFONT");
+    HudMessage(i: GetUserVariable(1000 + PlayerNumber(), "user_testifopen"), s: "two:", s: GetUserVariable(1001 + PlayerNumber(), "user_testifopen"); HUDMSG_PLAIN, 2000, CR_RED, 500.0, 360.0, 1.0);
+    delay(1);
+  }
+}
+
+
+script 809(void) { // test moving the car
+  Thing_Move(2000, 12001, 1);
+  //  Teleport_NoFog (12000, 0, 0 );
+}
+
+script 5631(int sector, int r, int g, int b) {
+  Sector_SetColor(sector, r, g, b, 0);
+}
+
+
+
+script 4444 ENTER {
+
+  //	 Thing_ProjectileGravity(PlayerNumber(), T_stimpack, random(0, 224), random(10, 30), random(10, 20));
+}
+
+
+/*
+script 1910(void) net { //load menu - unload if running
+
+  if (checkactorinventory((1000 + PlayerNumber()), "menufoo") < 1) {
+    GiveActorInventory(1000 + PlayerNumber(), "menufoo", 1);
+    SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
+    ACS_executealways(789, 1);
+  } else if (checkactorinventory(0), "menufoo") > 0) {
+
+    takeActorInventory(1000 + PlayerNumber(), "menulevel", 50);
+    takeActorInventory(1000 + PlayerNumber(), "menufoo", 50);
+    SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
+  }
+
+}
+*/
+
+int newtestmenu_replacewithpvar = 0;
+
+
+
+
+
+script 2664(int justchecks) { //new test of inventory
+
+  //script 860 (int item){
+
+  int x = getUserArray(0, "user_Sbarcontents", justchecks);
+  //	}
+  str nameofitem = item_spawn_names[x];
+
+  print(s: nameofitem);
+
+  int l = 0.1;
+
+  int currentsize = GetUserVariable(0, "user_Sbarsize");
+
+  for (int i = 0; i < currentsize; i++) {
+    x = getUserArray(0, "user_Sbarcontents", i);
+    //	}
+    nameofitem = item_spawn_names[x];
+
+    print(s: nameofitem);
+
+    int dl = (l * 100);
+    HudMessage(s: nameofitem; HUDMSG_PLAIN, (19 + dl), CR_RED, 0.8, (0.47 + l), 3);
+    l = (l + 0.01);
+
+  }
+
+}
+
+/*
+int currentsize = GetUserVariable(0,"user_Sbarsize");
+	SetResultValue(0);
+	for (int i = 0; i < currentsize; i++){
+		if (getUserArray(0,"user_Sbarcontents",i) == justchecks){
+			SetResultValue( 1 );
+			break;
+	//	}
+	}
+	
+}*/
+
+
+
+//	str itemnames[50] = {"","zcan","ztin","zbands","zamto","zbolt","CLIPA0","zamxo","zamyo","zamxo","zamwo", "zamvo","zamuo","CLIPA0","zsteak","heatpad",
+//"zanti", "zmorph","zwood","zmeat","zblood", "zcane","zcanf","zbook","zzratc","zzratu","NIwheel", "zbatt","petrolf","petrole","zhandu","zhandc",
+//"bolt_new","point22","point380","point9mm","point45acp","point357","5point56","7point62x39","point308","7point62x54","12gauge"};
+
+
+//****************************************************************************************************************
+
+//****************************************************************************************************************
+//listing the health icons to have a popup via hudmessage
+//tr healthicons[13] = {"WZZlA0","WZZkA0","WZZJA0","WZZIA0","WZZHA0","WZZGA0","WZZEA0","WZZDA0","WZZCA0","WZZBA0","WZZaA0","HEAFA0"};
+
+//****************************************************************************************************************
+
+//****************************************************************************************************************
+
+
+
+
+str new_rightclick_menu[32] = {
+  "",
+  "Use\n\nMove\n\nDrop\n\nCancel",
+  "zGfood",
+  "zbandager"
+};
+
+
+
+
+script 908(void) net { // THROWING SCRIPT THROW INVENTORY
+
+  int whichbarint = 1;
+  str whichsbar = "Sbar1";
+
+  int rx = GetActorX(1000 + PlayerNumber()) + 0.0;
+  int ry = GetActorY(1000 + PlayerNumber()) + 50.0;
+  int rz = GetActorZ(1000 + PlayerNumber()) + 5.0;
+  int angle = GetActorAngle(1000 + PlayerNumber()) >> 8;
+
+  delay(1);
+  //SetFont("BIGFONT");
+  //HudMessageBold(s:whichsbar ,s:  "   whichsbar";
+  //	HUDMSG_PLAIN, 917, CR_GREEN, 0.8, 0.65, 1);   
+
+  int decription = checkactorinventory((1000 + PlayerNumber()), whichsbar);
+  takeactorinventory((1000 + PlayerNumber()), "Descripter", 50);
+  giveactorinventory((1000 + PlayerNumber()), "Descripter", decription);
+  //Printbold (i: decription);                                                                                                Spawn("fire2", rx, ry, rz, 220, angle)
+  //  if (decription==1){takeactorinventory((1000 + PlayerNumber()),"Canfoo", 1); Thing_ProjectileGravity(1000 + PlayerNumber(), 199, random((angle-20),(angle+20)),random(20, 25), random(30, 33)) ; SetWeapon("Emptee");}
+
+  //	654
+
+  //deadratfoo
+  //cookedratfoo
+  //wheel
+  //battery
+  //petrolcan
+  //emptypetrolcan
+  //arm
+  //cookedarm
+
+  delay(10);
+
+  //why doesnt this refresh it//
+  decription = checkactorinventory((1000 + PlayerNumber()), whichsbar);
+  takeactorinventory((1000 + PlayerNumber()), "Descripter", 50);
+  giveactorinventory((1000 + PlayerNumber()), "Descripter", decription);
+
+}
+
+
+
+
+script 773(void) { // spawning the fire - this now looks to be done in acs
+  // the comments state that this switches the fire to useable
+  // however I think that this might just be left over from the past
+  print(s: "703 !");
+  //SetThingSpecial(720, ACS_ExecuteAlways, 11);
+  int rx = GetActorX(1000 + PlayerNumber()) + 0.0;
+  int ry = GetActorY(1000 + PlayerNumber()) + 50.0;
+  int rz = GetActorZ(1000 + PlayerNumber()) + 0.0;
+  int angle = GetActorAngle(1000 + PlayerNumber()) >> 8;
+  Spawn("fire2", rx, ry, rz, 220, angle);
+  //SetActorProperty (310, APROP_Frightened, 1);
+  //  setlinespecial(lineid, 0, 0, 0, 0, 0, 0);
+  //  setlinespecial(lineid, 0, 0, 0, 0, 0, ,);
+}
+
+
+script 845 open { // houses
+  //lstnt houses 
+  int housestart = 1900;
+  int yn = 0;
+  while (housestart <= 1902) {
+    yn = (Random(0, 1));
+    if (yn == 1) {
+      Floor_RaiseByValue(housestart, 255, 500);
+      //floor_RaiseInstant(housestart, 0, 1);
+    }
+    housestart++;
+  }
+}

@@ -1,0 +1,280 @@
+
+	
+ACTOR izhinhand : Ammo //12gauge
+{
+ Inventory.MaxAmount 6
+ +IGNORESKILL
+ Tag "12 gauge in hand"
+}
+		
+
+ACTOR izhLoaded : Ammo //12gauge
+{
+ Inventory.MaxAmount 2
+ +IGNORESKILL
+ Tag "12 gauge"
+}
+																					                            //magnum
+ 
+   ACTOR IZH : DoomWeapon   // 12gauge
+{
+	attacksound "Weapons/shotgun"
+	Weapon.AmmoType1 "izhLoaded"
+	Weapon.AmmoUse1 1
+	Weapon.AmmoType2 "izhLoaded"
+	Weapon.AmmoUse2 1
+	  +NOALERT
+	Weapon.AmmoGive1 0 
+	+Weapon.Ammo_Optional
+	Weapon.SlotNumber 4
+	Tag "IZH"
+ Inventory.PickupMessage "Picked up an IZH shotgun - takes 12 Gauge ammo" 
+ Obituary "%o was shredded by %k's IZH"
+	States
+		{
+		Ready: 
+			fizh A 1 A_WeaponReady
+			fizh A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+			Loop
+		Deselect:
+			fizh A 1 A_Lower
+			Loop
+		Select:
+			fizh A 1 A_Raise
+			Loop
+		Fire:
+			NULL A 0 A_JumpIfNoAmmo("Reload")
+
+			fizh A 0 A_FireBullets(8.5, 0, 9, random(7,11), "BulletPuff", FBF_USEAMMO|FBF_NORANDOM)
+			null a 0 A_SpawnItemEx ("gunflash", 0, 0, 30, 0, 0, 0, 0)
+			fizh A 0 A_PlaySound ("weapons/shotgf", CHAN_WEAPON)
+				null a 0 A_AlertMonsters
+			fizh B 6 
+			fizh a 1 A_ReFire ("letgo")
+			Goto Ready	
+		letgo:
+			fizh a 1 
+			SHTG B 0 A_ReFire ("letgo")
+			Goto Ready
+		Reload:
+		    SNPS A 0 A_JumpIfInventory("izhinhand", 2, "Remainingbulletreload")
+			SHTG A 0 A_JumpIfInventory("izhLoaded", 2, 2) // If the gun's full, jump 2 states.
+			TNT1 A 0 A_JumpIf(1 == (ACS_ExecuteWithResult(867,42)), "ReloadWork")
+			fizh A 20 A_PlaySound("newcl", CHAN_WEAPON) // Here's where that first line ends up - the gun does nothing and returns to Ready.
+			
+			Goto Ready 
+		ReloadWork:
+		
+		
+			fizh A 6 
+			fizh c 6
+			fizh d 6
+			fizh e 6
+			fizh f 6  A_PlayWeaponSound("weapons/shotgr")
+				null a 0 A_AlertMonsters
+			fizi f 0 A_SpawnItemEx (DeadshotgunCasing,20,3.5,32,random(0,1),random(1,2),random(0,1) )
+			fizh g 6 A_GiveInventory("izhLoaded", 2)
+			fizh h 6 A_GiveInventory("izhinhand", 4)
+			fizh i 6
+		
+	
+			Goto Ready
+			
+		Remainingbulletreload:
+			fizh A 6 A_takeInventory("izhinhand", 2)
+			fizh c 6
+			fizh d 6
+			fizh e 6
+			fizh f 6  A_PlayWeaponSound("weapons/shotgr")
+				null a 0 A_AlertMonsters
+			fizi f 0 A_SpawnItemEx (DeadshotgunCasing,20,3.5,32,random(0,1),random(1,2),random(0,1) )
+			fizh g 6 A_GiveInventory("izhLoaded", 2)
+			fizh h 6
+			fizh i 6
+			Goto Ready
+			
+		Flash:
+			TNT1 A 2 bright
+			Stop
+		Spawn:
+			PIST A -1
+			Stop
+   }
+}
+
+
+ACTOR sawnizhLoaded : Ammo //12gauge
+{
+ Inventory.MaxAmount 2
+ +IGNORESKILL
+ Tag "Loaded  12 gauge ammo"
+}
+																					                            //magnum
+
+   ACTOR sawnizh : DoomWeapon   // 12gauge
+{
+	attacksound "Weapons/shotgun"
+	Weapon.AmmoType1 "sawnizhLoaded"
+	Weapon.AmmoUse1 1
+	Weapon.AmmoGive1 0
+	Weapon.AmmoType2 "izhinhand"
+	Weapon.AmmoUse2 1
+	Weapon.AmmoGive2 0 
+	+Weapon.Ammo_Optional
+	Weapon.SlotNumber 4
+	Tag "sawnizh"
+	  +NOALERT
+ Inventory.PickupMessage "Picked up a sawn off IZH shotgun - takes 12 Gauge ammo" 
+ Obituary "%o was shredded by %k's sawn off IZH"
+	States
+		{
+		Ready: 
+			fizs A 1 A_WeaponReady
+			fizs A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+			Loop
+		Deselect:
+			fizs A 1 A_Lower
+			Loop
+		Select:
+			fizs A 1 A_Raise
+			Loop
+		Fire:
+			NULL A 0 A_JumpIfNoAmmo("Reload")
+
+			fizs b 1 A_FireBullets(12.5, 3, 9, random(8,10), "BulletPuff", FBF_USEAMMO|FBF_NORANDOM)
+			
+			null a 0 A_SpawnItemEx ("gunflash", 0, 0, 30, 0, 0, 0, 0)
+			IZHA A 0 A_PlaySound ("weapons/shotgf", CHAN_WEAPON)
+				null a 0 A_AlertMonsters
+			fizs B 6 
+			fizs a 1 A_ReFire ("letgo")
+			Goto Ready	
+		letgo:
+			fizs a 1 
+			SHTG B 0 A_ReFire ("letgo")
+			Goto Ready
+		Reload:
+		    SNPS A 0 A_JumpIfInventory("izhinhand", 2, "Remainingbulletreload")
+			SHTG A 0 A_JumpIfInventory("sawnizhLoaded", 2, 2) // If the gun's full, jump 2 states.
+			TNT1 A 0 A_JumpIf(1 == (ACS_ExecuteWithResult(867,42)), "ReloadWork")
+			fizs A 20 A_PlaySound("newcl", CHAN_WEAPON) // Here's where that first line ends up - the gun does nothing and returns to Ready.
+			
+			Goto Ready 
+		ReloadWork:
+		
+		
+			fizs A 6 
+			fizs c 6
+			fizs d 6
+			fizs e 6
+			fizs f 6  A_PlayWeaponSound("weapons/shotgr")
+				null a 0 A_AlertMonsters
+			fizi f 0 A_SpawnItemEx (DeadshotgunCasing,20,3.5,32,random(0,1),random(1,2),random(0,1) )
+			fizs g 6 A_GiveInventory("sawnizhLoaded", 2)
+			fizs h 6 A_GiveInventory("izhinhand", 4)
+			fizs i 6
+		
+	
+			Goto Ready
+			
+		Remainingbulletreload:
+			fizs A 6 A_takeInventory("izhinhand", 2)
+			fizs c 6
+			fizs d 6
+			fizs e 6
+			fizs f 6  A_PlayWeaponSound("weapons/shotgr")
+				null a 0 A_AlertMonsters
+			fizi f 0 A_SpawnItemEx (DeadshotgunCasing,20,3.5,32,random(0,1),random(1,2),random(0,1) )
+			fizs g 6 A_GiveInventory("sawnizhLoaded", 2)
+			fizs h 6
+			fizs i 6
+			Goto Ready
+			
+		Flash:
+			TNT1 A 2 bright
+			Stop
+		Spawn:
+			PIST A -1
+			Stop
+   }
+}
+
+ACTOR mp133Loaded : Ammo //12gauge
+{
+ Inventory.MaxAmount 6
+ +IGNORESKILL
+ Tag "Loaded 12 gauge ammo"
+}
+																					                            //magnum
+
+   ACTOR mp133 : DoomWeapon   // 12gauge
+{
+	attacksound "Weapons/shotgun"
+	Weapon.AmmoType1 "mp133Loaded"
+	Weapon.AmmoUse1 1
+	Weapon.AmmoGive1 0 
+	  +NOALERT
+	+Weapon.Ammo_Optional
+	Weapon.SlotNumber 4
+	Tag "mp133"
+ Inventory.PickupMessage "Picked up an mp133 shotgun - takes 12 Gauge ammo" 
+ Obituary "%o was shredded by %k's mp133"
+	States
+		{
+		Ready: 
+			cmpo A 1 A_WeaponReady
+			cmpo A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+			Loop
+		Deselect:
+			cmpo A 1 A_Lower
+			Loop
+		Select:
+			cmpo A 1 A_Raise
+			Loop
+		Fire:
+			NULL A 0 A_JumpIfNoAmmo("Reload")
+
+			IZHA A 0 A_FireBullets (6.5, 0, 9, 5, "BulletPuff")
+			null a 0 A_SpawnItemEx ("gunflash", 0, 0, 30, 0, 0, 0, 0)
+			IZHA A 0 A_PlaySound ("weapons/shotgf", CHAN_WEAPON)
+			cmpo b 3 A_SpawnItemEx (DeadshotgunCasing,20,3.5,32,random(0,1),random(1,2),random(0,1) )
+
+			cmpo a 30
+				null a 0 A_AlertMonsters
+			cmpo a 5 A_PlayWeaponSound("weapons/shotgr") // click-clack.
+			cmpo a 5
+			cmpo a 1 A_ReFire ("letgo")
+			Goto Ready		
+		letgo:
+			cmpo a 1 
+			cmpo B 0 A_ReFire ("letgo")
+			Goto Ready
+		Reload:
+			SHTG A 0 A_JumpIfInventory("mp133Loaded", 5, 2) // If the gun's full, jump 2 states.
+			TNT1 A 0 A_JumpIf(1 == (ACS_ExecuteWithResult(867,42)), "ReloadWork")
+			cmpo A 25 A_PlaySound("newcl", CHAN_WEAPON) // Here's where that first line ends up - the gun does nothing and returns to Ready.
+			Goto Ready 
+		ReloadWork:
+		
+		
+			cmpo a 6
+			cmpo c 6
+			cmpo d 6
+			cmpo e 6 A_GiveInventory("mp133Loaded", 6)
+			cmpo f 6 A_PlayWeaponSound("weapons/shotgr") // click-clack.
+			cmpo g 6 
+			null a 0 A_AlertMonsters
+			cmpo h 6
+					
+		
+			
+		
+			Goto Ready
+		Flash:
+			TNT1 A 2 bright
+			Stop
+		Spawn:
+			SHTG  A -1
+			Stop
+   }
+}

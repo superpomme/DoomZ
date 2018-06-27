@@ -1,0 +1,7 @@
+#include "zcommon.acs"
+#library "dzlibrary"
+
+script 6009 (void)
+{
+print(S:"testmenuspoke");
+}

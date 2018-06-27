@@ -1,0 +1,1126 @@
+
+	ACTOR repeaterrifleloaded : Ammo  //point357
+{
+ Inventory.MaxAmount 7
+ +IGNORESKILL
+ Inventory.Icon "CANBA0" // This displays on the fullscreen HUD.
+   Tag ".357 ammo"
+} 
+																					                            //repeater rifle
+	Actor repeaterrifle : Weapon
+{
+  Obituary "%o was reamed with %k's  repeater rifle"
+  +Weapon.Ammo_Optional
+  Inventory.PickupMessage "You picked up a repeater rifle"
+  Weapon.KickBack 125
+  Weapon.AmmoType1 "repeaterrifleloaded"
+  Weapon.AmmoUse1 1
+  Weapon.AmmoGive1 0 
+  Weapon.SlotNumber 6
+  +Weapon.NoAutoFire
+  Scale 0.8
+  +noalert
+  Decal BulletChip
+    Tag "repeater rifle"
+
+  States
+  {
+		Spawn:
+			crep A -1
+			Stop
+		Ready:
+			crep A 0
+			crep A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+			Loop
+	  Deselect:
+			crep A 1 A_Lower
+			Loop
+	  Select:
+			crep A 1 A_Raise
+			Loop
+	  Fire:
+			wnck A 0 A_JumpIfNoAmmo("Reload")
+			SNPG A 0 A_AlertMonsters
+			SNPG A 0 A_FireBullets(5.2, 0, 1, random(30,60), "mospuff", FBF_USEAMMO|FBF_NORANDOM)
+			NULL A 0 A_SpawnItemEx ("gunflash", 0, 0, 30, 0, 0, 0, 0)
+			null a 0 A_AlertMonsters
+			crep a 1  A_SpawnItemEx (DeadrifleCasing,20,3.5,32,random(0,1),random(1,2),random(0,1) )
+			NRPT A 0 
+			NRPT A 0 A_Quake(2, 2, 0, 1)
+			NRPT A 0 A_SetPitch(Pitch-0.5)
+			crep B 3 A_PlayWeaponSound("weapons/shotgf")
+		
+			crep a 2// A_PlayWeaponSound("M40Rifle/Bolt2")
+			crep a 33
+			crep A 1 A_ReFire 
+			Goto Ready
+	  Reload:
+			SNPG A 0 A_JumpIfInventory("repeaterrifleloaded", 5, 2) // If the gun's full, jump 2 states.
+			TNT1 A 0 A_JumpIf(1 == (ACS_ExecuteWithResult(867,37)), "ReloadWork")
+			crep A 20 A_PlaySound("newcl", CHAN_WEAPON) // Here's where that first line ends up - the gun does nothing and returns to Ready.
+			Goto Ready
+	  ReloadWork:
+			crep A 1 Offset(0,35) A_PlayWeaponSound("weapons/shotgr") // click-clack.
+			null a 0 A_AlertMonsters
+			crep a 1 A_GiveInventory("repeaterrifleloaded", 7)
+			//SNPG A 50 A_GiveInventory("repeaterrifleloaded", 7)
+			crep efgh 10
+			
+			Goto Ready
+  }
+}
+
+
+
+
+	ACTOR sksloaded : Ammo  //7point62x39
+{
+ Inventory.MaxAmount 10
+ +IGNORESKILL
+ Inventory.Icon "CANBA0" // This displays on the fullscreen HUD.
+   Tag "7.62x39 ammo"
+}
+																					                            //sks
+	Actor sks : Weapon
+{
+  Obituary "%o was reamed with %k's  sks"
+  +Weapon.Ammo_Optional
+  Inventory.PickupMessage "You picked up an SKS rifle"
+  Weapon.KickBack 125
+  Weapon.AmmoType1 "sksloaded"
+  Weapon.AmmoUse1 1
+  Weapon.AmmoGive1 0 
+  +noalert
+   Weapon.SlotNumber 6
+  +Weapon.NoAutoFire
+  Scale 0.8
+  Decal BulletChip
+    Tag "sks"
+
+  States
+  {
+		Spawn:
+			csks A -1
+			Stop
+		Ready:
+			YSKS A 0
+			csks A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+			Loop
+	  Deselect:
+			csks A 1 A_Lower
+			Loop
+	  Select:
+			csks A 1 A_Raise
+			Loop
+	  Fire:
+			SNPG A 0 A_JumpIfNoAmmo("Reload")
+			SNPG A 0 A_AlertMonsters
+			SNPG A 0 A_FireBullets(5.5, 0, 1, random(40,80), "mospuff", FBF_USEAMMO|FBF_NORANDOM)
+			NULL A 0 A_SpawnItemEx ("gunflash", 0, 0, 30, 0, 0, 0, 0)
+			csks b 3  A_SpawnItemEx (DeadrifleCasing,20,3.5,32,random(0,1),random(1,2),random(0,1) )
+			SNPG A 0 
+			SNPG A 0 A_Quake(2, 2, 0, 1)
+			SNPG A 0 A_SetPitch(Pitch-0.5)
+			csks a 1 A_PlayWeaponSound("weapons/shotgf")
+			null a 0 A_AlertMonsters
+			csks a 30
+			csks A 1 A_ReFire 
+			Goto Ready
+	  Reload:
+			SNPG A 0 A_JumpIfInventory("sksloaded", 8, 2) // If the gun's full, jump 2 states.
+			TNT1 A 0 A_JumpIf(1 == (ACS_ExecuteWithResult(867,39)), "ReloadWork")
+			csks A 15 A_PlaySound("newcl", CHAN_WEAPON) // Here's where that first line ends up - the gun does nothing and returns to Ready.
+			Goto Ready
+	  ReloadWork:
+	  
+			csks a 5
+		
+			csks c 5
+			csks d 5
+			csks e 5
+			csks f 5
+			csks g 10 A_GiveInventory("sksloaded", 10)
+			null a 0 A_AlertMonsters
+			csks h 10 A_PlayWeaponSound("weapons/shotgr")
+			
+			
+			
+			Goto Ready
+  }
+}
+
+
+
+
+	ACTOR cr527_loaded : Ammo  //7point62x39
+{
+ Inventory.MaxAmount 5
+ +IGNORESKILL
+ Inventory.Icon "CANBA0" // This displays on the fullscreen HUD.
+   Tag "7.62x39 ammo"
+}
+	Actor cr527 : Weapon
+{
+  Obituary "%o was reamed with %k's  cr527"
+  +Weapon.Ammo_Optional
+  Inventory.PickupMessage "You picked up an cr527 rifle"
+  Weapon.KickBack 125
+  Weapon.AmmoType1 "cr527_loaded"
+  Weapon.AmmoUse1 1
+  +noalert
+  Weapon.AmmoGive1 0 
+   Weapon.SlotNumber 6
+  +Weapon.NoAutoFire
+  Scale 0.8
+  Decal BulletChip
+    Tag "cr527 rifle"
+
+
+  States
+  {
+		Spawn:
+			zmcr A -1
+			Stop
+		Ready:
+			YSKS A 0
+			zmcr A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+			Loop
+	  Deselect:
+			zmcr A 1 A_Lower
+			Loop
+	  Select:
+			zmcr A 1 A_Raise
+			Loop
+	  Fire:
+		SNPG A 0 A_JumpIfNoAmmo("Reload")
+			SNPG A 0 A_AlertMonsters
+			SNPG A 0  A_FireBullets(4.5, 0, 1, random(40,80), "mospuff", FBF_USEAMMO|FBF_NORANDOM)
+			NULL A 0 A_SpawnItemEx ("gunflash", 0, 0, 30, 0, 0, 0, 0)
+			zmcr a 1  A_SpawnItemEx (DeadrifleCasing,20,3.5,32,random(0,1),random(1,2),random(0,1) )
+			SNPG A 0 
+			SNPG A 0 A_Quake(2, 2, 0, 1)
+			SNPG A 0 A_SetPitch(Pitch-0.5)
+			null a 0 A_AlertMonsters
+			zmcr B 1 A_PlayWeaponSound("weapons/shotgf")
+			zmcr a 40 
+			zmcr A 1 A_ReFire 
+			Goto Ready
+	  Reload:
+			SNPG A 0 A_JumpIfInventory("cr527_loaded", 3, 2) // If the gun's full, jump 2 states.
+			TNT1 A 0 A_JumpIf(1 == (ACS_ExecuteWithResult(867,39)), "ReloadWork")
+			zmcr A 15 A_PlaySound("newcl", CHAN_WEAPON) // Here's where that first line ends up - the gun does nothing and returns to Ready.
+			Goto Ready
+	  ReloadWork:
+	  
+			zmcr a 5
+			
+			zmcr c 5
+			zmcr d 5
+			zmcr e 5
+			zmcr f 5
+			null a 0 A_AlertMonsters
+			zmcr g 5 A_PlayWeaponSound("weapons/shotgr")
+			zmcr h 10  A_GiveInventory("cr527_loaded", 10)
+	  
+	
+			Goto Ready
+  }
+}
+
+
+	ACTOR blaze_loaded : Ammo  //point308
+{
+ Inventory.MaxAmount 2
+ +IGNORESKILL
+ Inventory.Icon "CANBA0" // This displays on the fullscreen HUD.
+   Tag ".308 ammo"
+}
+																					                            //blaze
+	Actor blaze : Weapon
+{
+  Obituary "%o was reamed with %k's Blaze double rifle"
+  +Weapon.Ammo_Optional
+  Inventory.PickupMessage "You picked up a Blaze double rifle"
+  Weapon.KickBack 125
+  Weapon.AmmoType1 "blaze_loaded"
+  Weapon.AmmoUse1 1
+  Weapon.AmmoGive1 0 
+  +noalert
+   Weapon.SlotNumber 6
+  +Weapon.NoAutoFire
+  Scale 0.8
+  Decal BulletChip
+    Tag "Blaze double rifle"
+
+  States
+  {
+		Spawn:
+			zako A -1
+			Stop
+		Ready:
+			nblz A 0
+			zako A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+			Loop
+	  Deselect:
+			zako A 1 A_Lower
+			Loop
+	  Select:
+			zako A 1 A_Raise
+			Loop
+	  Fire:
+			nblz A 0 A_JumpIfNoAmmo("Reload")
+			nblz A 0 A_AlertMonsters
+			nblz A 0  A_FireBullets(6, 0, 1, random(50,100), "mospuff", FBF_USEAMMO|FBF_NORANDOM)
+			NULL A 0 A_SpawnItemEx ("gunflash", 0, 0, 30, 0, 0, 0, 0)
+			nblz A 0 
+			nblz A 0 A_Quake(2, 2, 0, 1)
+			nblz A 0 A_SetPitch(Pitch-0.5)
+			null a 0 A_AlertMonsters
+			zako b 3 A_PlayWeaponSound("weapons/shotgf")
+			zako a 12
+			zako a 3 A_WeaponReady
+			
+			
+			Goto Ready
+	  Reload:
+			SNPG A 0 A_JumpIfInventory("blaze_loaded", 1, 2) // If the gun's full, jump 2 states.
+			TNT1 A 0 A_JumpIf(1 == (ACS_ExecuteWithResult(867,40)), "ReloadWork")
+			zako a 35 A_PlaySound("newcl", CHAN_WEAPON) // Here's where that first line ends up - the gun does nothing and returns to Ready.
+			Goto Ready
+	  ReloadWork:
+	  
+	        zako c 2
+			zako d 2 A_PlayWeaponSound("weapons/shotgr")
+			zako e 4
+			zako f 4
+			zako g 4
+			zako h 4 A_GiveInventory("blaze_loaded", 2)
+			zako h 2 A_PlayWeaponSound("weapons/shotgr")
+			null a 0 A_AlertMonsters
+			zako h 4  A_SpawnItemEx (DeadrifleCasing,20,3.5,32,random(0,1),random(1,2),random(0,1) )
+			
+			Goto Ready
+	  /*
+			SNPG A 1 Offset(0,35) A_PlayWeaponSound("weapons/shotgr") // click-clack.
+			SNPG A 2 Offset(0,38)
+			SNPG A 2 Offset(0,44)
+			SNPG A 2 Offset(0,52)
+			SNPG A 2 Offset(0,62)
+			SNPG A 2 Offset(0,72)
+			SNPG A 2 Offset(0,82)
+			SNPG A 50 A_GiveInventory("blaze_loaded", 2)
+			SNPG aa 1  A_SpawnItemEx (DeadrifleCasing,20,3.5,32,random(0,1),random(1,2),random(0,1) )
+			SNPG A 2 Offset(0,82)
+			SNPG A 2 Offset(0,72)
+			SNPG A 2 Offset(0,62)
+			SNPG A 2 Offset(0,52)
+			SNPG A 2 Offset(0,44)
+			SNPG A 2 Offset(0,38)
+			SNPG A 2 Offset(0,35)
+			SNPG A 2 Offset(0,32)
+			Goto Ready
+			*/
+  }
+}
+
+	ACTOR winchester_loaded : Ammo  //point308
+{
+ Inventory.MaxAmount 5
+ +IGNORESKILL
+ Inventory.Icon "CANBA0" // This displays on the fullscreen HUD.
+   Tag ".308 ammo"
+}
+																					                            //winchester
+	Actor winchester : Weapon
+{
+  Obituary "%o was reamed with %k's winchester model 70"
+  +Weapon.Ammo_Optional
+  Inventory.PickupMessage "You picked up a winchester model 70"
+  Weapon.KickBack 125
+  Weapon.AmmoType1 "winchester_loaded"
+  Weapon.AmmoUse1 1
+  +noalert
+  Weapon.AmmoGive1 0 
+   Weapon.SlotNumber 6
+  +Weapon.NoAutoFire
+  Scale 0.8
+  Decal BulletChip
+    Tag "winchester model 70"
+
+  States
+  {
+		Spawn:
+			SNPP A -1
+			Stop
+		Ready:
+			nwin A 0
+			cwnc a 1 A_WeaponReady(WRF_ALLOWRELOAD)
+			//WNCKB0 wnck
+			Loop
+	  Deselect:
+			cwnc A 1 A_Lower
+			Loop
+	  Select:
+			cwnc A 1 A_Raise
+			Loop
+	  Fire:
+			nwin a 0 A_JumpIfNoAmmo("Reload")
+			nwin a 0 A_AlertMonsters
+			nwin a 0  A_FireBullets(5.2, 0, 1, random(40,70), "mospuff", FBF_USEAMMO|FBF_NORANDOM)
+			NULL A 0 A_SpawnItemEx ("gunflash", 0, 0, 30, 0, 0, 0, 0)
+			nwin a 1  A_SpawnItemEx (DeadrifleCasing,20,3.5,32,random(0,1),random(1,2),random(0,1) )
+			nwin a 0 A_Quake(2, 2, 0, 1)
+			nwin a 0 A_SetPitch(Pitch-0.5)
+			null a 0 A_AlertMonsters
+			cwnc bb 2 A_PlayWeaponSound("weapons/shotgf")
+			cwnc aaa 0 
+			cwnc A 0
+			cwnc aa 3
+			cwnc aaa 3
+			cwnc a 3 //A_PlayWeaponSound("M40Rifle/Bolt1")
+			cwnc aa 3
+			cwnc a 3
+			cwnc aa 3
+			cwnc a 3 A_PlayWeaponSound("M40Rifle/Bolt2")
+			cwnc aaa 3
+			cwnc aa 3
+			cwnc a 3
+			cwnc a 3 A_ReFire 
+			Goto Ready
+	  Reload:
+			nwin a 0 A_JumpIfInventory("winchester_loaded", 4, 2) // If the gun's full, jump 2 states.
+			TNT1 A 0 A_JumpIf(1 == (ACS_ExecuteWithResult(867,40)), "ReloadWork")
+			nwin a 20 A_PlaySound("newcl", CHAN_WEAPON) // Here's where that first line ends up - the gun does nothing and returns to Ready.
+			Goto Ready
+	  ReloadWork:
+			nwin a 0 A_PlayWeaponSound("weapons/shotgr") 
+			null a 0 A_AlertMonsters
+			cwnc aa 8
+			cwnc c 8
+			cwnc d 15 A_GiveInventory("winchester_loaded", 5)
+			cwnc e 8
+			cwnc f 8
+	        cwnc g 8
+			cwnc h 8
+	 /*
+			nwin a 1 Offset(0,35) A_PlayWeaponSound("weapons/shotgr") // click-clack.
+			nwin a 2 Offset(0,38)
+			nwin a 2 Offset(0,44)
+			nwin a 2 Offset(0,52)
+			nwin a 2 Offset(0,62)
+			nwin a 2 Offset(0,72)
+			nwin a 2 Offset(0,82)
+			nwin a 50 A_GiveInventory("winchester_loaded", 5)
+			nwin a 2 Offset(0,82)
+			nwin a 2 Offset(0,72)
+			nwin a 2 Offset(0,62)
+			nwin a 2 Offset(0,52)
+			nwin a 2 Offset(0,44)
+			nwin a 2 Offset(0,38)
+			nwin a 2 Offset(0,35)
+			nwin a 2 Offset(0,32)
+			
+			*/
+			Goto Ready
+  }
+}
+
+
+ACTOR AkmLoaded : Ammo 
+{
+ Inventory.MaxAmount 30
+ +IGNORESKILL
+ Inventory.Icon "CANBA0" // This displays on the fullscreen HUD.
+   Tag "loaded 7.62x39mm Rounds"
+}
+																					                            //magnum
+
+
+ACTOR Akm : DoomWeapon //7point62x39 39
+{
+	attacksound "Weapons/AK47FIR"
+	Weapon.AmmoType1 "AkmLoaded"
+	Weapon.AmmoUse1 1
+	Weapon.AmmoGive1 0
+	+noalert
+	+Weapon.Ammo_Optional
+	 Weapon.SlotNumber 6
+	Tag "AKM"
+	Inventory.PickupMessage "$GOTCHAINGUN" // "You picked up an AKM (uses 7.62x39mm ammo)"
+	Obituary "$OB_MPCHAINGUN" // "%o was shredded by %k's AKM"
+	States
+		{
+		Ready: 
+			zakm A 1 A_WeaponReady
+			zakm A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+			Loop
+		Deselect:
+			zakm A 1 A_Lower
+			Loop
+		Select:
+			zakm A 1 A_Raise
+			Loop
+		Fire:
+			NULL A 0 A_JumpIfNoAmmo("Reload")
+			zakm A 1 A_FireBullets(5, 0, 1, random(20,50), "mospuff", FBF_USEAMMO|FBF_NORANDOM)
+			NULL A 0 A_SpawnItemEx ("gunflash", 0, 0, 30, 0, 0, 0, 0)
+			null a 0 A_AlertMonsters
+			zakm b 2  A_PlaySound("Weapons/shotgf", CHAN_WEAPON)
+			zakm a 1  A_SpawnItemEx (DeadrifleCasing,20,3.5,32,random(0,1),random(1,2),random(0,1) )
+			zakm a 1 
+			zakm a 1 
+			zakm a 0 A_ReFire
+			Goto Ready
+		Reload:
+			zakm A 0 A_JumpIfInventory("AkmLoaded", 25, 2) // If the gun's full, jump 2 states.
+			TNT1 A 0 A_JumpIf(1 == (ACS_ExecuteWithResult(867,39)), "ReloadWorkAkm")
+			zakm A 25 A_PlaySound("newcl", CHAN_WEAPON) // Here's where that first line ends up - the gun does nothing and returns to Ready.
+			Goto Ready 
+		ReloadWorkAkm:
+		
+		
+			zakm a 5 
+			zakm c 5 
+			zakm d 5 
+			zakm e 5 
+			zakm f 5 
+			null a 0 A_AlertMonsters
+			zakm g 5 A_PlayWeaponSound("ak47r")
+			zakm h 5 A_GiveInventory("AkmLoaded", 30)
+			
+	
+			Goto Ready
+
+		Spawn:
+			AK4I A -1
+			Stop
+   }
+}
+
+
+
+
+//AK101 	AK101 	30	
+//m4a1                	5.56mm	30	10/20/30/40rnd CMAG
+//steyr aug 	5.56mm	30	10/20/30/40rnd CMAG
+//akm	7.62x39mm Round(s)	30	10/20/30/40rnd CMAG
+
+
+
+
+ACTOR Ak101_Loaded : Ammo 
+{
+ Inventory.MaxAmount 30
+ +IGNORESKILL
+ Inventory.Icon "CANBA0" // This displays on the fullscreen HUD.
+   Tag "loaded 5.56 Rounds"  
+}
+																					                            //magnum
+
+
+ACTOR Ak101 : DoomWeapon //5.56
+{
+	attacksound "Weapons/AK47FIR"
+	Weapon.AmmoType1 "Ak101_Loaded"
+	Weapon.AmmoUse1 1
+	+noalert
+	Weapon.AmmoGive1 0 
+	+Weapon.Ammo_Optional
+ Weapon.SlotNumber 6
+	Tag "AK101"
+	Inventory.PickupMessage "You picked up an AK101"
+	Obituary  "%o was shredded by %k's AK101"
+	States
+		{
+		Ready: 
+			zakw A 1 A_WeaponReady
+			zakw A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+			Loop
+		Deselect:
+			zakw A 1 A_Lower
+			Loop
+		Select:
+			zakw A 1 A_Raise
+			Loop
+		Fire:
+			NULL A 0 A_JumpIfNoAmmo("Reload")
+			zakw A 1 A_FireBullets(6, 0, 1, random(15,45), "mospuff", FBF_USEAMMO|FBF_NORANDOM)
+			NULL A 0 A_SpawnItemEx ("gunflash", 0, 0, 30, 0, 0, 0, 0)
+			zakw b 3  A_PlaySound("Weapons/shotgf", CHAN_WEAPON)
+			null a 0 A_AlertMonsters
+			zakw a 1  A_SpawnItemEx (DeadrifleCasing,20,3.5,32,random(0,1),random(1,2),random(0,1) )
+			zakw a 1 
+			zakw a 1 
+			zako a 0 A_ReFire
+			Goto Ready
+		Reload:
+			AK47 A 0 A_JumpIfInventory("Ak101_Loaded", 25, 2) // If the gun's full, jump 2 states.
+			TNT1 A 0 A_JumpIf(1 == (ACS_ExecuteWithResult(867,38)), "ReloadWorkAkm")
+			zakw A 20 A_PlaySound("newcl", CHAN_WEAPON) // Here's where that first line ends up - the gun does nothing and returns to Ready.
+			Goto Ready 
+		ReloadWorkAkm:
+		
+			zakw A 5
+			zakw c 5
+			zakw d 5
+			zakw e 5
+			zakw f 5
+			null a 0 A_AlertMonsters
+			zakw g 5  A_PlayWeaponSound("ak47r")
+			zakw h 5 A_GiveInventory("Ak101_Loaded", 30)
+			
+		
+			Goto Ready
+		Flash:
+			TNT1 A 2 bright
+			Stop
+		Spawn:
+			AK4I A -1
+			Stop
+   }
+}
+
+// THINK THIS IS NOT USED--------------------------------
+
+ACTOR Ak10b_Loaded : Ammo  
+{
+ Inventory.MaxAmount 30
+ +IGNORESKILL
+ Inventory.Icon "CANBA0" // This displays on the fullscreen HUD.
+   Tag "loaded 7.62x39mm Rounds"
+}
+																					                            //magnum
+
+// THINK THIS IS NOT USED--------------------------------
+ACTOR Ak101b : DoomWeapon //7point62x39 39 NOT UISED
+{
+	attacksound "Weapons/AK47FIR"
+	Weapon.AmmoType1 "Ak10b_Loaded"
+	Weapon.AmmoUse1 1
+	+noalert
+	Weapon.AmmoGive1 0 
+	+Weapon.Ammo_Optional
+ Weapon.SlotNumber 6
+	Tag "AK101"
+	Inventory.PickupMessage "$GOTCHAINGUN" // "You picked up an AKM (uses 7.62x39mm ammo)"
+	Obituary "$OB_MPCHAINGUN" // "%o was shredded by %k's AKM"
+	States
+		{
+		Ready: 
+			YAKO A 1 A_WeaponReady
+			YAKO A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+			Loop
+		Deselect:
+			YAKO A 1 A_Lower
+			Loop
+		Select:
+			YAKO A 1 A_Raise
+			Loop
+		Fire:
+			NULL A 0 A_JumpIfNoAmmo("Reload")
+			AK4F A 1  A_FireBullets(5.6, 0, 1, 10.0, "BulletPuff")
+			NULL A 0 A_SpawnItemEx ("gunflash", 0, 0, 30, 0, 0, 0, 0)
+			AK4F A 1  A_PlaySound("Weapons/shotgf", CHAN_WEAPON)
+			null a 0 A_AlertMonsters
+			AK4F a 1  A_SpawnItemEx (DeadrifleCasing,20,3.5,32,random(0,1),random(1,2),random(0,1) )
+			AK4F B 1 
+			AK47 B 1 
+			AK47 B 0 A_ReFire
+			Goto Ready
+		Reload:
+			AK47 A 0 A_JumpIfInventory("Ak10b_Loaded", 25, 2) // If the gun's full, jump 2 states.
+			TNT1 A 0 A_JumpIf(1 == (ACS_ExecuteWithResult(867,38)), "ReloadWorkAkm")
+			AK47 A 15 A_PlaySound("newcl", CHAN_WEAPON) // Here's where that first line ends up - the gun does nothing and returns to Ready.
+			Goto Ready 
+		ReloadWorkAkm:
+			AK47 A 1 Offset(0,35) A_PlayWeaponSound("weapons/shotgr") // click-clack.
+			AK47 A 1 Offset(0,38)
+			AK47 A 1 Offset(0,44)
+			AK47 A 1 Offset(0,52)
+			AK47 A 1 Offset(0,62)
+			AK47 A 1 Offset(0,72)
+			AK47 A 1 Offset(0,82)
+			null a 0 A_AlertMonsters
+			TNT1 A 0 A_GiveInventory("Ak10b_Loaded", 30)
+			AK47 A 1 Offset(0,82)
+			AK47 A 1 Offset(0,72)
+			AK47 A 1 Offset(0,62)
+			AK47 A 1 Offset(0,52)
+			AK47 A 1 Offset(0,44)
+			AK47 A 1 Offset(0,38)
+			AK47 A 1 Offset(0,35)
+			AK47 A 1 Offset(0,32)
+			Goto Ready
+		Flash:
+			TNT1 A 2 bright
+			Stop
+		Spawn:
+			AK4I A -1
+			Stop
+   }
+}
+
+ACTOR m4a1_Load : Ammo 
+{
+ Inventory.MaxAmount 30
+ +IGNORESKILL
+ Inventory.Icon "CANBA0" // This displays on the fullscreen HUD.
+   Tag "loaded 5.56 Rounds"
+}
+																					                            //magnum
+
+
+ACTOR m4a1 : DoomWeapon //  THIS WAS WRONG 5point56
+{
+	attacksound "Weapons/AK47FIR"
+	Weapon.AmmoType1 "m4a1_Load"
+	Weapon.AmmoUse1 1
+	+noalert
+	Weapon.AmmoGive1 0 
+	+Weapon.Ammo_Optional
+ Weapon.SlotNumber 6
+	Tag "m4a1"
+	Inventory.PickupMessage "You picked up an m4a1"
+	Obituary  "%o was shredded by %k's m4a1"
+	States
+		{
+		Ready: 
+			mfor A 1 A_WeaponReady
+			mfor A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+			Loop
+		Deselect:
+			mfor A 1 A_Lower
+			Loop
+		Select:
+			mfor A 1 A_Raise
+			Loop
+		Fire:
+			NULL A 0 A_JumpIfNoAmmo("Reload")
+			mfor A 1  A_FireBullets(4.5, 0, 1, random(20,50), "mospuff", FBF_USEAMMO|FBF_NORANDOM)
+			NULL A 0 A_SpawnItemEx ("gunflash", 0, 0, 30, 0, 0, 0, 0)
+			mfor b 3  A_PlaySound("Weapons/shotgf", CHAN_WEAPON)
+			null a 0 A_AlertMonsters
+			mfor a 1  A_SpawnItemEx (DeadrifleCasing,20,3.5,32,random(0,1),random(1,2),random(0,1) )
+			mfor B 1 
+			mfor B 0 
+			mfor B 0 A_ReFire
+			Goto Ready
+		Reload:
+			AK47 A 0 A_JumpIfInventory("m4a1_Load", 28, 2) // If the gun's full, jump 2 states.
+			TNT1 A 0 A_JumpIf(1 == (ACS_ExecuteWithResult(867,38)), "ReloadWorkAkm")
+			mfor A 20 A_PlaySound("newcl", CHAN_WEAPON) // Here's where that first line ends up - the gun does nothing and returns to Ready.
+			Goto Ready 
+		ReloadWorkAkm:
+		
+			mfor a 5
+			
+			mfor c 5
+			mfor d 5
+			mfor e 5
+			mfor f 5
+			null a 0 A_AlertMonsters
+			mfor g 5 A_PlayWeaponSound("weapons/shotgr") // click-clack.
+			mfor h 5 A_GiveInventory("m4a1_Load", 30)
+			
+		
+			Goto Ready
+		Flash:
+			TNT1 A 2 bright
+			Stop
+		Spawn:
+			AK4I A -1
+			Stop
+   }
+}
+
+
+
+
+
+
+
+
+
+	ACTOR sawnMosLoaded : Ammo  //7point62x54
+{
+ Inventory.MaxAmount 5
+ +IGNORESKILL
+ Inventory.Icon "CANBA0" // This displays on the fullscreen HUD.
+   Tag "loaded 7.62x54mm Rounds"
+}
+																					                            //sawn mosin
+	Actor sawnMosin : Weapon
+{
+  Obituary "%o was reamed with %k's sawn off Mosin"
+  +Weapon.Ammo_Optional
+  Inventory.PickupMessage "You picked up a sawn off Mosin"
+  Weapon.KickBack 125
+  Weapon.AmmoType1 "sawnMosLoaded"
+  Weapon.AmmoUse1 1
+  +noalert
+  Weapon.AmmoGive1 0 
+  +Weapon.NoAutoFire
+   Weapon.SlotNumber 6
+  Scale 0.8
+  Decal BulletChip
+    Tag "Sawn off Mosin"
+
+  States
+  {
+		Spawn:
+			smsn A -1
+			Stop
+		Ready:
+			smsn A 0
+			smsn A 0 A_JumpIfInventory("sawnmosZoom", 1, "ScopedReady")
+			smsn A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+			Loop
+	  ScopedReady:
+			SNPS A 1 A_WeaponReady(1)
+			Loop
+	  Deselect:
+			smsn A 0 A_JumpIfInventory("sawnmosZoom", 1, "ScopedDeselect")
+			smsn A 1 A_Lower
+			Loop
+	  ScopedDeselect:
+			smsn A 0 A_TakeInventory("sawnmosZoom", 2)
+			smsn A 0 A_PlaySound("M40Rifle/Scope")
+			smsn A 2 A_ZoomFactor(1.0)
+			smsn A 1 A_Lower
+			Goto ScopedDeselect+3
+	  Select:
+			smsn A 1 A_Raise
+			Loop
+	  Fire:
+			SNPG A 0 A_JumpIfNoAmmo("Reload")
+			SNPG A 0 A_JumpIfInventory("sawnmosZoom", 1, "ScopedFire")
+			SNPG A 0 A_AlertMonsters
+			SNPG A 0 A_FireBullets(7, 0, 1, random(45,85), "mospuff", FBF_USEAMMO|FBF_NORANDOM)
+			NULL A 0 A_SpawnItemEx ("gunflash", 0, 0, 30, 0, 0, 0, 0)
+			smsn c 3  A_SpawnItemEx (DeadrifleCasing,20,3.5,32,random(0,1),random(1,2),random(0,1) )
+			SNPG A 0 A_Quake(2, 2, 0, 1)
+			SNPG A 0 A_SetPitch(Pitch-0.5)
+			null a 0 A_AlertMonsters
+			smsn a 2 A_PlayWeaponSound("weapons/shotgf")
+			smsn x 7
+			smsn y 7
+			smsn x 7	
+			smsn a 35
+			smsn A 1 A_ReFire 
+			Goto Ready
+	  ScopedFire:
+			SNPS A 0 A_AlertMonsters
+			SNPS A 0 A_FireBullets (0.0, 0.0, -1, 115, "mospuff")
+			SNPs a 0  A_SpawnItemEx (DeadrifleCasing,20,3.5,32,random(0,1),random(1,2),random(0,1) )
+			SNPS A 0 A_PlayWeaponSound("weapons/shotgf")
+			SNPS A 0 A_Quake(2, 2, 0, 1)
+			SNPS A 0 A_SetPitch(Pitch-0.5)
+			SNPS A 25
+			SNPS A 2 A_PlayWeaponSound("M40Rifle/Bolt1")
+			null a 0 A_AlertMonsters
+			SNPS A 11
+			SNPS A 2 A_PlayWeaponSound("M40Rifle/Bolt2")
+			SNPS A 19
+			SNPS A 1 A_ReFire
+			Goto Ready
+	  debugAltFire:
+			SNPS A 0 A_JumpIfInventory("sawnmosZoom", 1, "ZoomOut")
+			//SNPS A 0 A_JumpIfInventory("sawnmosZoom", 1, "ZoomMore")
+			SNPS A 0 A_PlaySound("M40Rifle/Scope")
+			SNPS A 0 A_GiveInventory("sawnmosZoom", 1)
+			SNPS A 2 A_ZoomFactor(4.0)
+			Goto Ready
+	  ZoomOut:
+			SNPG A 0 A_TakeInventory("sawnmosZoom", 2)
+			SNPG A 0 A_PlaySound("M40Rifle/Scope")
+			SNPG A 2 A_ZoomFactor(1.0)
+			Goto Ready
+	  ScopedReady:
+			SNPS A 1 A_WeaponReady(1)
+			Loop
+	  Reload:
+			SNPG A 0 A_JumpIfInventory("MosLoaded", 4, 2) // If the gun's full, jump 2 states.
+			TNT1 A 0 A_JumpIf(1 == (ACS_ExecuteWithResult(867,41)), "ReloadWork")
+			smsn A 25 A_PlaySound("newcl", CHAN_WEAPON) // Here's where that first line ends up - the gun does nothing and returns to Ready.
+			Goto Ready
+	  ReloadWork:
+	  
+			smsn a 5
+			smsn d 5
+			smsn e 5
+			smsn f 5
+			smsn g 5
+			smsn h 5
+			null a 0 A_AlertMonsters
+			 smsn i 5 A_PlayWeaponSound("weapons/shotgr") // click-clack.
+			 smsn j 5 A_GiveInventory("sawnMosLoaded", 5)
+			 smsn k 5
+			 smsn l 5
+		
+			
+			
+			Goto Ready
+  }
+}
+
+ACTOR sawnmosZoom : Inventory { Inventory.MaxAmount 2 }
+
+
+Actor mospuff : BulletPuff
+{
+  +NoExtremeDeath
+}
+
+
+
+
+	ACTOR MosLoaded : Ammo  //7point62x54
+{
+ Inventory.MaxAmount 5
+ +IGNORESKILL
+ Inventory.Icon "CANBA0" // This displays on the fullscreen HUD.
+   Tag "loaded 7.62x54mm Rounds"
+}
+																					                            //mosin
+	Actor Mosin : Weapon
+{
+  Obituary "%o was reamed with %k's  Mosin"
+  +Weapon.Ammo_Optional
+  Inventory.PickupMessage "You picked up a  Mosin"
+  Weapon.KickBack 125
+  +noalert
+  Weapon.AmmoType1 "MosLoaded"
+  Weapon.AmmoUse1 1
+  Weapon.AmmoGive1 0 
+   Weapon.SlotNumber 7
+  +Weapon.NoAutoFire
+  Scale 0.8
+  Decal BulletChip
+    Tag "Mosin"
+
+  States
+  {
+		Spawn:
+			zmsn A -1
+			Stop
+		Ready:
+			SNPG A 0
+			SNPg A 0 A_JumpIfInventory("mosZoom", 1, "ScopedReady")
+			zmsn A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+			Loop
+	  ScopedReady:
+			zmsn A 1 A_WeaponReady(1)
+			Loop
+	  Deselect:
+			SNPG A 0 A_JumpIfInventory("mosZoom", 1, "ScopedDeselect")
+			zmsn A 1 A_Lower
+			Loop
+	  ScopedDeselect:
+			SNPG A 0 A_TakeInventory("mosZoom", 2)
+			SNPG A 0 A_PlaySound("M40Rifle/Scope")
+			zmsn A 2 A_ZoomFactor(1.0)
+			zmsn A 1 A_Lower
+			Goto ScopedDeselect+3
+	  Select:
+			zmsn A 1 A_Raise
+			Loop
+	  Fire:
+			SNPG A 0 A_JumpIfNoAmmo("Reload")
+			SNPs A 0 A_JumpIfInventory("mosZoom", 1, "ScopedFire")
+			SNPG A 0 A_AlertMonsters
+			SNPG A 0 A_FireBullets(5, 0, 1, random(50,120), "mospuff", FBF_USEAMMO|FBF_NORANDOM)
+			NULL A 0 A_SpawnItemEx ("gunflash", 0, 0, 30, 0, 0, 0, 0)
+			zmsn a 1  A_SpawnItemEx (DeadrifleCasing,20,3.5,32,random(0,1),random(1,2),random(0,1) )
+			SNPG A 0 
+			SNPG A 0 A_Quake(2, 2, 0, 1)
+			SNPG A 0 A_SetPitch(Pitch-0.5)
+			zmsn b 4 A_PlayWeaponSound("weapons/shotgf")
+			null a 0 A_AlertMonsters
+			zmsn wxy 6
+			zmsn  z 4 A_PlayWeaponSound("M40Rifle/Bolt2")
+			zmsn  w 4 
+			zmsn A 1 A_ReFire 
+			Goto Ready
+	  ScopedFire:
+			SNPS A 0 A_AlertMonsters
+			SNPS A 0 A_FireBullets(0, 0, 1, random(50,120), "mospuff", FBF_USEAMMO|FBF_NORANDOM)
+			SNPs a 0  A_SpawnItemEx (DeadrifleCasing,20,3.5,32,random(0,1),random(1,2),random(0,1) )
+			SNPS A 0 A_PlayWeaponSound("weapons/shotgf")
+			SNPS A 0 A_Quake(2, 2, 0, 1)
+			SNPS A 0 A_SetPitch(Pitch-0.5)
+			SNPS A 28
+			SNPS A 2 A_PlayWeaponSound("M40Rifle/Bolt1")
+			null a 0 A_AlertMonsters
+			SNPS A 11
+			SNPS A 2 A_PlayWeaponSound("M40Rifle/Bolt2")
+			SNPS A 19
+			SNPS A 1 A_ReFire
+			Goto ScopedReady
+	  AltFire:
+			SNPS A 0 A_JumpIfInventory("mosZoom", 2, "ZoomOut")
+			SNPS A 0 A_JumpIfInventory("mosZoom", 1, "ZoomMore")
+			SNPS A 0 A_PlaySound("M40Rifle/Scope")
+			SNPS A 0 A_GiveInventory("mosZoom", 1)
+			SNPS A 2 A_ZoomFactor(6.0)
+			Goto Ready
+	  ZoomMore:
+			SNPS A 0 A_PlaySound("M40Rifle/Scope")
+			SNPS A 0 A_GiveInventory("mosZoom", 1)
+			SNPS A 2 A_ZoomFactor(12.0)
+			Goto Ready
+	  ZoomOut:
+			zmsn A 0 A_TakeInventory("mosZoom", 2)
+			SNPG A 0 A_PlaySound("M40Rifle/Scope")
+			zmsn A 2 A_ZoomFactor(1.0)
+			Goto Ready
+	  ScopedReady:
+			SNPS A 1 A_WeaponReady(1)
+			Loop
+	  Reload:
+			SNPG A 0 A_JumpIfInventory("MosLoaded", 4, 2) // If the gun's full, jump 2 states.
+			TNT1 A 0 A_JumpIf(1 == (ACS_ExecuteWithResult(867,41)), "ReloadWork")
+			zmsn A 15 A_PlaySound("newcl", CHAN_WEAPON) // Here's where that first line ends up - the gun does nothing and returns to Ready.
+			Goto Ready
+	  ReloadWork:
+	  
+	  
+			zmsn a 4
+			zmsn c 4
+			zmsn d 4
+			zmsn e 4
+			zmsn f 4 A_GiveInventory("MosLoaded", 5)
+			null a 0 A_AlertMonsters
+			zmsn g 4 A_PlayWeaponSound("weapons/shotgr") 
+			zmsn h 4
+			zmsn a 10
+			
+			
+			Goto Ready
+  }
+}
+
+ACTOR mosZoom : Inventory { Inventory.MaxAmount 2 }
+
+
+
+
+	ACTOR augloaded : Ammo  //5point56
+{
+ Inventory.MaxAmount 30
+ +IGNORESKILL
+ Inventory.Icon "CANBA0" // This displays on the fullscreen HUD.
+   Tag "loaded 5.56mm Rounds"
+}
+																					                            //aug
+	Actor Aug2 : Weapon
+{
+  Obituary "%o was shredded by %k's  Steyr Aug"
+  +Weapon.Ammo_Optional
+  Inventory.PickupMessage "You picked up a  Steyr Aug"
+  Weapon.KickBack 125
+  Weapon.AmmoType1 "augloaded"
+  Weapon.AmmoUse1 1
+  +noalert
+  Weapon.AmmoGive1 0 
+   Weapon.SlotNumber 7
+  +Weapon.NoAutoFire
+  Scale 0.8
+  Decal BulletChip
+    Tag "Steyr Aug"
+
+  States
+  {
+		Spawn:
+			yaug A -1
+			Stop
+		Ready:
+			YAUG A 0
+			YAUG A 0 A_JumpIfInventory("augZoom", 1, "ScopedReady")
+			yaug A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+			Loop
+	  ScopedReady:
+			SNPS A 1 A_WeaponReady(1)
+			Loop
+	  Deselect:
+			yaug A 0 A_JumpIfInventory("augZoom", 1, "ScopedDeselect")
+			yaug A 1 A_Lower
+			Loop
+	  ScopedDeselect:
+			SNPG A 0 A_TakeInventory("augZoom", 2)
+			SNPG A 0 A_PlaySound("M40Rifle/Scope")
+			yaug A 2 A_ZoomFactor(1.0)
+			yaug A 1 A_Lower
+			Goto ScopedDeselect+3
+	  Select:
+			yaug A 1 A_Raise
+			Loop
+	  Fire:
+			SNPG A 0 A_JumpIfNoAmmo("Reload")
+			SNPG A 0 A_JumpIfInventory("augZoom", 1, "ScopedFire")
+			SNPG A 0 A_AlertMonsters
+			SNPG A 0 A_FireBullets(5.5, 0, 1, random(30,60), "mospuff", FBF_USEAMMO|FBF_NORANDOM)
+			NULL A 0 A_SpawnItemEx ("gunflash", 0, 0, 30, 0, 0, 0, 0)
+			yaug b 2  A_SpawnItemEx (DeadrifleCasing,20,3.5,32,random(0,1),random(1,2),random(0,1) )
+			SNPG A 0 
+			SNPG A 0 A_Quake(2, 2, 0, 1)
+			SNPG A 0 A_SetPitch(Pitch-0.5)
+			yaug a 4 A_PlayWeaponSound("weapons/shotgf")
+			null a 0 A_AlertMonsters
+			
+			yaug A 1 A_ReFire 
+			Goto Ready
+	  ScopedFire:
+			SNPS A 0 A_AlertMonsters
+			SNPS A 0 A_FireBullets(1, 0, 1, random(30,60), "mospuff", FBF_USEAMMO|FBF_NORANDOM)
+			SNPs a 0  A_SpawnItemEx (DeadrifleCasing,20,3.5,32,random(0,1),random(1,2),random(0,1) )
+			SNPS A 0 A_PlayWeaponSound("weapons/shotgf")
+			SNPS A 0 A_Quake(2, 2, 0, 1)
+			SNPS A 0 A_SetPitch(Pitch-0.5)
+		
+			SNPS A 2 A_PlayWeaponSound("M40Rifle/Bolt1")
+			null a 0 A_AlertMonsters
+			SNPS A 2
+			SNPS A 3 A_PlayWeaponSound("M40Rifle/Bolt2")
+			SNPS A 3
+			SNPS A 1 A_ReFire
+			Goto Ready
+	  AltFire:
+			//SNPS A 0 A_JumpIfInventory("augZoom", 2, "ZoomOut")
+			SNPS A 0 A_JumpIfInventory("augZoom", 1, "ZoomOut")
+			SNPS A 0 A_PlaySound("M40Rifle/Scope")
+			SNPS A 0 A_GiveInventory("augZoom", 1)
+			yaug A 2 A_ZoomFactor(6.0)
+			Goto Ready
+	  ZoomOut:
+			SNPG A 0 A_TakeInventory("augZoom", 2)
+			SNPG A 0 A_PlaySound("M40Rifle/Scope")
+			yaug A 2 A_ZoomFactor(1.0)
+			Goto Ready
+	  ScopedReady:
+			SNPS A 1 A_WeaponReady(1)
+			Loop
+	  Reload:
+			SNPG A 0 A_JumpIfInventory("augloaded", 28, 2) // If the gun's full, jump 2 states.
+			TNT1 A 0 A_JumpIf(1 == (ACS_ExecuteWithResult(867,38)), "ReloadWork")
+			yaug A 20 A_PlaySound("newcl", CHAN_WEAPON)  // Here's where that first line ends up - the gun does nothing and returns to Ready.
+			Goto Ready
+	  ReloadWork:
+	  
+	  
+			yaug a 10
+			yaug c 10
+			yaug d 10
+			null a 0 A_AlertMonsters
+			yaug e 10
+			yaug f 10  A_PlayWeaponSound("weapons/shotgr")
+			yaug g 10 A_GiveInventory("augloaded", 30)
+	
+			
+			
+			Goto Ready
+  }
+}
+
+ACTOR augZoom : Inventory { Inventory.MaxAmount 2 }
+
+	

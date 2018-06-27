@@ -1,0 +1,127 @@
+
+
+// FIELD STUFF
+
+	actor sidebale 1881
+	{ 
+	//this is the bale of hay on its side
+		-NOGRAVITY
+		Radius 10
+		Height 10
+		+SOLID
+		+SHOOTABLE
+		+NODAMAGE
+		+NOBLOOD
+		+CANPASS
+		scale 1
+		States
+		{
+		Spawn:
+			BALS A -1
+			Stop
+		}
+	}
+	actor otherbale 1874
+	{
+	//the bale of hay standing up
+		-NOGRAVITY
+		Radius 10
+		Height 10
+		+SOLID
+		+SHOOTABLE
+		+NODAMAGE
+		+NOBLOOD
+		+CANPASS
+		scale 1
+		States
+		{
+		Spawn:
+			BALE A -1
+			Stop
+		}
+	}
+	
+	ACTOR sign 10629
+	{
+	height 1
+	radius 1
+	+SOLID
+	scale 1.2
+	states
+	{
+	Spawn:
+		CAT2 A -1
+		Stop
+		}
+	}
+	
+	ACTOR dsign  14543//danger sign
+	{
+	height 1
+	radius 1
+	+SOLID
+	scale 1.0
+	states
+	{
+	Spawn:
+		dsgn A -1
+		Stop
+		}
+	}
+	
+	
+	
+	
+	
+
+
+//PLACEABLE STUFF
+	//tent
+	ACTOR t5  15450 //tent - this really needs to be a model rather than a voxel
+	{
+	  Game Doom
+	  SpawnID 254
+	  Radius 45
+	  Height 40
+	  scale 3.5
+	  -shootable
+	  +USESPECIAL
+	  Activation THINGSPEC_Switch
+	  ProjectilePassHeight -16
+	  +SOLID
+	  States
+	  {
+	  Spawn:
+		NULL BCD 1 	Thing_SetSpecial(0, 80, 790, 0, 0) // for some reason it insisted on having this start bit or it wasn't useable after
+		TENT A 4  
+		Goto Ready
+	   
+	  Ready:
+		TENT A 4  
+		TENT a -1  
+		goto ready
+	  stop 
+	  }
+	}
+
+
+
+
+//Triggered stuff
+
+	ACTOR chopper 10632                   //this is the chopper spawn
+	{
+		height 80
+		radius 30
+		+SOLID
+		scale 1.2
+		states
+		{
+		Spawn:
+			//CHOP A -1
+			UHEK B 1
+			UHEK BBB 4 A_SpawnItemEx ("choppersmoke", 0, 0, 50, random(0,1), random(0,1), random(1,2),random(0,255), 0.5)
+			loop
+		}
+	}
+

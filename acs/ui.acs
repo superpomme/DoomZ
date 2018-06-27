@@ -1,0 +1,193 @@
+
+
+
+//creating the icon lists for the ui refresh
+
+//THESE NEED TO CHANGE. HEALTH IS ALL WRONG
+str healthicons[13] = {  "HEAFA0",  "WZZaA0",  "WZZBA0",  "WZZCA0",  "WZZDA0",  "WZZFA0",  "WZZGA0",  "WZZHA0",  "WZZIA0",  "WZZJA0",  "WZZkA0",  "WZZlA0",  "WZZlA0"};
+int healthiconvalues[13] = {  94,  90,  80,  70,  60,  50,  40,  30,  20,  15,  10,  5,  -100};
+
+str foodicons[12] = {  "WZWAA0",  "WZWBA0",  "WZWCA0",  "WZWDA0",  "WZWEA0",  "WZWFA0",  "WZWGA0",  "WZWHA0",  "WZWIA0",  "WZWJA0",  "WZWKA0",  "WZWLA0"};
+int foodiconvalues[12] = {  90,  79,  69,  59,  49,  39,  29,  19,  10,  9,  4};
+
+str drinkicons[12] = {  "wztAA0",  "wztBA0",  "wztCA0",  "wztDA0",  "wztEA0",  "wztFA0",  "wztGA0",  "wztHA0",  "wztIA0",  "wztJA0",  "wztKA0",  "wztLA0"  };  
+int drinkiconvalues[12] = {  90,  79,  69,  59,  49,  39,  29,  19,  10,  9,  4};
+
+str tempicons[12] = {  "hetAA0",  "hetBA0",  "hetCA0",  "hetDA0",  "hetEA0",  "hetFA0",  "hetGA0",  "hetHA0",  "hetIA0",  "hetJA0",  "hetKA0",  "hetLA0"}; //theirs had i twice and the rest shifted
+int tempiconvalues[12] = {  90,  79,  69,  59,  49,  39,  29,  19,  10,  9,  4};
+
+
+/////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+script 2 enter { // the ui stuff refresh
+	
+	Thing_ChangeTID(0, 1000 + PlayerNumber());
+	
+	
+  SetHudSize(1000, 750, TRUE);
+  
+  
+  while (2>1) {
+    int xplus = +200.0;
+    int yplus = +400.0;
+	
+	if (debug_healthetc>0){
+	//List out the values~
+	    SetFont("smallfont");
+    HudMessage(s: "health ",i:GetActorProperty((1000 + PlayerNumber()), APROP_HEALTH),
+	s: "\nfood ",i: GetUserVariable(1000 + PlayerNumber(), "user_food"),
+	s: "\ndrink ",i:GetUserVariable(1000 + PlayerNumber(), "user_drink"),
+	s: "\ntemp ",i:GetUserVariable(1000 + PlayerNumber(), "user_temp"),
+	s: "\nplus ",i:GetUserVariable(1000 + PlayerNumber(), "user_plus"),
+	s: "\nbleed ",i:GetUserVariable(1000 + PlayerNumber(), "user_bleed"),
+	s: "\nbreak ",i:GetUserVariable(1000 + PlayerNumber(), "user_break"),
+	s: "\nwet ",i:GetUserVariable(1000 + PlayerNumber(), "user_wet"),
+	s: "\nill ",i:GetUserVariable(1000 + PlayerNumber(), "user_ill"),
+	s: "\nsick ",i:GetUserVariable(1000 + PlayerNumber(), "user_sick");
+	 HUDMSG_PLAIN, 5000, 0, 800.0 + xplus, 150.0 + yplus, 3);
+	 }
+
+	
+//drink
+
+	int current_drink_ammount= GetUserVariable(1000 + PlayerNumber(), "user_drink"); // checks what the current drink int is
+	int drinkloopvalue = 0 ; //the number through the loop - i
+	int turnoffloop=0;  //this is to exit out of the loop when you hit the right icon
+
+	while (turnoffloop==0){
+		if (current_drink_ammount>=drinkiconvalues[drinkloopvalue] )
+		{
+			//print (s:"correct drink value ",i:drinkloopvalue);
+			turnoffloop=1; // turns off the loop, leaving foodloopvalue set
+		}
+		else{ drinkloopvalue++;}
+	}
+	SetFont(drinkicons[drinkloopvalue]);
+	HudMessage(s: "A"; HUDMSG_PLAIN, 5003, 0, 900.0 + xplus, 150.0 + yplus, 10);
+	
+
+//food
+
+	int current_food_ammount= GetUserVariable(1000 + PlayerNumber(), "user_food"); // checks what the current drink int is
+	int foodloopvalue = 0 ; //the number through the loop - i
+	turnoffloop=0;  //this is to exit out of the loop when you hit the right icon
+
+	while (turnoffloop==0){
+		if (current_food_ammount>=foodiconvalues[foodloopvalue] )
+		{
+			turnoffloop=1; // turns off the loop, leaving foodloopvalue set
+		}
+		else{ foodloopvalue++;}
+	}
+	SetFont(foodicons[foodloopvalue]);
+	HudMessage(s: "A"; HUDMSG_PLAIN, 5002, 0, 900.0 + xplus, 200.0 + yplus, 3);
+	
+
+
+
+
+//health
+
+
+
+    for (int looptest = 0, i = 0; looptest == 0; i++) {
+      if (GetActorProperty((1000 + PlayerNumber()), APROP_HEALTH) > healthiconvalues[i]) {
+        looptest = i;
+      }
+      delay(1);
+    }
+    SetFont(healthicons[looptest]);
+    HudMessage(s: "A"; HUDMSG_PLAIN, 5011, 0, 900.0 + xplus, 250.0 + yplus, 3.0);
+
+	
+
+
+
+
+
+
+
+
+
+ 
+
+
+//temperature
+
+
+   // for (int looptest_temp = 0, l = 0; looptest_temp == 0; l++) {
+  //    if (GetUserVariable(1000 + PlayerNumber(), "user_temp") > tempiconvalues[l]) {
+   //     looptest_temp = l;
+   //   }
+   //   delay(1);
+  //  }
+	//  SetFont(drinkicons[looptest_temp]);
+  //  HudMessage(s: "A"; HUDMSG_PLAIN, 5004, 0, 900.0 + xplus, 100.0 + yplus, 10);
+	
+	
+	/* ADD THIS BIT IN TO TEST THE PLUS ETC
+
+	SetUserVariable(1000 + PlayerNumber(), "user_plus",1);
+	SetUserVariable(1000 + PlayerNumber(), "user_bleed",1);
+	SetUserVariable(1000 + PlayerNumber(), "user_break",1);
+	SetUserVariable(1000 + PlayerNumber(), "user_wet",1);
+	SetUserVariable(1000 + PlayerNumber(), "user_ill",1);
+	SetUserVariable(1000 + PlayerNumber(), "user_sick",1);
+	
+	
+  */
+
+    //additional ones for bleeding and broken etc
+
+    if (GetUserVariable(1000 + PlayerNumber(), "user_plus") > 0) //are you healing - show the plus
+    {
+      SetFont("HEAGA0");
+      HudMessage(s: "A"; HUDMSG_FADEOUT, 5005, 0, 900.0 + xplus, 250.0 + yplus, 1);
+    }
+    if (GetUserVariable(1000 + PlayerNumber(), "user_bleed") > 0) //are you bleeding - show the blood
+    {
+      SetFont("HEBVA0");
+      HudMessage(s: "A"; HUDMSG_FADEOUT, 5006, 0, 900.0 + xplus, 260.0 + yplus, 1);
+    }
+    if (GetUserVariable(1000 + PlayerNumber(), "user_break") > 0) //are you brokeb - show the break
+    {
+      SetFont("FOXVB0");
+      HudMessage(s: "A"; HUDMSG_FADEOUT, 5007, 0, 910.0 + xplus, 310.0 + yplus, 1);
+    }
+    if (GetUserVariable(1000 + PlayerNumber(), "user_wet") > 0)  //are you soaked - show the drip
+    {
+      SetFont("WETVA0");
+      HudMessage(s: "A"; HUDMSG_FADEOUT, 5008, 0, 900.0 + xplus, 255.0 + yplus, 1);
+    }
+	
+    if (GetUserVariable(1000 + PlayerNumber(), "user_ill") > 0)  //are you ill - NEEDS ICON
+    {
+		SetFont("smallfont");
+		HudMessage(s: "Ill"; HUDMSG_FADEOUT, 5009, CR_GREEN, 890.0 + xplus, 90.0 + yplus, 1);
+      //SetFont("WETVA0");
+      //HudMessage(s: "A"; HUDMSG_FADEOUT, 5009, 0, 700.0 + xplus, 220.0 + yplus, 1);
+    }
+    if (GetUserVariable(1000 + PlayerNumber(), "user_sick") > 0)  //are you sick - NEEDS ICON
+    {
+		SetFont("smallfont");
+		HudMessage(s: "Sick"; HUDMSG_FADEOUT, 5010, CR_GREEN, 890.0 + xplus, 105.0 + yplus, 1);
+      //SetFont("WETVA0");
+     // HudMessage(s: "A"; HUDMSG_FADEOUT, 5010, 0, 700.0 + xplus, 200.0 + yplus, 1);
+    }
+
+
+   // int testbleedcomp = 100;
+    delay(10);
+
+  
+
+}
+
+}

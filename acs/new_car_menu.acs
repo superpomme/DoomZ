@@ -1,0 +1,662 @@
+  
+
+
+
+
+
+
+
+script 2996 (void) //using car new menu 2017
+
+{
+	
+  if (GetUserVariable(1000 + PlayerNumber(), "user_carmenu1") == 0) {
+		SetUserVariable(1000 + PlayerNumber(), "user_carmenu1", 1);
+		ACS_ExecuteAlways(2995, 1, 0); //freezer and unfreezer
+		ACS_ExecuteAlways(2999, 1, 0); //the new car external menu
+		SetWeapon("Emptee");
+		}
+  else if (GetUserVariable(1000 + PlayerNumber(), "user_carmenu1") == 1) {
+	  
+	  
+	  	if (!isWithin(1000 + playerNumber(), 2000, 300)) {
+						  print(s: "YOu're too far!");
+				}
+
+				if (isWithin(1000 + playerNumber(), 2000, 300)) {
+
+							acs_execute(792, 1);
+							SetUserVariable(1000 + PlayerNumber(), "user_carmenu1", 0);// takes away the menu counter
+							ACS_Execute(2995,1); // unfreezes the player 
+				  
+				  }
+	 
+		//SetUserVariable(1000 + PlayerNumber(), "user_carmenu1", 0);
+		//ACS_ExecuteAlways(2995, 1, 0);//freezer and unfreezer
+		
+		}		
+		
+	
+		
+}
+
+
+script 2995 (void) //the replacement freezer as it was fucking up 2017
+
+{
+int checkifneeded=0;	
+	
+//------------add up checkifneeded to see if to freeze
+ 	
+	if (GetUserVariable(1000 + PlayerNumber(), "user_carmenu1") == 1)
+	{
+		checkifneeded=(checkifneeded+1000);	
+		}
+	
+
+
+
+
+
+
+
+		
+		//------------------------ do the freezing or unfreezing
+		
+	//	print (s: "checkif ",i:checkifneeded);
+		
+	if (checkifneeded > 999)
+	{
+		SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN);
+	}	
+	
+	else if (checkifneeded > 1)
+	{
+		SetPlayerProperty(0, 0, PROP_FROZEN);
+	}
+	
+	else if (checkifneeded == 0)
+	{
+		SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN);
+		SetPlayerProperty(0, 0, PROP_FROZEN);
+	}
+	
+}
+
+
+
+
+
+
+
+
+script 2790 (void)
+
+{
+	int hudnumforcarmenu=9700;
+
+HudMessage(s: ""; HUDMSG_FADEOUT,9800 , 0, (530.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+hudnumforcarmenu++;
+HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.1);
+}
+
+
+
+
+
+
+
+
+
+
+script 2999(void) //new car menu
+  {
+    SetHudSize(1000, 750, TRUE); //  sets the ui to 1000 by 750
+
+
+    int mousex = 0;
+    int mousey = 0;
+   
+    int hoveridx = 0;
+
+    //sets the loop for the menu showing		
+    while (GetUserVariable(0, "user_carmenu1") == 1) {
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+	int hudnumforcarmenu = 9700;
+		
+	
+		//set up variables
+		
+		
+		/*
+	
+
+*/
+
+	SetFont("ncarmen"); //the backing
+		HudMessage(s: "A"; HUDMSG_FADEOUT,9800 , 0, (530.0), (350.0), 0.5);
+		hudnumforcarmenu++;
+	
+	
+	
+
+	
+	//displaying the icons
+	
+		SetFont(wheelsprites[numberofwheels]); //car hover
+		HudMessage(s: "A"; HUDMSG_FADEOUT, hudnumforcarmenu, 0, (293.0), (356.0), 0.5);
+		hudnumforcarmenu++;
+		
+		
+		SetFont(wheeltext[numberofwheels]); //wheel text
+		HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (607.0), (350.0), 0.5);
+		hudnumforcarmenu++;
+		
+		
+		
+		if (numberofwheels <4)
+		{
+			SetFont("fitwheel"); //fit wheel
+			HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (750.0), (357.0), 0.5);
+			hudnumforcarmenu++;	
+			
+		
+		}
+
+		
+		
+	
+	
+		SetFont("BIGFONT"); 
+		HudMessage(i: petrol; HUDMSG_PLAIN, hudnumforcarmenu, CR_GREEN, 607.8, 410.85, 0.5);
+		hudnumforcarmenu++;	
+	
+
+				
+
+		
+		
+		if (hasbattery==1)
+		{
+			SetFont("cmbatt"); //the battery green
+			HudMessage(s: "A"; HUDMSG_FADEOUT, hudnumforcarmenu, 0, (290.0), (325.0), 0.5);
+			hudnumforcarmenu++;
+						
+			SetFont("batyes"); //battery  no / yes
+			HudMessage(s: "A"; HUDMSG_FADEOUT, hudnumforcarmenu, 0, (607.0), (299.0), 0.5);
+			hudnumforcarmenu++;
+		}
+		
+		if (hasbattery==0) 
+		{
+			SetFont("fitbat"); //fit battery
+			HudMessage(s: "A"; HUDMSG_FADEOUT, hudnumforcarmenu, 0, (750.0), (300.0), 0.5);
+			hudnumforcarmenu++;
+			
+			SetFont("cmbatte"); //the battery red
+			HudMessage(s: "A"; HUDMSG_FADEOUT, hudnumforcarmenu, 0, (290.0), (325.0), 0.5);
+			hudnumforcarmenu++;
+			
+			SetFont("batno"); //battery no / yes
+			HudMessage(s: "A"; HUDMSG_FADEOUT, hudnumforcarmenu, 0, (607.0), (299.0),0.5);
+			hudnumforcarmenu++;
+		}
+		
+		if (petrol<95) 
+		{
+			SetFont("fillpet"); //fill petrol
+			HudMessage(s: "A"; HUDMSG_FADEOUT,hudnumforcarmenu , 0, (750.0), (402.0), 0.5);
+			hudnumforcarmenu++;
+		}
+		
+		
+		if ((hasbattery	==1)&&(numberofwheels	==4))
+		{
+		SetFont("fixed"); //fixed
+			
+		}
+		else
+		{
+		SetFont("broken"); //fixed	
+		}
+		HudMessage(s: "A"; HUDMSG_FADEOUT, hudnumforcarmenu, 0, (565.0), (221.0), 0.5);
+		hudnumforcarmenu++;	
+
+
+		
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
+      mousex -= (GetPlayerInput(-1, INPUT_YAW) / 30);
+      if (!GetCVar("invertmouse"))
+        mousey -= (GetPlayerInput(-1, INPUT_PITCH) / 30);
+      else
+        mousey += (GetPlayerInput(-1, INPUT_PITCH) / 30);
+
+      SetFont("bigfont");
+      //print(i:mousex, s:" mouseex i and i ", i:mousey);
+
+      // sets the cap for the inventory area				
+      if (mousex >= 600) {
+        mousex = 600;
+      }
+      if (mousex <= -600) {
+        mousex = -600;
+      }
+      if (mousey <= -360) {
+        mousey = -360;
+      }
+      if (mousey >= 360) {
+        mousey = 360;
+      }
+      //changes the value into a floating point
+      int nnmousex = (mousex * 1.0);
+      int nnmousey = (mousey * 1.0);
+      //creates a new variable to start the mouse from the centre of the screen
+      int Mnnmousex = (nnmousex + 500.0);
+      int Mnnmousey = (nnmousey + 360.0);
+
+      //show the cursor
+      //held_item = maininvuse_num;
+      //						itemnames
+      SetFont("crapp"); //this is the cursor
+      HudMessage(s: "A"; HUDMSG_FADEOUT, 784, 0, Mnnmousex, Mnnmousey, 1.0);
+
+      // HOVERTEST	
+
+      str hover = "_Cancel_";
+		int hoverover = 0;
+      //needs to check the hover boxes.				//////////////////////////////////////////////////////////////////////////// submenus
+
+
+
+
+
+  
+
+
+
+
+
+	 if (
+        Mnnmousex >= 240.0 &&
+        Mnnmousex < 420.0 &&
+        Mnnmousey >= 465.0 &&
+        Mnnmousey < 560.0
+      ) {
+			hoverover = 1;
+			hover = "Get in as driver";
+        //set the sub-hover here
+      }
+     
+	 
+	 
+	 else if (
+        Mnnmousex >= 500.0 &&
+        Mnnmousex < 660.0 &&
+        Mnnmousey >= 465.0 &&
+        Mnnmousey < 540.0
+      ) {
+			hoverover = 2;
+			hover = "call shotgun";
+        //set the sub-hover here
+      }
+     
+	 
+
+     
+	 //needs call shotgun
+	 //--------------
+	 
+	  else if (
+        Mnnmousex >= 725.0 &&
+        Mnnmousex < 870.0 &&
+        Mnnmousey >= 470.5 &&
+        Mnnmousey < 540.5
+      ) {
+			hoverover = 3;
+			hover = "get in back";
+        //set the sub-hover here
+      }
+	 
+	 
+	 
+	 
+	
+	 
+	 
+	 	  else if (
+        Mnnmousex >= 670.0 &&
+        Mnnmousex < 820.0 &&
+        Mnnmousey >= 380.5 &&
+        Mnnmousey < 420.5
+      ) {
+			
+			
+				
+		 if (petrol <96)
+		  {
+			hoverover = 4;
+			hover = "fill petrol";  //petrol++
+		  }
+		  
+		  else{hoverover = 8;hover = "";}	
+			
+			
+        //set the sub-hover here
+      }
+	 
+	 
+		 
+	 	  else if (
+        Mnnmousex >= 660.0 &&
+        Mnnmousex < 820.0 &&
+        Mnnmousey >= 325.0 &&
+        Mnnmousey < 370.0
+      ) {
+					
+		 if (numberofwheels <4)
+		  {
+			hoverover = 5;
+			hover = "fill wheel";
+		  }
+		  
+		  else{hoverover = 8;hover = "";}	
+			
+			
+			
+        //set the sub-hover here
+      }
+	  
+	 
+	 	 	  else if (
+        Mnnmousex >= 660.0 &&
+        Mnnmousex < 815.0 &&
+        Mnnmousey >= 280.0 &&
+        Mnnmousey < 320.5
+      ) {
+		  
+		  //if (ACS_NamedExecuteWithResult(868,27)==1)
+		  if (hasbattery <1)
+		  {
+			hoverover = 6;
+			hover = "fit battery";
+		  }
+		  
+		  else{hoverover = 8;hover = "";}
+			  
+			
+        //set the sub-hover here
+      }
+	  	 
+	 	 	  else if (
+        Mnnmousex >= 770.0 &&
+        Mnnmousex < 880.0 &&
+        Mnnmousey >= 150.0 &&
+        Mnnmousey < 190.5
+      ) {
+			hoverover = 7;
+			hover = "cancel button";
+        //set the sub-hover here
+      }
+	  
+
+	 	 	  else if (
+        Mnnmousex >= 190.0 &&
+        Mnnmousex < 910.0 &&
+        Mnnmousey >= 140.0 &&
+        Mnnmousey < 570.5
+      ) {
+			hoverover = 8;
+			hover = " ";
+        //set the sub-hover here
+      }
+	  
+	 
+	 
+	
+	 
+
+	 
+	 
+	 
+	
+     
+      SetFont("Bigfont"); //
+ 
+
+	  HudMessage(s: hover; HUDMSG_PLAIN, 867, CR_GREEN, 500.0,680.0, 1.0);
+	  
+
+      ///////////////////////////////////////////////// button clicks
+
+      int buttons = GetPlayerInput(-1, INPUT_BUTTONS);
+      int oldbuttons = GetPlayerInput(-1, INPUT_OLDBUTTONS); //rightclick
+   
+
+      /////////////////////////////////////////////////////button left click
+
+      if ((oldbuttons & BT_ATTACK) != (buttons & BT_ATTACK)) { // left click?>
+        if (buttons & BT_ATTACK) {
+
+    
+            if (hoverover == 0) {
+              	
+				SetUserVariable(1000 + PlayerNumber(), "user_carmenu1", 0);// takes away the menu counter
+				ACS_Execute(2995,1); // unfreezes the player 
+				ACS_Execute(2790,1); // remove the hudmessages
+            }
+            if (hoverover == 1) {
+              //driver
+			  
+			    
+				if (!isWithin(1000 + playerNumber(), 2000, 300)) {
+						  print(s: "YOu're too far!");
+				}
+
+				if (isWithin(1000 + playerNumber(), 2000, 300)) {
+
+							acs_execute(792, 1);
+							SetUserVariable(1000 + PlayerNumber(), "user_carmenu1", 0);// takes away the menu counter
+							ACS_Execute(2995,1); // unfreezes the player 
+				  
+				  }
+			  
+			  
+			  
+            }
+            if (hoverover == 2) {
+              //shotgun
+				print(s: "shotgun");
+				Teleport_NoFog(11146, 0, 0);
+				SetUserVariable(1000 + PlayerNumber(), "user_carmenu1", 0);// takes away the menu counter
+				ACS_Execute(2995,1); // unfreezes the player
+				SetPlayerProperty(0, 1, PROP_FROZEN);
+            }
+            if (hoverover == 3) {
+              //get in the back
+				  
+					print(s: "back");
+					teleport_NoFog(11153, 0, 0);
+					Teleport_NoFog(11152, 0, 0);
+					SetUserVariable(1000 + PlayerNumber(), "user_carmenu1", 0);// takes away the menu counter
+					ACS_Execute(2995,1); // unfreezes the player
+					SetPlayerProperty(0, 1, PROP_FROZEN);
+
+				 
+	
+			  
+			  
+            }
+            if (hoverover == 4) {
+              //petrol
+			  
+			  
+			  	if (ACS_ExecuteWithResult(867,28)==1) //take the old can
+					{
+			  
+					ACS_ExecuteWithResult(860, 29); //give you an empty petrol can
+					petrol = (petrol+20);
+					
+					if (petrol>100)
+						{
+						petrol=100;	
+						}
+						ThingSound(2000, "petrol", 127);
+						print(i:petrol);
+					}
+			  
+			  
+            }
+            if (hoverover == 5) {
+              //wheel
+			  
+			  	if (ACS_ExecuteWithResult(867,26)==1) //check if you have battery, and removes it
+				{numberofwheels++;
+				}
+				
+            }
+            if (hoverover == 6) {
+              //battery
+			  
+			   if (ACS_ExecuteWithResult(867,27)==1) //check if you have battery, and removes it
+				{hasbattery++;
+				}
+	
+ 
+            }
+            if (hoverover == 7) {//cancel
+               SetUserVariable(1000 + PlayerNumber(), "user_carmenu1", 0);// takes away the menu counter
+				ACS_Execute(2995,1); // unfreezes the player 
+            }         
+			if (hoverover == 8) {//mainmenu - this just stops it from being  0
+           
+            }
+
+	
+
+        }
+      }
+
+      /////////////////////////////////////////////////////button right click
+
+	if ((oldbuttons & BT_ALTATTACK) != (buttons & BT_ALTATTACK)) { //rightclick
+        if (buttons & BT_ALTATTACK) {
+     	  SetUserVariable(1000 + PlayerNumber(), "user_carmenu1", 0);// takes away the menu counter
+				ACS_Execute(2995,1); // unfreezes the player 
+				ACS_Execute(2790,1); // remove the hudmessages  
+}}
+
+if ((oldbuttons & BT_USE) != (buttons & BT_USE)) { //space again
+        if (buttons & BT_USE) {
+			
+			
+				  	if (!isWithin(1000 + playerNumber(), 2000, 300)) {
+						  print(s: "YOu're too far!");
+				}
+
+				if (isWithin(1000 + playerNumber(), 2000, 300)) {
+
+							acs_execute(792, 1);
+							SetUserVariable(1000 + PlayerNumber(), "user_carmenu1", 0);// takes away the menu counter
+							ACS_Execute(2995,1); // unfreezes the player 
+				  
+				  }
+			
+			
+			
+     
+}}
+      /////////////////////////////////
+      delay(1); // stop the script from running away with itself.
+    }
+ 
+	
+	
+SetUserVariable(1000 + PlayerNumber(), "user_carmenu1", 0);// takes away the menu counter
+   ACS_Execute(2995,1); // unfreezes the player   
+
+  }
+		

@@ -1,0 +1,19 @@
+//
+user int treetype 		= 0;
+user int defaulttype	= 0;
+server int TG_NoFlash 	= 0;
+
+
+server int serverhourlen 	= 1000;
+
+user int TG_AmmoHud		= 0;
+
+user int chourlength		= 1000;
+
+user noarchive bool chase_active = false;
+user int chase_camtype = 1;
+
+
+// car tank both
+//repairable car
+//wait - these wont work for spawn. they wont work for mp?

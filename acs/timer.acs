@@ -1,0 +1,69 @@
+ //test
+
+//****************************************************************************************************************
+script 32222 OPEN // Timekeeper Script
+{ // run Timekeeper to make it all go. 
+	
+	
+	if (timer_type_off_phil_rob==1){
+			
+	  spawnSomeStuff();
+	  //setEnvironment(hourCounter, dayTracker);
+	  while (1) { // rinse and repeat.
+		//ACS_Execute(2, 1);
+
+		base_clock = Timer();
+
+		if (base_clock > ((hourlength * hourCounter) + (dayTracker * (24 * hourlength))) - (hourlength * startHour)) {
+		  //setEnvironment(hourCounter, dayTracker); // The magic happens every hour
+		  ACS_Execute(5632,1,hourCounter, dayTracker); // The magic happens every hour
+		  hourCounter++;
+		  //print(i:hourCounter);
+		  if (hourCounter >= 24) {
+			hourCounter = 0;
+			dayTracker++;
+		  }
+
+		}
+		ACS_ExecuteWait(32767, 0, 1);  // this is the delay below this
+	  }
+	}
+	 
+}
+
+script 32767(int delaytimethingy) { // this is to stop it delaying within the script i think
+  delay(delaytimethingy);
+}
+
+
+
+
+
+/*
+script 859(int hourinput) {
+
+  int dhourr = ((dayStuff[hourinput + 1][2]) - dayStuff[hourinput][2]);
+  int dhourg = ((dayStuff[hourinput + 1][3]) - dayStuff[hourinput][3]);
+  int dhourb = ((dayStuff[hourinput + 1][4]) - dayStuff[hourinput][4]);
+  int dhourds = ((dayStuff[hourinput + 1][5]) - dayStuff[hourinput][5]);
+  int divhour = (hourlength / 10);
+
+  int hourr = (dayStuff[hourinput][2]);
+  int hourg = (dayStuff[hourinput][3]);
+  int hourb = (dayStuff[hourinput][4]);
+  int hourds = (dayStuff[hourinput][5]);
+
+  int divhourcounter = 1;
+
+  while (divhourcounter < 11) {
+
+    Sector_SetColor(99991, ((hourr + ((dhourr / 10) * divhourcounter))), ((hourg + ((dhourg / 10) * divhourcounter))), ((hourb + ((dhourb / 10) * divhourcounter))), ((hourds + ((dhourds / 10) * divhourcounter))));
+    Sector_SetColor(16000, ((hourr + ((dhourr / 10) * divhourcounter))), ((hourg + ((dhourg / 10) * divhourcounter))), ((hourb + ((dhourb / 10) * divhourcounter))), ((hourds + ((dhourds / 10) * divhourcounter))));
+
+    //Sector_SetColor (99991, dayStuff[theHour][2], dayStuff[theHour][3], dayStuff[theHour][4],dayStuff[theHour][5] ); // basic outside that can raise snow
+    //Sector_SetColor (16000, dayStuff[theHour][2], dayStuff[theHour][3], dayStuff[theHour][4],dayStuff[theHour][5] ); // basic outside that can raise snow
+    divhourcounter++;
+    delay((divhour) - 1); //just a little buffer to stop it spazzing
+  }
+}
+*/

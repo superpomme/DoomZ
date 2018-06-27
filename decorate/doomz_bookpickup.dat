@@ -1,0 +1,25 @@
+
+ 
+
+Actor b_warandpeace : CustomInventory 
+{
+  Inventory.PickupMessage "You picked up a copy of War and Peace."
+  Inventory.PickupSound "misc/p_pkup"
+ Tag "Tolstoy’s War and Peace"
+  scale 0.15
+  States
+  {
+  Spawn:
+		book A -1
+		Stop
+   vanish:
+		TNT1 A 1
+		TNT1 A 0 A_GiveInventory ("canfoo")  //why the hell is this necessary. it clones them otherwise
+		TNT1 A 0 A_TakeInventory ("canfoo")
+		TNT1 A 0 //A_GiveInventory ("Zcanteenfull")
+		stop
+  Pickup:
+		TNT1 A 0 A_JumpIf(1 == (ACS_ExecuteWithResult(860,50,1)), "vanish")
+		fail
+  }
+}

@@ -1,0 +1,20 @@
+int doomz_clouds = 0; // this is whether the clouds are currently on
+
+script 825 OPEN { //cloud pushing. There must be a better way than pushing
+if  (want_clouds  >0 ){
+    while (want_clouds == 1) {
+    delay(50);
+    ThrustThing(-10, 1, 0, 9000);
+	}
+  }
+}
+
+script 824 OPEN {
+if  (want_clouds  >0 ){
+  delay(50);
+  while (1 < 2) {
+    spawnspot("ATcloudspawn", 3000, 3001, 180); // SpawnSpot (str classname, int spottid [, int tid [, int angle]])
+    delay(50);
+  }
+}
+}

@@ -1,0 +1,1542 @@
+//ENEMIES
+
+ 
+ 
+ 
+ 
+ ACTOR Forgettimer : Ammo //
+{
+ Inventory.MaxAmount 5
+ +IGNORESKILL
+ Tag "FIX THIS. this is to stop the errors, but they should forget"
+}
+ 
+ 
+ 
+ 
+ 
+ACTOR babush
+{
+  Health 60
+  Radius 20
+  Height 56
+  Mass 100
+  Speed 8
+  PainChance 200
+  Monster
+  +FLOORCLIP
+  SeeSound "imp/sight"
+  PainSound "imp/pain"
+  DeathSound "imp/death"
+  ActiveSound "imp/active"
+  HitObituary "$OB_IMPHIT"
+  Obituary "$OB_IMP"
+  States
+  {
+  Spawn:
+    NPOS AB 10 A_Look
+    Loop
+  See:
+    NPOS AABB 3 A_Chase
+    Loop
+  Melee:
+  NPOS A 5 A_CustomMeleeAttack(random(1, 10) * 6, "skeleton/melee")
+  
+  Pain:
+    NPOS AABB 5
+    
+    Goto See
+  Death:
+    TROO I 8
+    TROO J 8 A_Scream
+    TROO K 6
+    TROO L 6 A_NoBlocking
+    TROO M -1
+    Stop
+  XDeath:
+    TROO N 5
+    TROO O 5 A_XScream
+    TROO P 5
+    TROO Q 5 A_NoBlocking
+    TROO RST 5
+    TROO U -1
+    Stop
+  Raise:
+    TROO ML 8
+    TROO KJI 6
+    Goto See
+  }
+}
+
+
+
+
+
+actor ZombieClone2017
+
+{ 	
+Game Doom
+	SpawnID 4
+	Health 50
+	Radius 20
+	Height 56
+	Speed 18
+	PainChance 50
+	  DamageFactor "carcollision", 1
+	Mass 300
+	Monster
+	+FLOORCLIP
+	+pushable
+	SeeSound "grunt/sight"
+	AttackSound "demon/melee"
+	PainSound "grunt/pain"
+	DeathSound "grunt/death"
+	ActiveSound "grunt/active"
+	Obituary "$OB_ZOMBIE" // "%o was killed by a dayzombie."
+    Translation "bluecoat"
+  States
+  { 
+  //"80:102=198:204",
+   Spawn:
+   zoss A 1 
+   
+   
+   zoss a 1  
+  zoss AAABBCCDD 8 A_Wander
+    zoss AB 0 A_Look
+	
+    goto spawn+1
+  See:
+    zoss AAABBCCDD 4 A_Chase
+	zoss AAABBCCDD 4 A_Chase
+	zoss AAABBCCDD 4 A_Chase
+	zoss AAABBCCDD 4 A_Chase
+	zoss AAABBCCDD 4 A_Chase
+	    zoss AAABBCCDD 4 A_Chase
+	zoss AAABBCCDD 4 A_Chase
+	zoss AAABBCCDD 4 A_Chase
+	zoss AAABBCCDD 4 A_Chase
+	zoss AAABBCCDD 4 A_Chase
+	    zoss AAABBCCDD 4 A_Chase
+	zoss AAABBCCDD 4 A_Chase
+	zoss AAABBCCDD 4 A_Chase
+	zoss AAABBCCDD 4 A_Chase
+	zoss AAABBCCDD 4 A_Chase
+	    zoss AAABBCCDD 4 A_Chase
+
+   
+	  TROO A 0 A_ClearTarget
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+	  Melee:
+	    zoss a 0 A_TakeInventory("Forgettimer", 5) // Reset the timer.
+		zoss A 10 Fast A_FaceTarget
+		
+		zoss A 8 A_SargAttack
+		zoss A random(10,20)   
+		Goto See
+
+	  Pain:
+		zoss G 3
+		zoss G 3 A_Pain
+		Goto See
+	  Death:
+		zoss H 5
+		zoss I 5 A_Scream
+		zoss J 5 A_NoBlocking
+		zoss K 5
+		zoss LLLLL 1 A_SpawnItemEx("Splatspawner",0,0,random(4,8),random(0,2),random(0,2),random(0,3),random(-160,200))
+		zoss L 1 A_SpawnItemEx("Zombiebody",0,0,random(4,8),0,0,0,0)
+	  //  POSS L 1 A_DropItem ("Zombiebody",1,255)
+		Stop
+	  XDeath:
+		zoss M 5
+		zoss N 5 A_XScream
+		zoss O 5 A_NoBlocking
+		zoss PQRST 5
+		POSS U -1
+		Stop
+	  Raise:
+		zoss K 5
+		zoss JIH 5
+		Goto See
+	 
+	   Forget: 
+     TROO A 0 A_TakeInventory("Forgettimer", 5)
+     zoss A 3 A_ClearTarget
+     Goto Spawn
+	 
+	  Death.carcollision:
+	  zoss M 2
+	  zoss N 2 A_XScream
+	  zoss O 2 A_NoBlocking
+	  zoss PQRST 2
+	  zOSS W 1000 
+	  stop
+}
+
+
+
+}
+
+
+
+actor ZombieClones2017 31209
+{ Game Doom
+  SpawnID 5
+  Health 50
+  Radius 20
+  Height 56
+    DamageFactor "carcollision", 1
+  Speed 18
+  PainChance 50
+Mass 300
+  Monster
+  +FLOORCLIP
+  +pushable
+  SeeSound "grunt/sight"
+  AttackSound "demon/melee"
+  PainSound "grunt/pain"
+  DeathSound "grunt/death"
+  ActiveSound "grunt/active"
+  Obituary "$OB_ZOMBIE" // "%o was killed by a dayzombie."
+  
+  States
+  {
+  Spawn:
+  ypos AAABBCCDD 8 A_Wander
+    ypos AB 0 A_Look
+	
+    Loop
+  See:
+    ypos AAABBCCDD 4 A_Chase
+	ypos AAABBCCDD 4 A_Chase
+	ypos AAABBCCDD 4 A_Chase
+	ypos AAABBCCDD 4 A_Chase
+	ypos AAABBCCDD 4 A_Chase
+	    ypos AAABBCCDD 4 A_Chase
+	ypos AAABBCCDD 4 A_Chase
+	ypos AAABBCCDD 4 A_Chase
+	ypos AAABBCCDD 4 A_Chase
+	ypos AAABBCCDD 4 A_Chase
+	    ypos AAABBCCDD 4 A_Chase
+	ypos AAABBCCDD 4 A_Chase
+	ypos AAABBCCDD 4 A_Chase
+	ypos AAABBCCDD 4 A_Chase
+	ypos AAABBCCDD 4 A_Chase
+	    ypos AAABBCCDD 4 A_Chase
+
+   
+	  TROO A 0 A_ClearTarget
+	
+	Loop
+ Melee:
+  ypos a 0 A_TakeInventory("Forgettimer", 20) // Reset the timer.
+ypos a 0 A_FaceTarget
+   ypos a 0 A_FaceTarget
+  
+      
+   ypos a 8 A_SargAttack
+   ypos A random(10,20)
+       
+Goto See
+
+  Pain:
+    ypos G 3
+    ypos G 3 A_Pain
+    Goto See
+  Death:
+    ypos H 5
+    ypos I 5 A_Scream
+    ypos J 5 A_NoBlocking
+    ypos K 5
+	POSS LLLLL 1 A_SpawnItemEx("Splatspawner",0,0,random(4,8),random(0,2),random(0,2),random(0,3),random(-160,200))
+		POSS L 1 A_SpawnItemEx("Zombiebodyfemale",0,0,random(4,8),0,0,0,0)
+    Stop
+	
+	
+	 Forget: 
+     TROO A 0 A_TakeInventory("Forgettimer", 20)
+     ypos A 3 A_ClearTarget
+     Goto Spawn
+	
+	
+  XDeath:
+    ypos M 5
+    ypos N 5 A_XScream
+    ypos O 5 A_NoBlocking
+    ypos PQRST 5
+    ypos U -1
+    Stop
+  Raise:
+    ypos K 5
+    ypos JIH 5
+    Goto See
+ death.carcollision:
+	zoss M 2
+	zoss N 2 A_XScream
+	zoss O 2 A_NoBlocking
+	zoss PQRST 2
+	zOSS W 1000 
+    stop	
+	
+  }
+
+}
+ 
+
+
+actor bab
+{ 	Game Doom
+	SpawnID 4
+	Health 40
+	Radius 20
+	Height 56
+	Speed 15
+	PainChance 50
+	  DamageFactor "carcollision", 1
+	Mass 300
+	Monster
+	+FLOORCLIP
+	+pushable
+	SeeSound "grunt/sight"
+	AttackSound "demon/melee"
+	PainSound "grunt/pain"
+	DeathSound "grunt/death"
+	ActiveSound "grunt/active"
+	Obituary "$OB_ZOMBIE" // "%o was killed by a dayzombie."
+  
+  States
+  {
+	  Spawn:
+		NPOS AB 10 A_Look
+		
+		Loop
+	  See:
+		NPOS AABBCC 4 A_Chase
+		Loop
+	  Melee:
+		NPOS A 10 Fast A_FaceTarget
+		NPOS A 6 A_SkelFist
+		NPOS A 10   
+		Goto See
+
+	  Pain:
+		NPOS a 3
+		NPOS a 3 A_Pain
+		Goto See
+	  Death:
+		NPOS a 5
+		NPOS b 5 A_Scream
+		NPOS c 5 A_NoBlocking
+		zoss d 5
+		zoss LLLLL 1 A_SpawnItemEx("Splatspawner",0,0,random(4,8),random(0,2),random(0,2),random(0,3),random(-160,200))
+		zoss L 1 A_SpawnItemEx("Zombiebody",0,0,random(4,8),0,0,0,0)
+	  //  POSS L 1 A_DropItem ("Zombiebody",1,255)
+		Stop
+	  XDeath:
+		zoss M 5
+		zoss N 5 A_XScream
+		zoss O 5 A_NoBlocking
+		zoss PQRST 5
+		POSS U -1
+		Stop
+	  Raise:
+		zoss K 5
+		zoss JIH 5
+		Goto See
+	 
+	  
+	  Death.carcollision:
+	  zoss M 2
+	  zoss N 2 A_XScream
+	  zoss O 2 A_NoBlocking
+	  zoss PQRST 2
+	  zOSS W 1000 
+	  stop
+}
+
+
+
+}
+
+
+ 
+
+ACTOR Cow : Demon 
+{
+  Game Doom
+  SpawnID 8
+  Health 50
+	PainChance 200
+  Speed 10
+  Radius 30
+  Height 56
+  Mass 400
+  Monster
+   Scale 0.8
+  +FLOORCLIP
+  SeeSound "demon/pain"
+  AttackSound "demon/pain"
+  PainSound "demon/pain"
+  DeathSound "demon/death"
+  ActiveSound "demon/active"
+  //+FRIGHTENED
+  Obituary "$OB_DEMONHIT" // "%o was bit by a demon."
+  States
+  {
+  Spawn:
+  
+      SARG A 10 A_Look
+    Loop
+  See:
+   // SARG AABBCCDD 2 Fast A_Chase
+    TROO H 0 A_ChangeFlag("FRIGHTENED", TRUE)
+      SARG A 2 Fast A_Chase
+	   // TROO H 0 A_ChangeFlag("FRIGHTENED", TRUE)
+    
+    Loop
+  Melee:
+    SARG A 8 Fast A_FaceTarget
+    SARG A 8 Fast A_SargAttack
+    Goto See
+  Pain:
+  
+    SARG a 2 Fast
+    SARG a 2 Fast A_Pain
+    Goto See
+  Death:
+    SARG a 8
+    SARG a 8 A_Scream
+    SARG a 4
+    SARG L 4 A_NoBlocking
+		SARG l 4 A_SpawnItemEx ("meatfoo",50, 100, 50, 0, 0, 90, 0, 0)
+    SARG l 4 A_SpawnItemEx ("meatfoo", 150, 25, 10, 0, 0, 90, 0)
+    SARG l -1 A_SpawnItemEx ("meatfoo", 80, 75, 10, 0, 0, 0, 0)
+		
+    Stop
+  Raise:
+    SARG N 5
+    SARG MLKJI 5
+    Goto See
+  }
+}
+
+
+ACTOR doomdog : MBFHelperDog 1221 //wolf
+{ 
+Health 50
+  DamageFactor "attract", 0.1
+   DamageType fire2
+  
+states{
+
+Pain.attract:
+		DOGS A 1
+		DOGS A 0 //A_PlaySound("misc/w_pkup")
+		DOGS A 1 A_ChangeFlag("friendly", TRUE)
+		DOGS A 0 Thing_ChangeTID(0, 983)
+		Goto See
+
+}}
+
+
+
+
+
+actor birdspawn 
+{
+  Radius 2
+  Height 2
+  +NOINTERACTION
+  States
+  {
+  Spawn:
+    TNT1 A 0
+    TNT1 A 0 A_JumpIf(Args[0] == 1, "1Rat")
+    TNT1 A 0 A_JumpIf(Args[0] == 2, "2Rats")
+    TNT1 A 0 A_JumpIf(Args[0] == 3, "3Rats")
+    TNT1 A 0 A_JumpIf(Args[0] == 4, "4Rats")
+    TNT1 A 0 A_JumpIf(Args[0] == 5, "5Rats")
+	 TNT1 A 50
+    //fall through
+  1Rat:
+    TNT1 AAAAAA 1 A_SpawnItemEx ("bird", random (-Args[1], Args[1]), 0, 0,random(-2,2),random(-2,2), 20, 0, random (0, 360), 0)
+    stop
+  2Rats:
+    TNT1 A 1
+    TNT1 AA 0 A_SpawnItemEx ("ScurryRat", random (-Args[1], Args[1]), 0, 0, 0, 0, 0, random (0, 360), 0)
+    stop
+  3Rats:
+    TNT1 A 1
+    TNT1 AAA 0 A_SpawnItemEx ("ScurryRat", random (-Args[1], Args[1]), 0, 0, 0, 0, 0, random (0, 360), 0)
+    stop
+  4Rats:
+    TNT1 A 1
+    TNT1 AAAA 0 A_SpawnItemEx ("ScurryRat", random (-Args[1], Args[1]), 0, 0, 0, 0, 0, random (0, 360), 0)
+    stop
+  5Rats:
+    TNT1 A 1
+    TNT1 AAAAA 0 A_SpawnItemEx ("ScurryRat", random (-Args[1], Args[1]), 0, 0, 0, 0, 0, random (0, 360), 0)
+    stop
+  }
+}
+
+
+
+actor bird // supposed to be a bird that flies around
+{
+  radius 8
+  height 8
+  mass 50
+  speed 16
+  scale 0.5
+  health 1
+  seesound 	"rat/squeek"
+  activesound	"rat/active"
+  deathsound	"rat/death"
+  +FLOORCLIP
+  +FRIGHTENED
+  +LOOKALLAROUND
+  +NEVERRESPAWN
+  +STANDSTILL
+  +AMBUSH
+  +VULNERABLE
+  +TOUCHY
+  +dropped
+  +NOGRAVITY
+  states
+  {
+  Spawn:
+    RATS A 10 A_Look 
+    loop
+  See:
+    RATS A 2 A_Chase
+	RATS A 0 A_CheckSight ("Vanish")
+	RATS A 2 A_Chase
+	RATS A 0 A_CheckSight ("Vanish")
+	RATS B 2 A_Chase
+	RATS A 0 A_CheckSight ("Vanish")
+	RATS B 2 A_Chase
+	RATS A 0 A_CheckSight ("Vanish")
+	RATS C 2 A_Chase
+	RATS A 0 A_CheckSight ("Vanish")
+	RATS C 2 A_Chase
+	RATS A 0 A_CheckSight ("Vanish")
+	RATS D 2 A_Chase
+	RATS A 0 A_CheckSight ("Vanish")
+	RATS D 2 A_Chase
+	RATS A 0 A_CheckSight ("Vanish")
+    loop
+  Vanish:
+    TNT1 A 1
+    stop
+  Death:
+    RATS I 3 A_ScreamAndUnblock
+	RATS JKL 3
+	RATS L -1
+	stop
+  }
+}
+
+ACTOR Chicken2 : MorphedMonster
+{
+  Health 10
+  Radius 9
+  Height 22
+  Mass 40
+  Speed 4
+  PainChance 256
+  Monster
+  -COUNTKILL
+  +WINDTHRUST
+  +DONTMORPH
+  +FLOORCLIP
+  +frightened
+  SeeSound "chicken/pain"
+  AttackSound "chicken/attack"
+  PainSound "chicken/pain"
+  DeathSound "chicken/death"
+  ActiveSound "chicken/active"
+  Obituary "$OB_CHICKEN"
+  States
+  {
+  Spawn:
+    CHKN AB 10 A_Look
+    Loop
+  See:
+    CHKN AB 3 A_Chase
+    Loop
+  Pain:
+    CHKN D 5 A_Feathers
+    CHKN C 5 ACS_ExecuteAlways(6122,1,99)
+    Goto See
+  Melee:
+    CHKN A 8 A_FaceTarget
+    Goto See
+  Death:
+    CHKN E 6 A_Scream
+    CHKN F 6 A_Feathers
+    CHKN G 6
+    CHKN H 6 A_NoBlocking
+    CHKN IJK 6
+    CHKN L -1
+    Stop
+  }
+}
+
+
+ACTOR donald
+{
+  Health 30
+  Radius 20
+  Height 56
+  Mass 100
+  Speed 8
+  PainChance 170
+  Monster
+  +FLOORCLIP
+  SeeSound "shotguy/sight"
+  AttackSound "shotguy/attack"
+  PainSound "shotguy/pain"
+  DeathSound "shotguy/death"
+  ActiveSound "shotguy/active"
+  Obituary "$OB_SHOTGUY"
+  DropItem "Shotgun"
+  States
+  {
+  Spawn:
+    donl AB 10 A_Look
+    Loop
+  See:
+    donl AABBCCDD 3 A_Chase
+    Loop
+  Missile:
+    donl E 10 A_FaceTarget
+    donl F 10 Bright A_SPosAttackUseAtkSound
+    donl E 10
+    Goto See
+  Pain:
+    donl G 3
+    donl G 3 A_Pain
+    Goto See
+  Death:
+    donl H 5
+    donl I 5 A_Scream
+    donl J 5 A_NoBlocking
+    donl K 5
+    donl L -1
+    Stop
+  XDeath:
+    donl M 5
+    donl N 5 A_XScream
+    donl O 5 A_NoBlocking
+    donl PQRST 5
+    donl U -1
+    Stop
+  Raise:
+    donl L 5
+    donl KJIH 5
+    Goto See
+  }
+}
+
+
+
+ACTOR donald2
+{
+  Health 30
+  Radius 20
+  Height 56
+  Mass 100
+  Speed 8
+  PainChance 170
+  Monster
+  +FLOORCLIP
+  SeeSound "shotguy/sight"
+  AttackSound "shotguy/attack"
+  PainSound "shotguy/pain"
+  DeathSound "shotguy/death"
+  ActiveSound "shotguy/active"
+  Obituary "$OB_SHOTGUY"
+  DropItem "Shotgun"
+  States
+  {
+  Spawn:
+    dnnn AB 10 A_Look
+    Loop
+  See:
+    dnnn AABBCCDD 3 A_Chase
+    Loop
+  Missile:
+    dnnn E 10 A_FaceTarget
+    dnnn F 10 Bright A_SPosAttackUseAtkSound
+    dnnn E 10
+    Goto See
+  Pain:
+    dnnn G 3
+    dnnn G 3 A_Pain
+    Goto See
+  Death:
+    dnnn H 5
+    dnnn I 5 A_Scream
+    dnnn J 5 A_NoBlocking
+    dnnn K 5
+    dnnn L -1
+    Stop
+  XDeath:
+    dnnn M 5
+    dnnn N 5 A_XScream
+    dnnn O 5 A_NoBlocking
+    dnnn PQRST 5
+    dnnn U -1
+    Stop
+  Raise:
+    dnnn L 5
+    dnnn KJIH 5
+    Goto See
+  }
+}
+
+
+
+///////////////////////////////////////////////////
+
+//2018 scientists
+
+
+actor zc2018a //zombie clone2018
+
+{ 	
+Game Doom
+	SpawnID 4
+	Health 50
+	Radius 20
+	Height 56
+	Speed 18
+	PainChance 50
+	  DamageFactor "carcollision", 1
+	Mass 300
+	Monster
+	+FLOORCLIP
+	+pushable
+	SeeSound "grunt/sight"
+	AttackSound "demon/melee"
+	PainSound "grunt/pain"
+	DeathSound "grunt/death"
+	ActiveSound "grunt/active"
+	Obituary "$OB_ZOMBIE" // "%o was killed by a dayzombie."
+    
+  States
+  { 
+  //"80:102=198:204",
+   Spawn:
+   fszk A 1 
+   
+   
+   
+  fszk AAABBCCDD 8 A_Wander
+    fszk AB 0 A_Look
+	
+    goto spawn+1
+  See:
+    fszk AAABBCCDD 4 A_Chase
+	fszk AAABBCCDD 4 A_Chase
+	fszk AAABBCCDD 4 A_Chase
+	fszk AAABBCCDD 4 A_Chase
+	fszk AAABBCCDD 4 A_Chase
+	    fszk AAABBCCDD 4 A_Chase
+	fszk AAABBCCDD 4 A_Chase
+	fszk AAABBCCDD 4 A_Chase
+	fszk AAABBCCDD 4 A_Chase
+	fszk AAABBCCDD 4 A_Chase
+	    fszk AAABBCCDD 4 A_Chase
+	fszk AAABBCCDD 4 A_Chase
+	fszk AAABBCCDD 4 A_Chase
+	fszk AAABBCCDD 4 A_Chase
+	fszk AAABBCCDD 4 A_Chase
+	    fszk AAABBCCDD 4 A_Chase
+
+   
+	  TROO A 0 A_ClearTarget
+  
+    
+  
+	  Melee:
+	    fszk a 0 A_TakeInventory("Forgettimer", 5) // Reset the timer.
+		fszk A 10 Fast A_FaceTarget
+		
+		fszk A 8 A_SargAttack
+		fszk A random(10,20)   
+		Goto See
+
+	  Pain:
+		fszk G 3
+		fszk G 3 A_Pain
+		Goto See
+	  Death:
+		fszk H 5
+		fszk I 5 A_Scream
+		fszk J 5 A_NoBlocking
+		fszk K 5
+		fszk LLLLL 1 A_SpawnItemEx("Splatspawner",0,0,random(4,8),random(0,2),random(0,2),random(0,3),random(-160,200))
+		fszk L 1 A_SpawnItemEx("Zombiebody",0,0,random(4,8),0,0,0,0)
+	  //  POSS L 1 A_DropItem ("Zombiebody",1,255)
+		Stop
+	  XDeath:
+		fszk M 5
+		fszk N 5 A_XScream
+		fszk O 5 A_NoBlocking
+		fszk PQRST 5
+		POSS U -1
+		Stop
+	  Raise:
+		fszk K 5
+		fszk JIH 5
+		Goto See
+	 
+	   Forget: 
+     TROO A 0 A_TakeInventory("Forgettimer", 5)
+     fszk A 3 A_ClearTarget
+     Goto Spawn
+	 
+	  Death.carcollision:
+	  fszk M 2
+	  fszk N 2 A_XScream
+	  fszk O 2 A_NoBlocking
+	  fszk PQRST 2
+	  fszk W 1000 
+	  stop
+}
+
+
+}
+
+
+
+
+actor zc2018b //zombie clone2018
+
+{ 	
+Game Doom
+	SpawnID 4
+	Health 50
+	Radius 20
+	Height 56
+	Speed 18
+	PainChance 50
+	  DamageFactor "carcollision", 1
+	Mass 300
+	Monster
+	+FLOORCLIP
+	+pushable
+	SeeSound "grunt/sight"
+	AttackSound "demon/melee"
+	PainSound "grunt/pain"
+	DeathSound "grunt/death"
+	ActiveSound "grunt/active"
+	Obituary "$OB_ZOMBIE" // "%o was killed by a dayzombie."
+    
+  States
+  { 
+  //"80:102=198:204",
+   Spawn:
+   fszw A 1 
+   
+   
+   
+  fszw AAABBCCDD 8 A_Wander
+    fszw AB 0 A_Look
+	
+    goto spawn+1
+  See:
+    fszw AAABBCCDD 4 A_Chase
+	fszw AAABBCCDD 4 A_Chase
+	fszw AAABBCCDD 4 A_Chase
+	fszw AAABBCCDD 4 A_Chase
+	fszw AAABBCCDD 4 A_Chase
+	    fszw AAABBCCDD 4 A_Chase
+	fszw AAABBCCDD 4 A_Chase
+	fszw AAABBCCDD 4 A_Chase
+	fszw AAABBCCDD 4 A_Chase
+	fszw AAABBCCDD 4 A_Chase
+	    fszw AAABBCCDD 4 A_Chase
+	fszw AAABBCCDD 4 A_Chase
+	fszw AAABBCCDD 4 A_Chase
+	fszw AAABBCCDD 4 A_Chase
+	fszw AAABBCCDD 4 A_Chase
+	    fszw AAABBCCDD 4 A_Chase
+
+   
+	  TROO A 0 A_ClearTarget
+
+	  Melee:
+	    fszw a 0 A_TakeInventory("Forgettimer", 5) // Reset the timer.
+		fszw A 10 Fast A_FaceTarget
+		
+		fszw A 8 A_SargAttack
+		fszw A random(10,20)   
+		Goto See
+
+	  Pain:
+		fszw G 3
+		fszw G 3 A_Pain
+		Goto See
+	  Death:
+		fszw H 5
+		fszw I 5 A_Scream
+		fszw J 5 A_NoBlocking
+		fszw K 5
+		fszw LLLLL 1 A_SpawnItemEx("Splatspawner",0,0,random(4,8),random(0,2),random(0,2),random(0,3),random(-160,200))
+		fszw L 1 A_SpawnItemEx("Zombiebody",0,0,random(4,8),0,0,0,0)
+	  //  POSS L 1 A_DropItem ("Zombiebody",1,255)
+		Stop
+	  XDeath:
+		fszw M 5
+		fszw N 5 A_XScream
+		fszw O 5 A_NoBlocking
+		fszw PQRST 5
+		POSS U -1
+		Stop
+	  Raise:
+		fszw K 5
+		fszw JIH 5
+		Goto See
+	 
+	   Forget: 
+     TROO A 0 A_TakeInventory("Forgettimer", 5)
+     fszw A 3 A_ClearTarget
+     Goto Spawn
+	 
+	  Death.carcollision:
+	  fszw M 2
+	  fszw N 2 A_XScream
+	  fszw O 2 A_NoBlocking
+	  fszw PQRST 2
+	  fszw W 1000 
+	  stop
+}
+}
+
+
+
+
+
+
+actor zc2018c //zombie clone2018
+
+{ 	
+Game Doom
+	SpawnID 4
+	Health 50
+	Radius 20
+	Height 56
+	Speed 18
+	PainChance 50
+	  DamageFactor "carcollision", 1
+	Mass 300
+	Monster
+	+FLOORCLIP
+	+pushable
+	SeeSound "grunt/sight"
+	AttackSound "demon/melee"
+	PainSound "grunt/pain"
+	DeathSound "grunt/death"
+	ActiveSound "grunt/active"
+	Obituary "$OB_ZOMBIE" // "%o was killed by a dayzombie."
+    
+  States
+  { 
+  //"80:102=198:204",
+   Spawn:
+   szhd A 1 
+   
+   
+   
+  szhd AAABBCCDD 8 A_Wander
+    szhd AB 0 A_Look
+	
+    goto spawn+1
+  See:
+    szhd AAABBCCDD 4 A_Chase
+	szhd AAABBCCDD 4 A_Chase
+	szhd AAABBCCDD 4 A_Chase
+	szhd AAABBCCDD 4 A_Chase
+	szhd AAABBCCDD 4 A_Chase
+	    szhd AAABBCCDD 4 A_Chase
+	szhd AAABBCCDD 4 A_Chase
+	szhd AAABBCCDD 4 A_Chase
+	szhd AAABBCCDD 4 A_Chase
+	szhd AAABBCCDD 4 A_Chase
+	    szhd AAABBCCDD 4 A_Chase
+	szhd AAABBCCDD 4 A_Chase
+	szhd AAABBCCDD 4 A_Chase
+	szhd AAABBCCDD 4 A_Chase
+	szhd AAABBCCDD 4 A_Chase
+	    szhd AAABBCCDD 4 A_Chase
+
+   
+	  TROO A 0 A_ClearTarget
+
+	  Melee:
+	    szhd a 0 A_TakeInventory("Forgettimer", 5) // Reset the timer.
+		szhd A 10 Fast A_FaceTarget
+		
+		szhd A 8 A_SargAttack
+		szhd A random(10,20)   
+		Goto See
+
+	  Pain:
+		szhd G 3
+		szhd G 3 A_Pain
+		Goto See
+	  Death:
+		szhd H 5
+		szhd I 5 A_Scream
+		szhd J 5 A_NoBlocking
+		szhd K 5
+		szhd LLLLL 1 A_SpawnItemEx("Splatspawner",0,0,random(4,8),random(0,2),random(0,2),random(0,3),random(-160,200))
+		szhd L 1 A_SpawnItemEx("Zombiebody",0,0,random(4,8),0,0,0,0)
+	  //  POSS L 1 A_DropItem ("Zombiebody",1,255)
+		Stop
+	  XDeath:
+		szhd M 5
+		szhd N 5 A_XScream
+		szhd O 5 A_NoBlocking
+		szhd PQRST 5
+		POSS U -1
+		Stop
+	  Raise:
+		szhd K 5
+		szhd JIH 5
+		Goto See
+	 
+	   Forget: 
+     TROO A 0 A_TakeInventory("Forgettimer", 5)
+     szhd A 3 A_ClearTarget
+     Goto Spawn
+	 
+	  Death.carcollision:
+	  szhd M 2
+	  szhd N 2 A_XScream
+	  szhd O 2 A_NoBlocking
+	  szhd PQRST 2
+	  szhd W 1000 
+	  stop
+}
+}
+
+
+
+
+
+actor zc2018d //zombie clone2018
+
+{ 	
+Game Doom
+	SpawnID 4
+	Health 50
+	Radius 20
+	Height 56
+	Speed 18
+	PainChance 50
+	  DamageFactor "carcollision", 1
+	Mass 300
+	Monster
+	+FLOORCLIP
+	+pushable
+	SeeSound "grunt/sight"
+	AttackSound "demon/melee"
+	PainSound "grunt/pain"
+	DeathSound "grunt/death"
+	ActiveSound "grunt/active"
+	Obituary "$OB_ZOMBIE" // "%o was killed by a dayzombie."
+    
+  States
+  { 
+  //"80:102=198:204",
+   Spawn:
+   fszs A 1 
+   
+   
+   
+  fszs AAABBCCDD 8 A_Wander
+    fszs AB 0 A_Look
+	
+    goto spawn+1
+  See:
+    fszs AAABBCCDD 4 A_Chase
+	fszs AAABBCCDD 4 A_Chase
+	fszs AAABBCCDD 4 A_Chase
+	fszs AAABBCCDD 4 A_Chase
+	fszs AAABBCCDD 4 A_Chase
+	    fszs AAABBCCDD 4 A_Chase
+	fszs AAABBCCDD 4 A_Chase
+	fszs AAABBCCDD 4 A_Chase
+	fszs AAABBCCDD 4 A_Chase
+	fszs AAABBCCDD 4 A_Chase
+	    fszs AAABBCCDD 4 A_Chase
+	fszs AAABBCCDD 4 A_Chase
+	fszs AAABBCCDD 4 A_Chase
+	fszs AAABBCCDD 4 A_Chase
+	fszs AAABBCCDD 4 A_Chase
+	    fszs AAABBCCDD 4 A_Chase
+
+   
+	  TROO A 0 A_ClearTarget
+
+	  Melee:
+	    fszs a 0 A_TakeInventory("Forgettimer", 5) // Reset the timer.
+		fszs A 10 Fast A_FaceTarget
+		
+		fszs A 8 A_SargAttack
+		fszs A random(10,20)   
+		Goto See
+
+	  Pain:
+		fszs G 3
+		fszs G 3 A_Pain
+		Goto See
+	  Death:
+		fszs H 5
+		fszs I 5 A_Scream
+		fszs J 5 A_NoBlocking
+		fszs K 5
+		fszs LLLLL 1 A_SpawnItemEx("Splatspawner",0,0,random(4,8),random(0,2),random(0,2),random(0,3),random(-160,200))
+		fszs L 1 A_SpawnItemEx("Zombiebody",0,0,random(4,8),0,0,0,0)
+	  //  POSS L 1 A_DropItem ("Zombiebody",1,255)
+		Stop
+	  XDeath:
+		fszs M 5
+		fszs N 5 A_XScream
+		fszs O 5 A_NoBlocking
+		fszs PQRST 5
+		POSS U -1
+		Stop
+	  Raise:
+		fszs K 5
+		fszs JIH 5
+		Goto See
+	 
+	   Forget: 
+     TROO A 0 A_TakeInventory("Forgettimer", 5)
+     fszs A 3 A_ClearTarget
+     Goto Spawn
+	 
+	  Death.carcollision:
+	  fszs M 2
+	  fszs N 2 A_XScream
+	  fszs O 2 A_NoBlocking
+	  fszs PQRST 2
+	  fszs W 1000 
+	  stop
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+actor zc2018e //zombie clone2018
+
+{ 	
+Game Doom
+	SpawnID 4
+	Health 50
+	Radius 20
+	Height 56
+	Speed 18
+	PainChance 50
+	  DamageFactor "carcollision", 1
+	Mass 300
+	Monster
+	+FLOORCLIP
+	+pushable
+	SeeSound "grunt/sight"
+	AttackSound "demon/melee"
+	PainSound "grunt/pain"
+	DeathSound "grunt/death"
+	ActiveSound "grunt/active"
+	Obituary "$OB_ZOMBIE" // "%o was killed by a dayzombie."
+    
+  States
+  { 
+  //"80:102=198:204",
+   Spawn:
+   sczh A 1 
+   
+   
+   
+  sczh AAABBCCDD 8 A_Wander
+    sczh AB 0 A_Look
+	
+    goto spawn+1
+  See:
+    sczh AAABBCCDD 4 A_Chase
+	sczh AAABBCCDD 4 A_Chase
+	sczh AAABBCCDD 4 A_Chase
+	sczh AAABBCCDD 4 A_Chase
+	sczh AAABBCCDD 4 A_Chase
+	    sczh AAABBCCDD 4 A_Chase
+	sczh AAABBCCDD 4 A_Chase
+	sczh AAABBCCDD 4 A_Chase
+	sczh AAABBCCDD 4 A_Chase
+	sczh AAABBCCDD 4 A_Chase
+	    sczh AAABBCCDD 4 A_Chase
+	sczh AAABBCCDD 4 A_Chase
+	sczh AAABBCCDD 4 A_Chase
+	sczh AAABBCCDD 4 A_Chase
+	sczh AAABBCCDD 4 A_Chase
+	    sczh AAABBCCDD 4 A_Chase
+
+   
+	  TROO A 0 A_ClearTarget
+
+	  Melee:
+	    sczh a 0 A_TakeInventory("Forgettimer", 5) // Reset the timer.
+		sczh A 10 Fast A_FaceTarget
+		
+		sczh A 8 A_SargAttack
+		sczh A random(10,20)   
+		Goto See
+
+	  Pain:
+		sczh G 3
+		sczh G 3 A_Pain
+		Goto See
+	  Death:
+		sczh H 5
+		sczh I 5 A_Scream
+		sczh J 5 A_NoBlocking
+		sczh K 5
+		sczh LLLLL 1 A_SpawnItemEx("Splatspawner",0,0,random(4,8),random(0,2),random(0,2),random(0,3),random(-160,200))
+		sczh L 1 A_SpawnItemEx("Zombiebody",0,0,random(4,8),0,0,0,0)
+	  //  POSS L 1 A_DropItem ("Zombiebody",1,255)
+		Stop
+	  XDeath:
+		sczh M 5
+		sczh N 5 A_XScream
+		sczh O 5 A_NoBlocking
+		sczh PQRST 5
+		POSS U -1
+		Stop
+	  Raise:
+		sczh K 5
+		sczh JIH 5
+		Goto See
+	 
+	   Forget: 
+     TROO A 0 A_TakeInventory("Forgettimer", 5)
+     sczh A 3 A_ClearTarget
+     Goto Spawn
+	 
+	  Death.carcollision:
+	  sczh M 2
+	  sczh N 2 A_XScream
+	  sczh O 2 A_NoBlocking
+	  sczh PQRST 2
+	  sczh W 1000 
+	  stop
+}
+}
+
+
+
+
+
+
+
+actor zc2018f //zombie clone2018
+
+{ 	
+Game Doom
+	SpawnID 4
+	Health 50
+	Radius 20
+	Height 56
+	Speed 18
+	PainChance 50
+	  DamageFactor "carcollision", 1
+	Mass 300
+	Monster
+	+FLOORCLIP
+	+pushable
+	SeeSound "grunt/sight"
+	AttackSound "demon/melee"
+	PainSound "grunt/pain"
+	DeathSound "grunt/death"
+	ActiveSound "grunt/active"
+	Obituary "$OB_ZOMBIE" // "%o was killed by a dayzombie."
+    
+  States
+  { 
+  //"80:102=198:204",
+   Spawn:
+   scza A 1 
+   
+   
+   
+  scza AAABBCCDD 8 A_Wander
+    scza AB 0 A_Look
+	
+    goto spawn+1
+  See:
+    scza AAABBCCDD 4 A_Chase
+	scza AAABBCCDD 4 A_Chase
+	scza AAABBCCDD 4 A_Chase
+	scza AAABBCCDD 4 A_Chase
+	scza AAABBCCDD 4 A_Chase
+	    scza AAABBCCDD 4 A_Chase
+	scza AAABBCCDD 4 A_Chase
+	scza AAABBCCDD 4 A_Chase
+	scza AAABBCCDD 4 A_Chase
+	scza AAABBCCDD 4 A_Chase
+	    scza AAABBCCDD 4 A_Chase
+	scza AAABBCCDD 4 A_Chase
+	scza AAABBCCDD 4 A_Chase
+	scza AAABBCCDD 4 A_Chase
+	scza AAABBCCDD 4 A_Chase
+	    scza AAABBCCDD 4 A_Chase
+
+   
+	  TROO A 0 A_ClearTarget
+
+	  Melee:
+	    scza a 0 A_TakeInventory("Forgettimer", 5) // Reset the timer.
+		scza A 10 Fast A_FaceTarget
+		
+		scza A 8 A_SargAttack
+		scza A random(10,20)   
+		Goto See
+
+	  Pain:
+		scza G 3
+		scza G 3 A_Pain
+		Goto See
+	  Death:
+		scza H 5
+		scza I 5 A_Scream
+		scza J 5 A_NoBlocking
+		scza K 5
+		scza LLLLL 1 A_SpawnItemEx("Splatspawner",0,0,random(4,8),random(0,2),random(0,2),random(0,3),random(-160,200))
+		scza L 1 A_SpawnItemEx("Zombiebody",0,0,random(4,8),0,0,0,0)
+	  //  POSS L 1 A_DropItem ("Zombiebody",1,255)
+		Stop
+	  XDeath:
+		scza M 5
+		scza N 5 A_XScream
+		scza O 5 A_NoBlocking
+		scza PQRST 5
+		POSS U -1
+		Stop
+	  Raise:
+		scza K 5
+		scza JIH 5
+		Goto See
+	 
+	   Forget: 
+     TROO A 0 A_TakeInventory("Forgettimer", 5)
+     scza A 3 A_ClearTarget
+     Goto Spawn
+	 
+	  Death.carcollision:
+	  scza M 2
+	  scza N 2 A_XScream
+	  scza O 2 A_NoBlocking
+	  scza PQRST 2
+	  scza W 1000 
+	  stop
+}
+}
+
+
+
+
+
+actor zc2018g //zombie clone2018
+
+{ 	
+Game Doom
+	SpawnID 4
+	Health 50
+	Radius 20
+	Height 56
+	Speed 18
+	PainChance 50
+	  DamageFactor "carcollision", 1
+	Mass 300
+	Monster
+	+FLOORCLIP
+	+pushable
+	SeeSound "grunt/sight"
+	AttackSound "demon/melee"
+	PainSound "grunt/pain"
+	DeathSound "grunt/death"
+	ActiveSound "grunt/active"
+	Obituary "$OB_ZOMBIE" // "%o was killed by a dayzombie."
+    
+  States
+  { 
+  //"80:102=198:204",
+   Spawn:
+   sczc A 1 
+   
+   
+   
+  sczc AAABBCCDD 8 A_Wander
+    sczc AB 0 A_Look
+	
+    goto spawn+1
+  See:
+    sczc AAABBCCDD 4 A_Chase
+	sczc AAABBCCDD 4 A_Chase
+	sczc AAABBCCDD 4 A_Chase
+	sczc AAABBCCDD 4 A_Chase
+	sczc AAABBCCDD 4 A_Chase
+	    sczc AAABBCCDD 4 A_Chase
+	sczc AAABBCCDD 4 A_Chase
+	sczc AAABBCCDD 4 A_Chase
+	sczc AAABBCCDD 4 A_Chase
+	sczc AAABBCCDD 4 A_Chase
+	    sczc AAABBCCDD 4 A_Chase
+	sczc AAABBCCDD 4 A_Chase
+	sczc AAABBCCDD 4 A_Chase
+	sczc AAABBCCDD 4 A_Chase
+	sczc AAABBCCDD 4 A_Chase
+	    sczc AAABBCCDD 4 A_Chase
+
+   
+	  TROO A 0 A_ClearTarget
+
+	  Melee:
+	    sczc a 0 A_TakeInventory("Forgettimer", 5) // Reset the timer.
+		sczc A 10 Fast A_FaceTarget
+		
+		sczc A 8 A_SargAttack
+		sczc A random(10,20)   
+		Goto See
+
+	  Pain:
+		sczc G 3
+		sczc G 3 A_Pain
+		Goto See
+	  Death:
+		sczc H 5
+		sczc I 5 A_Scream
+		sczc J 5 A_NoBlocking
+		sczc K 5
+		sczc LLLLL 1 A_SpawnItemEx("Splatspawner",0,0,random(4,8),random(0,2),random(0,2),random(0,3),random(-160,200))
+		sczc L 1 A_SpawnItemEx("Zombiebody",0,0,random(4,8),0,0,0,0)
+	  //  POSS L 1 A_DropItem ("Zombiebody",1,255)
+		Stop
+	  XDeath:
+		sczc M 5
+		sczc N 5 A_XScream
+		sczc O 5 A_NoBlocking
+		sczc PQRST 5
+		POSS U -1
+		Stop
+	  Raise:
+		sczc K 5
+		sczc JIH 5
+		Goto See
+	 
+	   Forget: 
+     TROO A 0 A_TakeInventory("Forgettimer", 5)
+     sczc A 3 A_ClearTarget
+     Goto Spawn
+	 
+	  Death.carcollision:
+	  sczc M 2
+	  sczc N 2 A_XScream
+	  sczc O 2 A_NoBlocking
+	  sczc PQRST 2
+	  sczc W 1000 
+	  stop
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,859 @@
+  
+
+
+
+
+ script 2901(int passthroughto2900) net { // This is the opening of the new inventory menu
+  // that var needs changing to a player var
+
+  // GetUserVariable(0, "user_openclosemenu"); 
+  if (GetUserVariable(1000 + PlayerNumber(), "user_openclosemenu") == 0) {
+    SetUserVariable(1000 + PlayerNumber(), "user_openclosemenu", 1);
+    SetPlayerProperty(0, 1, PROP_TOTALLYFROZEN); // freezes the player	
+    ACS_ExecuteAlways(2900, 1,passthroughto2900);
+	      takeActorInventory(1000 + PlayerNumber(), "menulevel", 50); //gets rid of the car menu
+      takeActorInventory(1000 + PlayerNumber(), "menufoo", 50);//gets rid of the car menu
+
+	
+  } else {
+    SetUserVariable(1000 + PlayerNumber(), "user_openclosemenu", 0);
+    SetPlayerProperty(0, 0, PROP_TOTALLYFROZEN); // unfreezes the player	
+  }
+
+}
+
+script 2910 (int bagsize) // changing bag size
+{
+	if (bagsize == 1){
+	setUserVariable(1000 + PlayerNumber(), "user_Sbarsize",4);
+	}
+	else if (bagsize == 2){
+	setUserVariable(1000 + PlayerNumber(), "user_Sbarsize",8);
+	}
+	else
+	{
+	setUserVariable(1000 + PlayerNumber(), "user_Sbarsize",12);
+	}
+}
+
+
+
+/*
+
+//testing the array of inventories
+int container1[12]={0,1,2};
+int container2[12]={0,5,3};
+int container3[12]={0,6,1};
+int container4[12]={1,6,20};
+
+int playersave1[12]={0,1,2};
+int playersave2[12]={0,5,3};
+int playersave3[12]={0,6,1};
+int playersave4[12]={1,6,20};	
+*/
+
+
+script 2900(int containernumber) //container number populates the one on the left
+  {
+	//  containernumber = 
+    SetHudSize(1000, 750, TRUE); //  sets the ui to 1000 by 750
+
+    int headnum = 0;
+
+    //int held_item = 0;
+    //setting variables for  menuf
+    int mousex = 0;
+    int mousey = 0;
+    str menuicon = "crapp"; // this is the name of the mouse icon. Maybe use an arm?
+    int pickedup = 0;  // unsure
+    int hoveridx = 0;
+    int itemtodrop = 0;
+    int rightclickx = 0.0;
+    int rightclicky = 0.0;
+    int rightclickdelay = 0;
+    int held_item = 0;  // which one is currently in the hand
+
+
+    //sets the loop for the inventory				
+    while (GetUserVariable(0, "user_openclosemenu") == 1) {
+      setUserVariable(1000 + PlayerNumber(), "user_testifopen", 1); // confims that the menu is now open.
+      ///////////////////////////////////////////////////////////////////////////////////////////////////////placing stuff on the screen, head etc////////////////	
+	  
+
+
+
+      int headhealth = GetActorProperty(1000 + PlayerNumber(), APROP_HEALTH);
+      //sets the correct head for the current health		   
+      if (headhealth > 90) {
+        headnum = 0;
+      } else if (headhealth > 80) {
+        headnum = 1;
+      } else if (headhealth > 60) {
+        headnum = 2;
+      } else if (headhealth > 40) {
+        headnum = 3;
+      } else if (headhealth > 20) {
+        headnum = 4;
+      } else {
+        headnum = 5;
+      }
+      SetFont(headpic[headnum]); //the head pic
+      HudMessage(s: "A"; HUDMSG_FADEOUT, 4510, 0, 610.0, 230.0, 0.2);
+
+		
+
+ 
+	  if (GetUserVariable(1000+playernumber(),"user_wearcolour")  ==0  )
+	  {
+		  SetFont("dooba");// this is the guys body
+	  }
+      else if (GetUserVariable(1000+playernumber(),"user_wearcolour")  ==1  )
+	  {
+		  SetFont("doobr");// this is the guys body
+	  }
+    
+	   if (GetUserVariable(1000+playernumber(),"user_wearcolour")  ==2  )
+	  {
+		  SetFont("doobb");// this is the guys body
+	  }
+	  
+	  
+	  
+	  
+	  if (GetUserVariable(1000+playernumber(),"user_wearing")  >0  )
+	  {
+		  SetFont("menugil");
+		}
+	  
+	  
+      HudMessage(s: "a"; HUDMSG_FADEOUT, 4511, 0, (620.0), (340.0), 0.2);
+	  
+	 // setFont("pizhx0"); //THE GUN PIC
+      //HudMessage(s: "A"; HUDMSG_FADEOUT, 3510, 0, 670.0, 320.0, 0.2);
+	 
+	 
+	 
+	 
+	  
+	 
+	
+	  
+	  setFont("bigfont"); //How to use
+   
+	  HudMessageBold(s:"left click to select\n\nright click to pick up\n\nright click again to throw, or left to put back\n\nIf right click doesnt work, set it in controls";	HUDMSG_FADEOUT,6510,cr_red,750.0, 150.0,0.2);
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+      //puts the full grid into place for debug
+      //SetFont("nnful"); HudMessage(s: "A"; HUDMSG_FADEOUT, 8877, 0, 512.0, 360.0, 100);
+
+      //backing	
+      SetFont("invbk"); //the backing
+      HudMessage(s: "A"; HUDMSG_FADEOUT, 4999, 0, (500.0), (380.0), 0.5);
+
+      //	title
+      SetFont("title");
+      HudMessage(s: "A"; HUDMSG_FADEOUT, 4507, 0, (200.0), (100.0), 0.2);
+
+      //help	
+     // SetFont("helph");
+     // HudMessage(s: "A"; HUDMSG_FADEOUT, 4508, 0, (920.0), (75.0), 0.2);
+
+      //outputbox	
+      SetFont("outbar");
+      HudMessage(s: "A"; HUDMSG_FADEOUT, 4600, 0, (500.0), (650.0), 0.2);
+
+      //adds the bag. Needs to fit the size of inventory
+     
+	  
+	  str bagpic;
+	  if (GetUserVariable(1000 + PlayerNumber(), "user_Sbarsize") == 4) {
+		SetFont("zrid4x1");
+	  }
+	  if (GetUserVariable(1000 + PlayerNumber(), "user_Sbarsize") == 8) {
+		SetFont("zrid4x2");
+	  }
+	  if (GetUserVariable(1000 + PlayerNumber(), "user_Sbarsize") == 12) {
+		SetFont("zrid4x3");
+	  }
+	  
+     
+      HudMessage(s: "A"; HUDMSG_FADEOUT, 4506, 0, 720.0, 240.0, 0.5); // bag on the right
+		
+		
+		
+		//if other box is passed through, then put this here
+		/*
+      SetFont("nnuix");
+      HudMessage(s: "A"; HUDMSG_FADEOUT, 4997, 0, 50.0, 240.0, 0.5); //new grid on the left
+		*/
+		
+      mousex -= (GetPlayerInput(-1, INPUT_YAW) / 30);
+      if (!GetCVar("invertmouse"))
+        mousey -= (GetPlayerInput(-1, INPUT_PITCH) / 30);
+      else
+        mousey += (GetPlayerInput(-1, INPUT_PITCH) / 30);
+
+      SetFont("bigfont");
+      //print(i:mousex, s:" mouseex i and i ", i:mousey);
+
+      // sets the cap for the inventory area				
+      if (mousex >= 600) {
+        mousex = 600;
+      }
+      if (mousex <= -600) {
+        mousex = -600;
+      }
+      if (mousey <= -360) {
+        mousey = -360;
+      }
+      if (mousey >= 360) {
+        mousey = 360;
+      }
+      //changes the value into a floating point
+      int nnmousex = (mousex * 1.0);
+      int nnmousey = (mousey * 1.0);
+      //creates a new variable to start the mouse from the centre of the screen
+      int Mnnmousex = (nnmousex + 500.0);
+      int Mnnmousey = (nnmousey + 360.0);
+
+      //show the cursor
+      //held_item = maininvuse_num;
+      //						itemnames
+      SetFont(cursornames[held_item]); //this is the cursor
+      HudMessage(s: "A"; HUDMSG_FADEOUT, 784, 0, Mnnmousex, Mnnmousey, 1.0);
+
+      // HOVERTEST	
+
+      str hover = "loading";
+      int hoverover = 0;
+      //needs to check the hover boxes.				//////////////////////////////////////////////////////////////////////////// submenus
+      //	check a (ext inv)
+      //	check b (player)
+      //	check c (gunlist)
+      //	check d (inv)
+      //	check e (help button)
+
+      //check to see which box you are currently over.
+      //other inv
+      if (
+        Mnnmousex >= 50.0 &&
+        Mnnmousex < 280.0 &&
+        Mnnmousey >= 250.0 &&
+        Mnnmousey < 480.0
+      ) {
+        hoverover = 1;
+        hover = "the other inventory";
+        //set the sub-hover here
+
+        int u = 0;
+        while (u < getUserVariable(1000 + PlayerNumber(), "user_Sbarsize")) {
+          if (
+            ((Mnnmousex - 5.0) >= 50.0 + xy_array[u][1]) &&
+            ((Mnnmousex - 5.0) < 280.0 + xy_array[u][1] + 50.0) &&
+            ((Mnnmousey - 25.0) >= 250.0 + xy_array[u][0]) &&
+            ((Mnnmousey - 25.0) < 480.0 + xy_array[u][0] + 50.0)
+          ) {
+            SetFont("outline");
+            HudMessage(
+              s: "A"; HUDMSG_FADEOUT,
+              4033, 0,
+              50.0 + xy_array[u][1],
+              235.0 + xy_array[u][0],
+              5);
+
+            int checkitem = getUserArray(0, "user_Sbarcontents", u);
+            SetFont("SMALLFONT");
+            HudMessage(s: itemdesc[checkitem], s: " ", i: checkitem, s: " ", s: itemnames[checkitem]; HUDMSG_FADEOUT, 1706, CR_BRICK, 400.0, 650.0, 0.2);
+            //HudMessage(s: "+HOVER    ",s:hover, s:"   ", i:hoverover; HUDMSG_FADEOUT, 1706, 0, 480.0, 657.0 , 50)
+
+          }
+          u++;
+
+        }
+
+      }
+
+      //gun			
+      else if (
+        Mnnmousex >= 320.0 &&
+        Mnnmousex < 500.0 &&
+        Mnnmousey >= 200.0 &&
+        Mnnmousey < 525.0
+      ) {
+        hoverover = 2;
+        hover = "the gun menu";
+
+        int gunid = 0;
+        while (gunid < 20) {
+
+          if ( //check for the gun box
+            ((Mnnmousey + 25.0) >= (100.0 + gunyotsoffset + ((gunid * 20.0) - 5.0)) &&
+              ((Mnnmousey + 25.0) < (115.0 + gunyotsoffset + ((gunid * 20.0) - 5.0))))
+          ) {
+            SetFont("BIGFONT");
+         //   HudMessage(s: stringposition[gunid + 1], s: "  ", s: "gunid  ", i: gunid; HUDMSG_FADEOUT, 10417, 0, 500.0, 500.0, 100);
+            str switchgunto = stringposition_realnames[gunid + 1];
+
+            //print(s: "gunid ", i: gunid);
+            //actionnames
+            int tracknumber = ammoforgun[gunid + 1];
+            //	print (s:"tracknumber ",i:tracknumber);
+/*
+DEBUG GUNMENU READOUT
+			print(s:"id of gun slot you are over ",i:(getUserArray(1000 + PlayerNumber(), "user_gunslist", gunid + 1)));
+			print(s:"name of gun slot you are over ",s:new_user_gun_list[(getUserArray(1000 + PlayerNumber(), "user_gunslist", gunid + 1))]);
+			print(s:"just the second half:  ",i:getUserArray(1000 + PlayerNumber(), "user_gunslist", gunid + 1));
+			
+			int the_gun_number_you_are_over = (getUserArray(1000 + PlayerNumber(), "user_gunslist", gunid + 1));
+			print(s:"displaying gun number youre over via int", i:the_gun_number_you_are_over);
+			
+			//print(s:"should be 46",i:the_gun_number_you_are_over[21]);
+			print(s:"ammoforgun shoud match gun number :  ",i:which_ammo_type_per_gun[the_gun_number_you_are_over]);
+			int item_number_of_ammo_for_gun = which_ammo_type_per_gun[the_gun_number_you_are_over];
+			str ammo_sprite_to_show_for_gun = itemnames[item_number_of_ammo_for_gun];
+			print(s:ammo_sprite_to_show_for_gun);
+			
+	*/		
+			//This is the one to show the icon  that particular guns ammo
+			
+				int the_gun_number_you_are_over = (getUserArray(1000 + PlayerNumber(), "user_gunslist", gunid + 1));
+				int item_number_of_ammo_for_gun = which_ammo_type_per_gun[the_gun_number_you_are_over];
+			str ammo_sprite_to_show_for_gun = itemnames[item_number_of_ammo_for_gun];
+				
+				if (item_number_of_ammo_for_gun>0){ // doesnt display if it is 0
+			  SetFont(ammo_sprite_to_show_for_gun);
+			  HudMessage(s: "A"; HUDMSG_FADEOUT, 4512, 0, (680.0), (650.0), 0.4);
+			  }
+			  else //wipe it so it disapears
+			  {
+				   SetFont("smallfont");
+				  HudMessage(s: ""; HUDMSG_FADEOUT, 4512, 0, (680.0), (650.0), 0.4);
+				}
+			  
+			  
+			  
+			   SetFont("Bigfont");
+            //HudMessage(s: itemdesc[checkitem2], s: " ", i: checkitem2, s: " ", s: itemnames[checkitem2]; HUDMSG_FADEOUT, 1706, CR_GREEN, 450.0, 650.0, 10);
+            HudMessage(s: stringposition[gunid + 1]; HUDMSG_FADEOUT, 4514, CR_GREEN, 480.0, 630.0, 10);  
+			  SetFont("confont");
+			   HudMessage(s: Gun_description[the_gun_number_you_are_over]; HUDMSG_FADEOUT, 4513, CR_GREEN, 480.0, 650.0, 10);    
+			  
+			
+			          }
+          gunid++;
+        }
+
+      } else if (
+        Mnnmousex >= 530.0 &&
+        Mnnmousex < 655.0 &&
+        Mnnmousey >= 220.0 &&
+        Mnnmousey < 450.0
+      ) {
+        hoverover = 3;
+        hover = "the guy";
+      }
+
+      // main inv					
+      else if (
+        Mnnmousex >= 720.0 &&
+        Mnnmousex < 960.0 &&
+        Mnnmousey >= 240.0 &&
+        Mnnmousey < 475.0
+      ) {
+        // the point at which it needs to check what its over
+        hoverover = 4;
+        hover = "the main inventory";
+
+        int t = 0;
+                while (t < getUserVariable(1000 + PlayerNumber(), "user_Sbarsize"))  {
+          if (
+            ((Mnnmousex - 5.0) >= 720.0 + xy_array[t][1]) &&
+            ((Mnnmousex - 5.0) < 960.0 + xy_array[t][1] + 50.0) &&
+            ((Mnnmousey - 45.0) >= 240.0 + xy_array[t][0]) &&
+            ((Mnnmousey - 45.0) < 475.0 + xy_array[t][0] + 50.0)
+          ) {
+            SetFont("outline");
+            HudMessage(
+              s: "A"; HUDMSG_FADEOUT,
+              4033, 0,
+              720.0 + xy_array[t][1],
+              240.0 + xy_array[t][0],
+              5);
+
+            int checkitem2 = getUserArray(0, "user_Sbarcontents", t); // this would need to get it from the other inventory
+            SetFont("CONFONT");
+            //HudMessage(s: itemdesc[checkitem2], s: " ", i: checkitem2, s: " ", s: itemnames[checkitem2]; HUDMSG_FADEOUT, 1706, CR_GREEN, 450.0, 650.0, 10);
+            HudMessage(s: itemdesc[checkitem2]; HUDMSG_FADEOUT, 4513, CR_GREEN, 480.0, 650.0, 10);
+            
+			str maininvuse = actionusernames[checkitem2];
+            int maininvuse_num = checkitem2;
+            //print(s:"printing maininvuse ",s:maininvuse);
+
+          }
+          t++;
+
+        }
+
+      } else if (
+        Mnnmousex >= 880.0 &&
+        Mnnmousex < 960.0 &&
+        Mnnmousey >= 40.0 &&
+        Mnnmousey < 120.0
+      ) {
+        hoverover = 6;
+        hover = "Click here to see the help menu";
+      } else {
+        hoverover = 0;
+      }
+
+      //the readout down at the bottom
+      SetFont("Bigfont"); //
+      //	HudMessage(s: hover, s:"   //    ",i:hoverover; HUDMSG_FADEOUT, 15, 0, 512, 370, 1000.0);
+      //print(i:hoverover);
+      //HudMessage(s: "+HOVER    ",s:hover, s:"   ", i:hoverover; HUDMSG_FADEOUT, 1706, 0, 480.0, 657.0 , 50);
+
+      ///////////////////showing the array of items////////////////
+
+      int cornerX = (760.0); // corner of the array
+      int cornerY = (305.0);
+      //int wasonefound = 0; //im going to use this to check to see if it got more than 0. fingers crossed
+
+      //SetUserVariable(0, "user_Sbarsize", 12); //DELETE THIS. this is to test a big bag
+
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+															//the start of listing items. BIG BOX
+
+      int currentsize = GetUserVariable(0, "user_Sbarsize");
+      for (int i = 0; i < currentsize; i++) {
+        if (getUserArray(0, "user_Sbarcontents", i) != 0) { ////if you 
+          SetFont("BIGFONT");
+          //print(s:"xy = ", i:xy_array[i][0], i:xy_array[i][1]);
+          SetFont(itemnames[getUserArray(0, "user_Sbarcontents", i)]);
+          //SetFont("outline");
+          HudMessage(
+            s: "A"; HUDMSG_FADEOUT,
+            4000 + i, 0,
+            cornerX + xy_array[i][1],
+            cornerY + xy_array[i][0],
+            5);
+
+          int stackeditemsize = getUserArray(0, "user_stack", i);
+          if (stackeditemsize > 1) {
+            SetFont("BIGFONT");
+            HudMessage(
+              i: getUserArray(0, "user_stack", i); HUDMSG_FADEOUT,
+              3500 + i, 0,
+              cornerX + xy_array[i][1] + 15.0,
+              cornerY + xy_array[i][0] + 15.0,
+              5);
+          }
+
+        }
+      }
+	  
+	  
+	  
+	  
+	  if (containernumber>0){
+	  
+	  
+				//other box. test
+	  int cornerX2 = 87.0;// corner of the lefthand box
+	  int cornery2 = (cornery -5.0);
+	  
+	  
+	  	        currentsize = GetUserVariable(containernumber, "user_Sbarsize");
+      for ( i = 0; i < currentsize; i++) {
+        if (getUserArray(containernumber, "user_Sbarcontents", i) != 0) { ////if you 
+          SetFont("BIGFONT");
+          //print(s:"xy = ", i:xy_array[i][0], i:xy_array[i][1]);
+          SetFont(itemnames[getUserArray(containernumber, "user_Sbarcontents", i)]);
+          //SetFont("outline");
+          HudMessage(
+            s: "A"; HUDMSG_FADEOUT,
+            4200 + i, 0,
+            cornerX2 + xy_array[i][1],
+            cornerY2 + xy_array[i][0],
+            5);
+
+          stackeditemsize = getUserArray(containernumber, "user_stack", i);
+          if (stackeditemsize > 1) {
+            SetFont("BIGFONT");
+            HudMessage(
+              i: getUserArray(containernumber, "user_stack", i); HUDMSG_FADEOUT,
+              3700 + i, 0,
+              cornerX + xy_array[i][1] + 15.0,
+              cornerY + xy_array[i][0] + 15.0,
+              5);
+          }
+		  
+		  
+
+        }
+      }
+	  }
+	  
+	  
+	  
+	  
+	  
+	  
+	  ///////////////////////////////////////////////////////////////////////////////////////////////////////
+	  
+	  
+	  
+
+      ////////////doing the gun menu listing
+
+      int j = 1;
+      while (j < 26) {
+        stringposition_realnames[j] = new_user_gun_realnames[getUserArray(1000 + PlayerNumber(), "user_gunslist", j)];
+        stringposition[j] = new_user_gun_list[getUserArray(1000 + PlayerNumber(), "user_gunslist", j)];
+        j++;
+      }
+
+      SetFont("Bigfont");
+      int strpos = 1;
+      int hudidnum = 2500;
+      int gunlevel = 0.0;
+
+      while (strpos < 20) {
+        HudMessage(s: stringposition[strpos]; HUDMSG_FADEOUT, hudidnum, 0.5, (110.0 + gunxotsoffset - 25.0), (100.0 + gunyotsoffset - 25.0 + gunlevel), 1); //listing weapons. needs a loop
+        strpos++;
+        hudidnum++;
+        gunlevel = (gunlevel + 20.0);
+      }
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+
+      ///////////////////////////////////////////////// button clicks
+
+      int buttons = GetPlayerInput(-1, INPUT_BUTTONS);
+      int oldbuttons = GetPlayerInput(-1, INPUT_OLDBUTTONS); //rightclick
+      int whatsinit;
+
+      /////////////////////////////////////////////////////button left click
+
+      if ((oldbuttons & BT_ATTACK) != (buttons & BT_ATTACK)) { // left click?>
+        if (buttons & BT_ATTACK) {
+
+          if (held_item < 1) { // the first click
+
+            if (hoverover == 0) {
+              //do nothing. clicking in the void	
+            }
+            if (hoverover == 1) {
+              //the other menu
+            }
+            if (hoverover == 2) {
+              //gun menu
+              SetWeapon(switchgunto);
+            }
+            if (hoverover == 3) {
+              //the guy
+            }
+            if (hoverover == 4) {
+              //the main inventory
+             // print(s: "clicked use");
+              
+			  if (maininvuse_num<49){ //sets the user if its not a book or ghillie
+				SetWeapon(maininvuse);
+			  }
+			  else if (maininvuse_num==49)// means its a ghillie suit
+			  {
+				setUserVariable(0, "user_wearing",1) ;
+				
+				//this should now be removing the ghillie
+				  acs_execute(867, 1, maininvuse_num,1);
+				//this needs removing from here now, as it has been set. That or you need to remove the ghillie when dropped.  
+			  }
+			  
+			  else if (maininvuse_num==50) //war and peace
+			  {
+				//stop this menu
+				//run the book script  
+				ACS_Execute(23007,1,maininvuse_num); //you could pass through the maininvuse_num here
+				
+			   }
+			   		  else if (maininvuse_num==51) //green clothes
+			  {
+				//stop this menu
+				//change clothing
+				ACS_Execute(1333,1,0); //you could pass through the maininvuse_num here
+				//could put one here to swap it with the current one in use, or just shed the one in use.
+				acs_execute(867, 1, maininvuse_num,1);
+				
+			   }	  
+			     		  else if (maininvuse_num==52) //red clothes
+			  {
+				//stop this menu
+				//change clothing
+				ACS_Execute(1333,1,1); //you could pass through the maininvuse_num here
+				//could put one here to swap it with the current one in use, or just shed the one in use.
+				acs_execute(867, 1, maininvuse_num,1);				
+			   }	
+			   
+			      		  else if (maininvuse_num==53) //blue clothes
+			  {
+				//stop this menu
+				//change clothing
+				ACS_Execute(1333,1,2); //you could pass through the maininvuse_num here
+				//could put one here to swap it with the current one in use, or just shed the one in use.
+				acs_execute(867, 1, maininvuse_num,1);				
+			   }	
+            }
+            if (hoverover == 5) {
+              //the bottom bar, but this won't be used
+            }
+            if (hoverover == 6) {
+              //The help icon. show a popup
+            }
+
+          } 
+		  
+		  
+		  
+//if holding		  
+		  else if (held_item > 0) {
+            //it needs to be swapping it in, or chucking it if its out
+
+            if (hoverover == 0) {
+              //do nothing. clicking in the void	
+            }
+            if (hoverover == 1) {
+              //the other menu
+            }
+            if (hoverover == 2) {
+              //gun menu
+              SetWeapon(switchgunto);
+            }
+            if (hoverover == 3) {
+              //the guy
+
+              //add it back into the inventory, and switch to that
+              if (ACS_ExecuteWithResult(860, held_item) == 1) {
+                SetWeapon(actionusernames[held_item]);
+                held_item = 0;
+                print(s: "put back and using");
+
+              } else {
+                print(s: "NOT ADDED - FULL");
+              }
+
+            }
+            if (hoverover == 4) {
+              //the main inventory
+              //dropping item
+              if (ACS_ExecuteWithResult(860, held_item) == 1) {
+                held_item = 0;
+                print(s: "added properly");
+              } else {
+                print(s: "NOT ADDED - FULL");
+              }
+
+            }
+            if (hoverover == 5) {
+              //the bottom bar, but this won't be used
+            }
+            if (hoverover == 6) {
+              //The help icon. show a popup
+            }
+
+          }
+
+        }
+      }
+
+
+
+
+
+
+      /////////////////////////////////////////////////////button right click
+
+      if ((oldbuttons & BT_ALTATTACK) != (buttons & BT_ALTATTACK)) { //rightclick
+        if (buttons & BT_ALTATTACK) {
+         // print(s: "rightclick pressed");
+
+          if (held_item < 1) { // the first click
+
+            if (hoverover == 0) {
+              //do nothing. clicking in the void	
+            }
+            if (hoverover == 1) {
+              //the other menu
+            }
+            if (hoverover == 2) {
+              //gun menu
+              SetWeapon(switchgunto);
+            }
+            if (hoverover == 3) {
+              //the guy
+            }
+            if (hoverover == 4) {
+              //the main inventory
+            //  print(s: "rightclick pressed hoverover 4");
+              acs_execute(867, 1, maininvuse_num,1);
+              held_item = maininvuse_num;
+            }
+            if (hoverover == 5) {
+              //the bottom bar, but this won't be used
+            }
+            if (hoverover == 6) {
+              //The help icon. show a popup
+            }
+
+          } else if (held_item > 0) {
+            //it needs to be swapping it in, or chucking it if its out
+
+            //made it do this for wherever you click
+
+            int x2 = GetActorX(1000 + PlayerNumber()) + 0.0;
+            int y2 = GetActorY(1000 + PlayerNumber()) + 0.0;
+            int z2 = GetActorZ(1000 + PlayerNumber()) + 32.0;
+            int z = GetActorZ(1000 + PlayerNumber()) + 10.0;
+            int angle3 = GetActorAngle(1000 + PlayerNumber());
+            Spawn(item_spawn_names[held_item], x2 + cos(angle3) * 100, y2 + sin(angle3 + 0.0) * 70, z);
+            held_item = 0;
+
+            if (hoverover == 0) {
+              //do nothing. clicking in the void	
+            }
+            if (hoverover == 1) {
+              //the other menu
+            }
+            if (hoverover == 2) {
+              //gun menu
+              SetWeapon(switchgunto);
+            }
+            if (hoverover == 3) {
+              //the guy
+            }
+            if (hoverover == 4) {
+              //the main inventory
+              print(s: "throw it");
+
+            }
+            if (hoverover == 5) {
+              //the bottom bar, but this won't be used
+            }
+            if (hoverover == 6) {
+              //The help icon. show a popup
+            }
+
+          }
+
+        }
+      }
+
+      whatsinit = getUserArray(0, "user_Sbarcontents", (hoveridx - 1));
+
+      if ((oldbuttons & BT_ALTATTACK) != (buttons & BT_ALTATTACK)) { //rightclick
+        if (buttons & BT_ALTATTACK) {
+          if (hoveridx > 0) {
+
+            rightclickx = (15.0 + cornerX + xy_array[(hoveridx - 1)][1]);
+            rightclicky = (55.0 + cornerY + xy_array[(hoveridx - 1)][0]);
+
+            Print(i: (hoveridx - 1));
+            itemtodrop = (hoveridx - 1);
+
+            whatsinit = getUserArray(0, "user_Sbarcontents", (hoveridx - 1));
+            Print(i: (whatsinit));
+
+            //SetUserArray(0, "user_Sbarcontents", (hoveridx-1),0);
+
+          }
+
+        }
+      }
+
+      //	SetPlayerProperty(1000 + PlayerNumber(), 1, PROP_TOTALLYFROZEN); // freezes the player	  
+
+      /////////////////////////////////
+      delay(1); // stop the script from running away with itself.
+    }
+    // print(s:"no longer 1");
+    //at this point, throw out anything which is currently being held in the cursor
+
+    //throw out held_item if it exists
+
+    x2 = GetActorX(1000 + PlayerNumber()) + 0.0;
+    y2 = GetActorY(1000 + PlayerNumber()) + 0.0;
+    z2 = GetActorZ(1000 + PlayerNumber()) + 32.0;
+    z = GetActorZ(1000 + PlayerNumber()) + 10.0;
+    angle3 = GetActorAngle(1000 + PlayerNumber());
+    Spawn(item_spawn_names[held_item], x2 + cos(angle3) * 100, y2 + sin(angle3 + 0.0) * 70, z);
+    held_item = 0;
+
+    SetPlayerProperty(1000 + PlayerNumber(), 0, PROP_TOTALLYFROZEN); // unfreezes the player   
+
+  }
+  
+  
+  
+  script 8060(int item, int actortoaddto) { //This is the adding script. but lets you specify an actor
+  int currentsize = GetUserVariable(actortoaddto, "user_Sbarsize");
+  int addeditem = 0;
+  for (int i = 0; i < currentsize; i++) {
+    if (getUserArray(0, "user_Sbarcontents", i) == item) {
+      // CHECK STACK
+      // ADD TO STACK
+      int thisstack = getUserArray(actortoaddto, "user_stack", i);
+      int newstack = thisstack + 1;
+      int theitemsallowedstack = stacksize[item];
+      if (thisstack < theitemsallowedstack) {
+        //	SetFont("bigfont");
+        //PrintBold(s: "stacking ", i:newstack, s:" oldstack ", i:thisstack);				
+        SetUserArray(actortoaddto, "user_stack", i, newstack);
+        addeditem = 1;
+        break;
+      }
+    }
+  }
+  if (addeditem == 0) {
+    for (int j = 0; j < currentsize; j++) {
+      if (getUserArray(actortoaddto, "user_Sbarcontents", j) == 0) {
+        SetUserArray(actortoaddto, "user_Sbarcontents", j, item);
+        SetUserArray(actortoaddto, "user_stack", j, 1);
+        addeditem = 1;
+        GiveActorInventory(actortoaddto, actionusernames[item], 1);
+        break;
+      }
+    }
+  }
+  SetResultValue(addeditem);
+}
+		

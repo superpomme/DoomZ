@@ -1,0 +1,89 @@
+//test
+
+script 6561 (void)
+{
+ SetFont("bigfont");
+	print(s:"test");
+}
+
+script 6562 (void)
+{
+ SetFont("bigfont");
+	print(s:"wonky");
+}
+
+
+			 		//THE RAIN AND SNOW 
+
+
+script 839(void) {
+	raining =1;
+	delay(50);
+  snowing = 1;
+
+}
+
+			
+					
+script 771 ENTER { // THis spawns rain //
+while (allowrain==1){
+  while (2 > 1) {
+    delay(1);
+	
+  if (snowing == 1) {
+      //ChangeSky("rainz0","rainz0");
+      //do {
+      // delay(1);
+      //  int rx = GetActorX(1000 + PlayerNumber()) + 100.0;
+      int rx = GetActorX(1000 + PlayerNumber()) + 0.0;
+      int ry = GetActorY(1000 + PlayerNumber()) + 0.0;
+      int rz = GetActorZ(1000 + PlayerNumber()) + 300.0;
+
+      int r2x = (rx + random(-500.0, 500.0));
+      int r2y = (ry + random(-500.0, 500.0));
+
+      Spawn("SnowParticle", r2x, r2y, rz, 0);
+
+       r2x = (rx + random(-500.0, 500.0));
+       r2y = (ry + random(-500.0, 500.0));
+      Spawn("SnowParticle", r2x, r2y, rz, 0);
+       r2x = (rx + random(-500.0, 500.0));
+       r2y = (ry + random(-500.0, 500.0));
+    }
+    else if (raining == 1) {
+      //ChangeSky("rainz0","rainz0");
+
+      //do {
+      // delay(1);
+      //  int rx = GetActorX(1000 + PlayerNumber()) + 100.0;
+       rx = GetActorX(1000 + PlayerNumber()) + 0.0;
+       ry = GetActorY(1000 + PlayerNumber()) + 0.0;
+       rz = GetActorZ(1000 + PlayerNumber()) + 300.0;
+
+       r2x = (rx + random(-500.0, 500.0));
+       r2y = (ry + random(-500.0, 500.0));
+
+      //int angle = GetActorAngle(1000 + PlayerNumber()) >> 8;
+      //;   SetFont("BIGFONT");
+      //	HudMessageBold(i:rx ,s:  "   Ate";
+      //HUDMSG_PLAIN, 593, CR_GREEN, 0.8, 0.85, 0.5);
+      //+ random(0, 50)
+      //} 
+      //until (Spawn("shotgun", rx, ry, rz, 0));
+      Spawn("RnDrp2", r2x, r2y, rz, 0);
+
+      r2x = (rx + random(-500.0, 500.0));
+      r2y = (ry + random(-500.0, 500.0));
+      Spawn("RnDrp2", r2x, r2y, rz, 0);
+      r2x = (rx + random(-500.0, 500.0));
+      r2y = (ry + random(-500.0, 500.0));
+      Spawn("RnDrp2", r2x, r2y, rz, 0);
+      // have back and forth change the weather to rain noise, this should also change the lightAMBRAIN
+      // delay (1);  
+    }
+    //  Thing_ProjectileGravity(1000 + PlayerNumber(), 199, random(0, 224), random(10, 30), random(10, 20));
+
+
+  }
+  }
+}

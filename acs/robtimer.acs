@@ -1,0 +1,541 @@
+ 			
+			 
+			 
+			 
+			 
+			 																			//TESTING
+																						 
+																						 
+																						 
+			 																			 
+																						 
+																						 
+																						 
+																						 
+																						 
+																						 
+					script 2222 (void)
+{
+	print(s:"2222 Light_Fade");
+	//Light_Fade(99990, 100, 100);
+	
+	//Light_Fade(2222, 100, 100);
+	Light_Fade(16000, 100, 100);
+	
+	//Sector_SetColor(2222, dayStuff[theHour][2], dayStuff[theHour][3], dayStuff[theHour][4], dayStuff[theHour][5]); // basic outside that can raise snow	
+
+}
+
+script 2223 (void)
+{
+	print(s:"2223 Sector_SetColor");
+	//Light_Fade(2222, daystuff[TheHourIsNigh][1], hourlength);
+	//Sector_SetColor(2222, 200,100,100,200); //
+	Sector_SetColor(16000, 50,50,50,200); //
+}
+																	 
+																						 
+																						 
+																						 
+																						 
+																						 
+																						 
+				
+
+
+script 828 OPEN {  // i think this is for the interpolation points
+  if (true) {
+	  
+	  
+
+    //print(i:hourlength);
+    //print(s:"daylength");
+    // SpawnSpot ("ATclouds", 3000);
+    //((daylength/10)*3.6)
+    //int hourdivider = 100.0;
+    int fixedhourl = (hourlength / 10);
+
+    log(s: "hour 1 ");
+    log(i: fixedhourl);
+    int hourdivider = FixedMul(fixedhourl, 2.35); //2.5 wasa a little slow 2.47
+
+    log(s: "hourdev");
+    log(i: hourdivider); //HOUR DIVIDER ISNT A DIVIDER, its a multiplier
+    setthingspecial(2561, 0, 0, hourdivider, 0, 2, 10); //6am
+    setthingspecial(2562, 0, 0, hourdivider, 0, 3, 10);
+    setthingspecial(2563, 0, 0, hourdivider, 0, 4, 10); //8
+    setthingspecial(2564, 0, 0, hourdivider, 0, 5, 10);
+    setthingspecial(2565, 0, 0, hourdivider, 0, 6, 10); //10
+    setthingspecial(2566, 0, 0, hourdivider, 0, 7, 10);
+    setthingspecial(2567, 0, 0, hourdivider, 0, 8, 10); // 12
+    setthingspecial(2568, 0, 0, hourdivider, 0, 9, 10);
+    setthingspecial(2569, 0, 0, hourdivider, 0, 10, 10); //2pm
+    setthingspecial(2570, 0, 0, hourdivider, 0, 11, 10);
+    setthingspecial(2571, 0, 0, hourdivider, 0, 12, 10); //4
+    setthingspecial(2572, 0, 0, hourdivider, 0, 13, 10);
+    setthingspecial(2573, 0, 0, hourdivider, 0, 14, 10); //6
+    setthingspecial(2574, 0, 0, hourdivider, 0, 15, 10);
+    setthingspecial(2575, 0, 0, hourdivider, 0, 16, 10); //8 
+    setthingspecial(2576, 0, 0, hourdivider, 0, 17, 10); //out of there
+	
+	// the movingbeast
+	
+	hourdivider = FixedMul(fixedhourl, 2.3);
+	
+	    setthingspecial(1, 0, 0, hourdivider, 0, 2, 0); //6am
+    setthingspecial(2, 0, 0, hourdivider, 0, 3, 0);
+    setthingspecial(3, 0, 0, hourdivider, 0, 4, 0); //8
+    setthingspecial(4, 0, 0, hourdivider, 0, 5, 0);
+    setthingspecial(5, 0, 0, hourdivider, 0, 6, 0); //10
+    setthingspecial(6, 0, 0, hourdivider, 0, 7, 0);
+    setthingspecial(7, 0, 0, hourdivider, 0, 8, 0); // 12
+    setthingspecial(8, 0, 0, hourdivider, 0, 9, 0);
+    setthingspecial(9, 0, 0, hourdivider, 0, 10, 0); //2pm
+    setthingspecial(10, 0, 0, hourdivider, 0, 11, 0);
+    setthingspecial(11, 0, 0, hourdivider, 0, 12, 0); //4
+    setthingspecial(12, 0, 0, hourdivider, 0, 13, 0);
+    
+
+  }
+}																		 
+																						 
+																						 
+	script 6121 (void){
+		while (true){
+		//thing_activate(2070);
+		//thing_deactivate(2079);
+		//thing_activate(2079);
+		
+		
+	SetActorProperty(27, APROP_RenderStyle, STYLE_None);
+	SetActorProperty(28, APROP_RenderStyle, STYLE_None);
+    SetActorProperty(25, APROP_RenderStyle, STYLE_add); 
+	SetActorProperty(26, APROP_RenderStyle, STYLE_add);
+		thing_activate(2226);
+		delay(500);
+		
+	
+	delay(500);
+		/*
+		thing_deactivate(2226);
+		thing_activate(2225);
+		delay (500);
+		thing_deactivate(2225);
+		thing_deactivate(2226);
+		thing_activate(2226);
+		delay (500);
+		*/
+		}
+		}																					 
+																						 
+
+																	 
+									// time hack													
+script 6132 OPEN // this is the quick robfix for the timer. elaborate on this with a timer script. also try adding to length that ui stays
+{
+	
+	
+	  
+
+//	 if (GameType() != GAME_SINGLE_PLAYER)
+//	 {  //it needs this for mp, but breaks it for single player. now still not working for sp!
+	
+	//ACTUALLY it breaks at the start of mp, but if it happens on the server the clients dont see it
+    	thing_activate(2071);
+	thing_deactivate(2071);
+	
+	
+	thing_activate(2086);
+	thing_deactivate(2086);
+//	print(s:"MP");
+//}
+	
+	
+
+	
+	
+	if (timer_type_off_phil_rob==2){ // if this is set to robs timer, do this
+		//ACS_Execute(778,1); //This spawns in the trees and the sign
+		
+		spawnsomestuff();
+		int rob_hour_itis = startHour;
+		
+		if (GameType() == GAME_SINGLE_PLAYER)
+				{
+		thing_activate(2227);
+		}
+		
+		
+		
+		ACS_Execute(5632,1, rob_hour_itis,  1);
+		while (TRUE) {
+			delay (hourlength);
+			ACS_Execute(5632,1, rob_hour_itis,  1);
+			//setEnvironment(rob_hour_itis, 1);  - we replaced with 5632
+		//	Light_Fade (99991, daystuff[rob_hour_itis][1], hourlength); //WHY DOESNT THIS WORK
+			rob_hour_itis++;
+			if (rob_hour_itis>23)
+			{
+				rob_hour_itis = 0;
+			}
+		}
+	}
+}			
+
+
+
+
+script 4543 (int TheHourIsNigh){
+  // HAVE TO CHANGE THE 23 TO THE NUMBER OF THINGS
+//Sector_SetFade (2222, dayStuff[TheHourIsNigh][2], dayStuff[TheHourIsNigh][3], dayStuff[TheHourIsNigh][4]);
+  Light_Fade(2222, daystuff[TheHourIsNigh][1], hourlength);
+ Sector_SetColor(2222, dayStuff[TheHourIsNigh][2], dayStuff[TheHourIsNigh][3], dayStuff[TheHourIsNigh][4], dayStuff[TheHourIsNigh][5]); // basic outside that can raise snow	
+
+
+
+
+//the skybox
+ //Sector_SetColor(16000, skycolourStuff[TheHourIsNigh][2], skycolourStuff[TheHourIsNigh][3], skycolourStuff[TheHourIsNigh][4], skycolourStuff[TheHourIsNigh][5]); // basic outside that can raise snow	
+//ACS_Execute(4323,1); //moved the skybox to see if it can go slower
+ 
+ //TESTING
+ ACS_Execute(4323,1,TheHourIsNigh);
+ 
+ 
+ 
+ 
+ 
+ if (random (1, lighteningfrequency) == 1){
+	 acs_execute(841,1);
+	 }
+ 
+  //Light_Fade(99991, 100, hourlength);
+//Sector_SetColor(99991, 200,100,100,200); 
+
+}
+
+
+
+
+
+
+//script 4323 (int x ,int y, int TheHourIsNigh )
+script 4323 ( int TheHourIsNigh )
+{
+	
+	 //print(i: (x % y));
+ //Sector_SetColor(16000, skycolourStuff[TheHourIsNigh][2], skycolourStuff[TheHourIsNigh][3], skycolourStuff[TheHourIsNigh][4], skycolourStuff[TheHourIsNigh][5]); // basic outside that can raise snow	
+	
+//	Sector_SetColor (tag, r, g, b, desat)
+	
+	// so that is change sector 1600, to the current hour, second one in
+	
+	
+	
+/* This was the section that was working for being able to split the difference etc.	
+	
+								 //x=old    y=new
+								int z = (y-x);
+								 // print(i: x);                      
+								//print(i: x+(z/2));
+								//print(i: x+(z/2));	
+									print(i:(z/4) );
+									int v = (z/4);
+									print(i:x);
+									
+									// this splits it by 4. If you did this with the input for the colours, you could get it to change more gradually
+									
+									print(i:(x+(1*(z/4))));
+									
+									print(i:(x+(2*(z/4))));
+									print(i:(x+(3*(z/4))));
+									print(i:(x+(4*(z/4))));
+	
+*/									
+									//grabbing the old one:
+									//input the hour is now
+									int oldhour= (TheHourIsNigh);
+									if (oldhour <0) { oldhour = 23;}
+										//					UNSURE WHAT THIS DOES WHEN IT GETS TO 24. IS IT 24 OR 0? - 
+									int newhour = TheHourIsNigh+1;
+									//print(s:"the old hour was ",i:oldhour, s:" the new is ",i: newhour);
+									
+									int oldr = skycolourStuff[oldhour][2];
+									//print(s:"oldr ", i:oldr);
+									int newr = skycolourStuff[newhour][2];
+									//print(s:"newr ", i:newr);
+									int rdiff = (newr-oldr);
+									
+									int oldg = skycolourStuff[oldhour][3];
+									//print(s:"oldg ", i:oldg);
+									int newg = skycolourStuff[newhour][3];
+									//print(s:"newg ", i:newg);
+									int gdiff = (newg-oldg);
+									
+									int oldb = skycolourStuff[oldhour][4];
+									//print(s:"oldb ", i:oldb);
+									int newb = skycolourStuff[newhour][4];
+									//print(s:"newb ", i:newb);
+									int bdiff = (newb-oldb);
+									
+									//print(s:"rdiff",i:rdiff);
+									//print(s:"gdiff",i:gdiff);
+									//print(s:"bdiff",i:bdiff);
+									
+									
+									//print(i:((1*(rdiff/4))+oldr));
+									//print(i:((1*(gdiff/4))+oldg));
+									//print(i:((1*(bdiff/4))+oldb));
+									Sector_SetColor(16000, ((1*(rdiff/4))+oldr), ((1*(gdiff/4))+oldg), ((1*(bdiff/4))+oldb), skycolourStuff[TheHourIsNigh][5]); // basic outside that can raise snow	
+	
+
+delay (hourlength/4);
+									//print(i:((2*(rdiff/4))+oldr));
+									//print(i:((2*(gdiff/4))+oldg));
+									//print(i:((2*(bdiff/4))+oldb));
+									Sector_SetColor(16000, ((2*(rdiff/4))+oldr), ((2*(gdiff/4))+oldg), ((2*(bdiff/4))+oldb), skycolourStuff[TheHourIsNigh][5]); // basic outside that can raise snow	 // basic outside that can raise snow	
+
+	delay (hourlength/4);								
+									//print(i:((3*(rdiff/4))+oldr));
+									//print(i:((3*(gdiff/4))+oldg));
+									//print(i:((3*(bdiff/4))+oldb));
+									Sector_SetColor(16000, ((3*(rdiff/4))+oldr), ((3*(gdiff/4))+oldg), ((3*(bdiff/4))+oldb), skycolourStuff[TheHourIsNigh][5]); // basic outside that can raise snow	
+										
+					delay ((hourlength/4)-5);													
+									//print(i:((3*(rdiff/4))+oldr));
+									//print(i:((3*(gdiff/4))+oldg));
+									//print(i:((3*(bdiff/4))+oldb));
+									Sector_SetColor(16000, ((4*(rdiff/4))+oldr), ((4*(gdiff/4))+oldg), ((4*(bdiff/4))+oldb), skycolourStuff[TheHourIsNigh][5]); // basic outside that can raise snow	
+										
+																							
+
+	
+	
+	
+	
+	//					UNSURE WHAT THIS DOES WHEN IT GETS TO 24. IS IT 24 OR 0?
+	
+}
+
+//828 is the sun thing
+
+
+
+script 5632(int theHour, int theDay) { // this is the full list of what it should do every hour etc. It is called by the timekeeper
+ 
+ if (printthehour == 1);{
+ // Print(s: "houring   ", i: theHour);
+
+}
+ 
+
+
+	makeItRain(thehour);
+  //fadeTheLights(theHour);
+	ACS_Execute(4543,1,theHour); // what used to be fade  the lights
+
+	SetFont("BIGFONT");
+
+if (printthehour == 1);{
+//print(s:"the hour is ",i: theHour);
+
+}
+
+
+
+
+  if (theHour == 1) { //
+    //  print(s:"1");
+    acs_execute(843, 1);
+  }
+  if (theHour == 2) { //
+    //print(s:"2");
+  }
+  if (theHour == 3) { //
+    //  print(s:"3");
+  }
+  if (theHour == 4) { //
+    // print(s:"4");
+	
+  }
+  if (theHour == 5) { //
+    //  print(s:"5");
+    //acs_execute(830, 1); // "make it day." - changes the skybox to day  -> all of this is copied here now
+ACS_Execute(6555,1,1); //changes to the day sky
+
+
+/*
+    SetLineTexture(17000, SIDE_Front, TEXTURE_middle, "12rc"); //north
+    SetLineTexture(17001, SIDE_Front, TEXTURE_middle, "12fc"); //e
+    SetLinetexture(17002, SIDE_Front, TEXTURE_middle, "12bc"); //s
+    setLineTexture(17003, SIDE_Front, TEXTURE_middle, "12ld"); //w
+
+    Changeceiling(16000, "12uc");
+	*/
+	
+	
+	
+	 SetActorProperty(2074, APROP_Alpha, 0.2); // either moon or moon glow (i think)
+   
+    SetActorProperty(2075, APROP_Alpha, 0.1); // either moon or moon glow (i think)
+  }
+  if (theHour == 6) { //sun up
+
+   Sector_SetFade (2222, 0, 0, 0);
+  
+  				if (GameType() == GAME_SINGLE_PLAYER)
+				{
+					thing_deactivate(2227);
+						SetActorProperty(27, APROP_RenderStyle, STYLE_add);
+						SetActorProperty(28, APROP_RenderStyle, STYLE_add);
+						SetActorProperty(25, APROP_RenderStyle, STYLE_None); 
+						SetActorProperty(26, APROP_RenderStyle, STYLE_None);
+					thing_activate(2226);	
+					
+				}
+  
+  
+  
+  
+  
+
+
+SetActorProperty(2074, APROP_RenderStyle, STYLE_None); //set the moon + glow  to invisible
+SetActorProperty(2075, APROP_RenderStyle, STYLE_None);
+
+    SetActorProperty(2070, APROP_RenderStyle, STYLE_add); // the sun (i think)
+    SetActorProperty(2072, APROP_RenderStyle, STYLE_add); // actor mover for the sun / suns glow (i think)
+    	thing_deactivate(2086); // moon
+		thing_deactivate(2071);
+		thing_activate(2071); //sun activate
+	
+  }
+  if (theHour == 7) { //
+    //  print(s:"7");
+
+
+  }
+  if (theHour == 8) { //
+    //   print(s:"8");
+
+  }
+  if (theHour == 9) { //
+    //  print(s:"9");
+   Sector_SetFade (2222, 0, 0, 0);
+  }
+  if (theHour == 10) {
+	  
+	  // if (want_moon_and_sun==1){
+    SetActorProperty(2070, APROP_RenderStyle, STYLE_add); // the sun (i think)
+    SetActorProperty(2072, APROP_RenderStyle, STYLE_add); // actor mover for the sun / suns glow (i think)
+   
+		thing_activate(2079); //this is the one to put back //
+	//}
+	//   print(s:"10");
+  }
+  if (theHour == 11) { // 
+    //   print(s:"11");
+  }
+  if (theHour == 12) { // 
+    //   print(s:"12");
+    if (theHour == 12) {
+      doNoonStuff(); // this doesn't actually do anything at the moment
+    }
+  }
+  if (theHour == 13) { // 
+   
+  }
+  if (theHour == 14) { // 
+   
+  }
+  if (theHour == 15) { // 
+   
+  }
+  if (theHour == 16) { // 
+ 
+  }
+  if (theHour == 17) { // 
+   
+  }
+  if (theHour == 18) { // 
+  
+  }
+  if (theHour == 19) { // 
+ 
+  }
+  if (theHour == 20) { // 
+   
+  }
+  if (theHour == 21) { 
+	 //  acs_execute(829, 1); //The "make it starry" scipt apparently. THis has now been moved here
+if (want_moon_and_sun==1){
+		//
+		
+
+	
+	}
+	
+	
+		ACS_Execute(6555,1); //changes to the night sky
+	
+	
+					if (GameType() == GAME_SINGLE_PLAYER)
+				{
+					thing_deactivate(2227);
+					SetActorProperty(27, APROP_RenderStyle, STYLE_None);
+					SetActorProperty(28, APROP_RenderStyle, STYLE_None);
+					SetActorProperty(25, APROP_RenderStyle, STYLE_add); 
+					SetActorProperty(26, APROP_RenderStyle, STYLE_add);
+							
+							thing_activate(2226);
+					
+				}																			 
+					
+	
+	
+	
+	
+	SetActorProperty(2074, APROP_RenderStyle, STYLE_add);
+    SetActorProperty(2075, APROP_RenderStyle, STYLE_add);
+    SetActorProperty(2070, APROP_RenderStyle, STYLE_None);
+    SetActorProperty(2072, APROP_RenderStyle, STYLE_None);
+	thing_deactivate(2079); // get rid of sun
+	thing_deactivate(2071); // get rid of sun
+	thing_activate(2086); // moon
+ 
+  }
+  if (theHour == 22) { // 
+    //  print(s:"22");
+    // ChangeSky("STAR", "STAR");
+	    if (want_moon_and_sun==1){
+
+	}
+	 if (want_moon_and_sun==1){
+	
+	}
+	    SetActorProperty(2074, APROP_Alpha, 0.7);
+    SetActorProperty(2075, APROP_Alpha, 0.3);
+	
+	/* replaced by the script
+	   SetLineTexture(17000, SIDE_Front, TEXTURE_middle, "ns112rc"); //north
+    SetLineTexture(17001, SIDE_Front, TEXTURE_middle, "ns412fc"); //e
+    SetLineTexture(17002, SIDE_Front, TEXTURE_middle, "NS312BC"); //s
+    SetLineTexture(17003, SIDE_Front, TEXTURE_middle, "ns512ld"); //w
+    Changeceiling(16000, "NS612UC");
+	*/
+
+	
+	Sector_SetFade (2222, 23, 23, 23);
+	
+  }
+  if (theHour == 23) { // 
+	
+    //  print(s:"23");
+  }
+  if (theHour == 0) { // 
+    //Thing_Remove(312); //removes old style lockers
+    doMidnightStuff(); //     spawnSomeStuff();    doTheChopper();
+    //  print(s:"0");
+    ACS_Execute(854, 1); //garage door reset
+  }
+}

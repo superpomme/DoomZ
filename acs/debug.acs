@@ -1,0 +1,84 @@
+//debug menu
+
+script "debuglistitems" (int type)
+{//lists the items and corresponding names for them. type 1 is items, type 2 is weapons
+	int countup=0;
+	
+	
+	
+	//items
+	if (type==1)
+		{
+		while (countup<40)
+			{
+				print (s:"position: ",i:countup, s:" Item name: ",s:itemnames[countup]);
+				countup++;
+				delay(1);
+			}
+		}
+	//weapons
+	if (type==2)
+		{
+		while  (countup<40)
+			{
+				print (s:"position: ",i:countup, s:" Gun name: ",s:new_user_gun_realnames[countup]);
+				countup++;
+				delay(1);
+			}
+		}
+
+}
+
+script "listplayers" (void)
+{//lists the playernumbers, their tids and their names.
+	
+	int thisplayer = 1000;
+	print(s:"------------------------------------");
+	print(i:PlayerCount(), s: " players connected");
+	
+	while (thisplayer < (playercount()+1000))
+	{
+		Print(n:thisplayer,s:" is tag: ",i:thisplayer); //supposedly this checks the name of this player
+		delay(1);
+		thisplayer++;
+	}
+	print(s:"------------------------------------");
+}
+ 
+ 
+Script "debugcount" (int type, int thetid)
+{//counts how many of a certain tag there are
+	print(s:"Counted ", i:thingcountname(type,thetid), s:" of type ", i:type, s:"with tid: ",i:thetid);
+}
+
+Script "debuggiveitem"(int typeofitem, int numforitem, int player)
+{//gives an item. type 1 is inventory. type 2 is guns. playernum in 
+
+//Changed the way it was doing it before to make that person drop it next to them. Unsure if this will screw with the way that the inventory works
+	if (typeofitem==1) {DropItem (player, itemnames[numforitem], 1);}
+	if (typeofitem ==2){ DropItem (player, new_user_gun_realnames[numforitem], 1);}
+		
+}
+script "debugkill" (int scriptnumber)
+{ //kills script number x on map 1
+	print(s:"Killing script ",i:scriptnumber);
+	acs_terminate(scriptnumber, 1); 
+}
+
+script "debughourlength" (int newhourlength)
+{//changes daylength by changing hourlength
+	print (s:"changing hourlength from:   ", i: hourlength ,s:"to: ", i:newhourlength  );
+	hourlength=newhourlength;
+}
+
+script "debugeatdelay" (int neweatdelay)
+{//changes the speed at which this goes down
+	print (s:"changing eatdelay from:   ", i: eatdrinkdelaymultiplier ,s:"to: ", i:neweatdelay  );
+	eatdrinkdelaymultiplier=neweatdelay;
+}
+
+script "debugsinventory" (int player)
+{// think that the aim here was to have it list out the inventory of a particular PlayerClass
+
+// CURRENTLY DOES NOTHING
+}

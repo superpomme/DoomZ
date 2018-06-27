@@ -1,0 +1,30 @@
+height 0;
+InterpolateHealth true;
+//InterpolateArmor true;
+
+
+
+
+statusbar Fullscreen, fullscreenoffsets
+{
+
+
+    drawnumber 3, bigfont, yellow, ammo1,  -30, 40;
+	//DrawString bigfont, yellow, ":",-17, 40;	
+	drawnumber 3, bigfont, yellow, ammo2,  -10, 40;
+								
+	DrawString bigfont, yellow, weapontag,-70, 10;	
+	DrawString bigfont, yellow, ammo1tag,-70, 40;
+	
+	
+	
+//	drawnumber 3, HUDFONT_DOOM, untranslated, armor, drawshadow, -70,100;
+	
+	
+	
+	
+	}
+	
+	
+	
+	

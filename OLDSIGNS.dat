@@ -1,0 +1,543 @@
+Texture "SIGN1AA", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1A", 104, 98
+	Patch "FRAG2A", 388, 102
+}
+
+Texture "SIGN1Ab", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1A", 104, 98
+	Patch "FRAG2B", 388, 102
+}
+
+Texture "SIGN1Ac", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1A", 104, 98
+	Patch "FRAG2c", 388, 102
+}
+
+Texture "SIGN1Ad", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1A", 104, 98
+	Patch "FRAG2d", 388, 102
+}
+
+Texture "SIGN1Ae", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1A", 104, 98
+	Patch "FRAG2e", 388, 102
+}
+
+Texture "SIGN1Af", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1A", 104, 98
+	Patch "FRAG2f", 388, 102
+}
+
+Texture "SIGN1Ag", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1A", 104, 98
+	Patch "FRAG2g", 388, 102
+}
+
+Texture "SIGN1Ah", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1A", 104, 98
+	Patch "FRAG2h", 388, 102
+}
+
+Texture "SIGN1Ai", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1A", 104, 98
+	Patch "FRAG2i", 388, 102
+}
+
+Texture "SIGN1Aj", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1A", 104, 98
+	Patch "FRAG2j", 388, 102
+}
+
+Texture "SIGN1Ak", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1A", 104, 98
+	Patch "FRAG2k", 388, 102
+}
+
+Texture "SIGN1Al", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1A", 104, 98
+	Patch "FRAG2l", 388, 102
+}
+
+Texture "SIGN1Am", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1A", 104, 98
+	Patch "FRAG2m", 388, 102
+}
+
+Texture "SIGN1An", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1A", 104, 98
+	Patch "FRAG2n", 388, 102
+}
+
+Texture "SIGN1Ao", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1A", 104, 98
+	Patch "FRAG2o", 388, 102
+}
+
+Texture "SIGN1Ap", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1A", 104, 98
+	Patch "FRAG2p", 388, 102
+}
+
+Texture "SIGN1Aq", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1A", 104, 98
+	Patch "FRAG2q", 388, 102
+}
+
+Texture "SIGN1Ar", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1A", 104, 98
+	Patch "FRAG2r", 388, 102
+}
+
+Texture "SIGN1As", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1A", 104, 98
+	Patch "FRAG2s", 388, 102
+}
+
+Texture "SIGN1At", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1A", 104, 98
+	Patch "FRAG2t", 388, 102
+}
+
+
+
+
+Texture "SIGN1BA", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1B", 104, 98
+	Patch "FRAG2A", 388, 102
+}
+
+Texture "SIGN1Bb", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1B", 104, 98
+	Patch "FRAG2B", 388, 102
+}
+
+Texture "SIGN1Bc", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1B", 104, 98
+	Patch "FRAG2c", 388, 102
+}
+
+Texture "SIGN1Bd", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1B", 104, 98
+	Patch "FRAG2d", 388, 102
+}
+
+Texture "SIGN1Be", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1B", 104, 98
+	Patch "FRAG2e", 388, 102
+}
+
+Texture "SIGN1Bf", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1B", 104, 98
+	Patch "FRAG2f", 388, 102
+}
+
+Texture "SIGN1Bg", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1B", 104, 98
+	Patch "FRAG2g", 388, 102
+}
+
+Texture "SIGN1Bh", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1B", 104, 98
+	Patch "FRAG2h", 388, 102
+}
+
+Texture "SIGN1Bi", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1B", 104, 98
+	Patch "FRAG2i", 388, 102
+}
+
+Texture "SIGN1Bj", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1B", 104, 98
+	Patch "FRAG2j", 388, 102
+}
+
+Texture "SIGN1Bk", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1B", 104, 98
+	Patch "FRAG2k", 388, 102
+}
+
+Texture "SIGN1Bl", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1B", 104, 98
+	Patch "FRAG2l", 388, 102
+}
+
+Texture "SIGN1Bm", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1B", 104, 98
+	Patch "FRAG2m", 388, 102
+}
+
+Texture "SIGN1Bn", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1B", 104, 98
+	Patch "FRAG2n", 388, 102
+}
+
+Texture "SIGN1Bo", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1B", 104, 98
+	Patch "FRAG2o", 388, 102
+}
+
+Texture "SIGN1Bp", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1B", 104, 98
+	Patch "FRAG2p", 388, 102
+}
+
+Texture "SIGN1Bq", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1B", 104, 98
+	Patch "FRAG2q", 388, 102
+}
+
+Texture "SIGN1Br", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1B", 104, 98
+	Patch "FRAG2r", 388, 102
+}
+
+Texture "SIGN1Bs", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1B", 104, 98
+	Patch "FRAG2s", 388, 102
+}
+
+Texture "SIGN1Bt", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1B", 104, 98
+	Patch "FRAG2t", 388, 102
+}
+
+Texture "SIGN1BA", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1C", 104, 98
+	Patch "FRAG2A", 388, 102
+}
+
+Texture "SIGN1Bb", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1C", 104, 98
+	Patch "FRAG2B", 388, 102
+}
+
+Texture "SIGN1Bc", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1C", 104, 98
+	Patch "FRAG2c", 388, 102
+}
+
+Texture "SIGN1Bd", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1C", 104, 98
+	Patch "FRAG2d", 388, 102
+}
+
+Texture "SIGN1Be", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1C", 104, 98
+	Patch "FRAG2e", 388, 102
+}
+
+Texture "SIGN1Bf", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1C", 104, 98
+	Patch "FRAG2f", 388, 102
+}
+
+Texture "SIGN1Bg", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1C", 104, 98
+	Patch "FRAG2g", 388, 102
+}
+
+Texture "SIGN1Bh", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1C", 104, 98
+	Patch "FRAG2h", 388, 102
+}
+
+Texture "SIGN1Bi", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1C", 104, 98
+	Patch "FRAG2i", 388, 102
+}
+
+Texture "SIGN1Bj", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1C", 104, 98
+	Patch "FRAG2j", 388, 102
+}
+
+Texture "SIGN1Bk", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1C", 104, 98
+	Patch "FRAG2k", 388, 102
+}
+
+Texture "SIGN1Bl", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1C", 104, 98
+	Patch "FRAG2l", 388, 102
+}
+
+Texture "SIGN1Bm", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1C", 104, 98
+	Patch "FRAG2m", 388, 102
+}
+
+Texture "SIGN1Bn", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1C", 104, 98
+	Patch "FRAG2n", 388, 102
+}
+
+Texture "SIGN1Bo", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1C", 104, 98
+	Patch "FRAG2o", 388, 102
+}
+
+Texture "SIGN1Bp", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1C", 104, 98
+	Patch "FRAG2p", 388, 102
+}
+
+Texture "SIGN1Bq", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1C", 104, 98
+	Patch "FRAG2q", 388, 102
+}
+
+Texture "SIGN1Br", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1C", 104, 98
+	Patch "FRAG2r", 388, 102
+}
+
+Texture "SIGN1Bs", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1C", 104, 98
+	Patch "FRAG2s", 388, 102
+}
+
+Texture "SIGN1Bt", 800, 600
+{
+	XScale 2.000
+	YScale 2.000
+	Patch "SIGN", 0, 0
+	Patch "FRAG1C", 104, 98
+	Patch "FRAG2t", 388, 102
+}
+

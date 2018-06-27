@@ -1,0 +1,378 @@
+ int senderx; //for speaking message
+ int sendery;
+ int radiochannel = 0; //car radio
+ int carwater = 0;
+ 
+int caron = 0; //is the car on
+int radioon = 0;// is the radio on
+
+//these are the menu options - things you can click
+int maxItemsInMenu = 8; // Always add 1 for the blank starting item. 
+// CHANGE THESE NUMBERS 
+str menuList[9][8] = {
+  {
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  },
+  {
+    "",
+    "Message",
+    "Eat drink etc",
+    "Reload Weapons",
+    "make tent",
+    "cancel",
+    "",
+    ""
+  },
+  {
+    "",
+    "say Hi",
+    "Say Friendly",
+    "Say Sorry",
+    "say Follow me",
+    "Say Yea",
+    "Say nay",
+    "Say DIE!!!"
+  },
+  {
+    "",
+    "Eat",
+    "Drink",
+    "Bandage",
+    "Morphine it up",
+    "Blah",
+    "Say nay",
+    "Say DIE!!!"
+  },
+
+  {
+    "",
+    "Open the tent",
+    "Get in the tent",
+    "Pick up the tent",
+    "burn the tent",
+    "",
+    "",
+    ""
+  },
+  {
+    "",
+    "Get in as driver",
+    "Call shotgun",
+    "Get in the back",
+    "Repair / Check car status",
+    "fill fuel",
+    " access storage",
+    "Cancel"
+  },
+  {
+    "",
+	 "Cancel",
+    "Toggle Ignition",
+    "Change radio Channel",
+    "Toggle lights",
+	"Turn off radio",
+    "Cancel",
+    ""
+  },
+  {
+    "",
+    "Toggle Ignition",
+    "Toggle door lock",
+    "Toggle radio on/off",
+    "Turn off radio",
+    "Toggle lights",
+    "Cancel",
+    ""
+  },
+  {
+    "",
+    "Toggle Radio",
+    "Change radio channel",
+    "",
+    "",
+    "",
+    "",
+    ""
+  }
+};
+
+script 789(void) net { //menus   
+  int curserMenu = checkactorinventory((1000 + PlayerNumber()),
+    "menufoo");
+  int curserPos = checkactorinventory((1000 + PlayerNumber()),
+    "menulevel");
+
+  str pointer = "-->";
+  int ml = 0;
+  while (curserMenu > 0) {
+    ml = 1;
+    delay(1);
+    curserMenu = checkactorinventory((1000 + PlayerNumber()),
+      "menufoo");
+    curserPos = checkactorinventory((1000 + PlayerNumber()),
+      "menulevel");
+    //	HudMessage(i:curserPos; HUDMSG_PLAIN, 1035, CR_RED, 0.5, 0.2, 0.2);
+    SetFont("pda");
+    HudMessage(s: "A"; HUDMSG_PLAIN, 0.5, 0, 0.5, 0.5, 0.2); // Draw the HUD.
+
+    if (checkactorinventory((1000 + PlayerNumber()), "menufoo") ==
+      5) {
+      SetFont("backmen");
+      HudMessage(s: "A"; HUDMSG_PLAIN, 0.5, 0, 0.5, 0.5, 0.2);
+    }
+
+    SetFont("BIGFONT"); // SET THE FONT
+    while (ml < maxItemsInMenu) {
+      if (ml == curserPos + 1) {
+        if (menuList[curserMenu][ml] == "") {
+          //do nothing
+        } else {
+          HudMessage(s: pointer; HUDMSG_PLAIN, 1055, CR_RED,
+            0.44, (0.472 + (0.02 * ml)), 0.2);
+        }
+      }
+
+      HudMessage(s: menuList[curserMenu][ml]; HUDMSG_PLAIN, (
+        1055 + ml), CR_Yellow, 0.5, (0.472 + (0.02 *
+        ml)), 0.2);
+      ml++;
+    }
+  }
+
+}
+
+
+
+
+
+
+script 788(void) net { //using the menu on the car
+  senderx = ((GetActorX(1000 + playernumber()) / 65536));
+  sendery = ((GetActorY(1000 + playernumber()) / 65536));
+  SetFont("BIGFONT");
+  //       print(i:checkactorinventory((1000 + PlayerNumber()),"menufoo"));
+
+  if (checkactorinventory((1000 + PlayerNumber()), "menufoo") == 6) {
+
+    if (checkactorinventory((1000 + PlayerNumber()), "menulevel") == 3) {	  //lights					
+
+      //88888888888888888888888888888888888888888888888888888888888888888888888888888
+
+      if (hasbattery == 1) {
+		  
+		  
+		  
+		  if(carlightson==0){
+			  carlightson=1;
+			acs_execute(817, 1);
+		}
+		
+		else if (carlightson == 1) {
+	  carlightson=0;
+	   SetActorState(2000, "normal");
+	 // ACS_Terminate(817,1);
+	  }
+		
+		
+      } 
+	   
+	  
+	  
+	  else {
+        hudmessage(s: "This car is broken,\n\nyou are going to need a battery.\n\nTry searching destroyed cars\n\nchoose repair when using a car if you have one"; HUDMSG_PLAIN, 444, CR_red, 0.245, 0.275, 10.0);
+     }
+	 
+	 
+	 
+	
+
+      //88888888888888888888888888888888888888888888888888888888888888888888888888888
+
+    }
+
+    if (checkactorinventory((1000 + PlayerNumber()), "menulevel") == 2) {        // changing the radio
+		
+		
+		
+		
+		ACS_Execute(6553,1,1); //change the channel
+		
+		
+		/*
+
+      if (radiochannel == 1) {
+        SetLineTexture(11148, SIDE_Front, TEXTURE_BOTTOM,
+          "radio3");
+        LocalSetMusic("d_evil", 0);
+        radiochannel++;
+      } else if (radiochannel == 2) {
+        SetLineTexture(11148, SIDE_Front, TEXTURE_BOTTOM,
+          "radio4");
+        LocalSetMusic("d_adrian", 0);
+        radiochannel++;
+      } else if (radiochannel == 3) {
+        SetLineTexture(11148, SIDE_Front, TEXTURE_BOTTOM,
+          "radio5");
+        LocalSetMusic("d_ampie", 0);
+        radiochannel++;
+      } else if (radiochannel == 4) {
+        //SetLineTexture(11148, SIDE_Front, TEXTURE_BOTTOM, "radio2");
+        //Music_Change("d_runnin", 0);
+        //radiochannel = 0;
+        radiochannel = 2;
+        SetLineTexture(11148, SIDE_Front, TEXTURE_BOTTOM,
+          "radio3");
+        LocalSetMusic("music/d_lov", 0);
+        //}
+      }
+	  
+	  */
+
+    } else if (checkactorinventory((1000 + PlayerNumber()), "menulevel") == 1) {
+
+      //***********************************************************      this is where it is starting the car     *********************************************** 
+
+      if (numberofwheels == 4) {
+        if (hasbattery == 1) {
+
+          //print(s:"toggle ignition");
+          if (caron == 0) {
+            caron = 1;
+            StopSound(2000, CHAN_AUTO);
+            //print(s:"ON engine ON");
+            takeactorinventory(1000 + playernumber(), "menufoo",
+              50);
+            SetLineTexture(11158, SIDE_Front, TEXTURE_bottom,
+              "Ign1");
+          } else {
+            caron = 0;
+            Thing_Deactivate(2600);
+            stopsound(2000, CHAN_ITEM); // stops the external sound
+            takeactorinventory(1000 + playernumber(), "menufoo",
+              50);
+            //print(s:"OFF engine OFF");
+            SetLineTexture(11158, SIDE_Front, TEXTURE_bottom,
+              "Ign0");
+          }
+        } else {
+          hudmessage(s: "This car is broken,\n\nyou are going to need a battery.\n\nTry searching destroyed cars\n\n\n\nchoose repair when using a car if you have one"; HUDMSG_PLAIN, 444, CR_red, 0.245, 0.275, 10.0);
+        }
+      } else {
+        hudmessage(s: "This car is broken,\n\nyou are going to need wheels.\n\nTry searching destroyed cars\n\nchoose repair when using a car if you have one"; HUDMSG_PLAIN, 444, CR_red, 0.245, 0.275, 10.0);
+      }
+      // else{hudmessage(s: "This car is broken, you are going to need parts. Try searching destroyed cars"; HUDMSG_PLAIN, 444, CR_red, 0.245, 0.275, 10.0);}
+
+      // else{ hudmessage(s: "This car is broken, you are going to need parts. Try searching destroyed cars"; HUDMSG_PLAIN, 444, CR_red, 0.245, 0.275, 10.0);}
+      // else{hudmessage(s: "This car is broken, you are going to need parts. Try searching destroyed cars"; HUDMSG_PLAIN, 444, CR_red, 0.245, 0.275, 10.0);}
+
+    }
+
+    //**************************************************
+
+    //***********
+    else if (checkactorinventory((1000 + PlayerNumber()),        "menulevel") == 4) {
+
+      ACS_Execute(6553,1,2); 								//turn off radio
+
+      // cancel off the menu
+    } 
+	else if (checkactorinventory((1000 + PlayerNumber()), "menulevel") == 5) {
+      takeActorInventory(1000 + PlayerNumber(), "menulevel", 50);
+      takeActorInventory(1000 + PlayerNumber(), "menufoo", 50);
+
+    }
+		else if (checkactorinventory((1000 + PlayerNumber()), "menulevel") == 0) {
+      takeActorInventory(1000 + PlayerNumber(), "menulevel", 50);
+      takeActorInventory(1000 + PlayerNumber(), "menufoo", 50);
+
+    }
+	
+
+  }
+
+}
+
+
+
+script 802 enter {
+  while (true) {
+
+    if (checkactorinventory((1000 + PlayerNumber()), "menufoo") > 0) {
+
+      int buttons = GetPlayerInput(-1, INPUT_BUTTONS);
+      int oldbuttons = GetPlayerInput(-1, INPUT_OLDBUTTONS);
+
+      if ((oldbuttons & BT_USE) != (buttons & BT_USE)) {
+        if (buttons & BT_USE) {
+          hudmessage(s: "pressed "; HUDMSG_PLAIN, 495, cr_red, 0.245, 0.295, 0.1);
+
+          ACS_execute(788, 1);
+
+        }
+      }
+
+      if ((oldbuttons & BT_back) != (buttons & BT_back)) {
+        if (buttons & BT_back) {
+			if (checkactorinventory((1000 + PlayerNumber()), "menulevel") < 5) {
+			GiveActorInventory(1000 + PlayerNumber(), "menulevel", 1);
+        }}
+      }
+
+      if ((oldbuttons & BT_forward) != (buttons & BT_forward)) {
+        if (buttons & BT_forward) {
+
+          takeActorInventory(1000 + PlayerNumber(), "menulevel", 1);
+        }
+      }
+
+    }
+    delay(1);
+  }
+}
+
+
+
+
+
+
+script 786(void) net { //up
+
+  if (checkactorinventory((1000 + PlayerNumber()), "menufoo") > 0) {
+
+    SetFont("BIGFONT");
+    // HudMessage(s:  "Up";
+    //      HUDMSG_PLAIN, 868, CR_RED, 0.5, 0.5, 0.5);
+    TakeActorInventory(1000 + PlayerNumber(), "menulevel", 1);
+
+  }
+}
+
+
+
+
+
+
+
+
+
+script 787(void) net { //down
+
+  if (checkactorinventory((1000 + PlayerNumber()), "menufoo") > 0) {
+		if (checkactorinventory((1000 + PlayerNumber()), "menulevel") < 6) {
+    //SetFont("BIGFONT");
+    //HudMessage(s:  "Down";
+    //      HUDMSG_PLAIN, 868, CR_RED, 0.5, 0.5, 1.0);
+
+    //  GiveActorInventory(1000 + PlayerNumber(), "menufoo", 1);   
+    GiveActorInventory(1000 + PlayerNumber(), "menulevel", 1);
+}
+  }
+
+}
